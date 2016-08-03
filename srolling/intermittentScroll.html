@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>scroll</title>
+	<title>IntermittentScroll</title>
 
 	<style type="text/css">
 		*{
@@ -36,7 +36,7 @@
 
 		ul{
 			padding-left: 30px;
-			list-style: star;
+			list-style: number;
 		}
 
 		.title{
@@ -49,38 +49,40 @@
 
 <body>
 <div class="container">
-	<div class="title">Continuously Scrolling</div>
+	<div class="title">IntermittentScroll Scrolling</div>
 	<div class="scrollbox">
 		<ul>
-			<li>test1</li>
-			<li>test2</li>
-			<li>test3</li>
-			<li>test4</li>
-			<li>test5</li>
-			<li>test6</li>
-			<li>test7</li>
-			<li>test8</li>
+			<li><a href="#">test1</a></li>
+			<li><a href="#">test2</a></li>
+			<li><a href="#">test3</a></li>
+			<li><a href="#">test4</a></li>
+			<li><a href="#">test5</a></li>
+			<li><a href="#">test6</a></li>
+			<li><a href="#">test7</a></li>
+			<li><a href="#">test8</a></li>
 		</ul>
 	</div>
 
 </div>
 	
 	<script type="text/javascript">
-		window.onload=start;
+		window.onload=setTimeout("startRolling()",2000);
 		
 		var scrollbox=document.getElementsByClassName("scrollbox")[0];
 		var ul1=document.getElementsByTagName("ul")[0];
 		var ul2=ul1.cloneNode(true);
 		scrollbox.appendChild(ul2);
-
-
-		function start(){
-			var time=setInterval("scroll()",100);
+		var liHeight=document.getElementsByTagName("li")[0].offsetHeight;
+		var time;
+		var speed=50;
+		var stop=2000;
+		function startRolling(){
+				time=setInterval("scroll()",speed);
 
 			scrollbox.onmouseover=function(){
 				clearInterval(time);
 				scrollbox.onmouseout=function(){
-				time=setInterval("scroll()",100);
+				time=setInterval("scroll()",speed);
 				}
 			}
 		}
@@ -88,6 +90,10 @@
 		function scroll(){
 			if(scrollbox.scrollTop>=ul1.offsetHeight){
 				scrollbox.scrollTop=0;
+			}else if((scrollbox.scrollTop!=0)&&(scrollbox.scrollTop%liHeight==0)){
+				clearInterval(time);
+				scrollbox.scrollTop++;
+				setTimeout("time=setInterval('scroll()',speed)",stop)
 			}else{
 				scrollbox.scrollTop++;
 			}

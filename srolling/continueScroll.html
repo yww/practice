@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>continueScroll</title>
+
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.container{
+			height: 160px;
+			width: 300px;
+			border: 1px solid #000;
+			border-radius: 5px;
+			box-shadow: 5px solid #ccc;
+			margin: auto auto;
+			margin-top: 200px;
+			background: #ccc;
+			position: relative;
+		}
+
+		.scrollbox{
+			height: 100px;
+			width: 265px;
+			position: absolute;
+			overflow: hidden;
+			bottom: 10px;
+			margin: 50px 10px 0px 10px;
+			background: #fff;
+			padding-left: 5px;
+			border:5px solid #868686;
+		}
+
+
+		ul{
+			padding-left: 30px;
+			list-style: star;
+		}
+
+		.title{
+			padding: 5px;
+			font-size: 20px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+<div class="container">
+	<div class="title">Continuously Scrolling</div>
+	<div class="scrollbox">
+		<ul>
+			<li><a href="#">test1</a></li>
+			<li><a href="#">test2</a></li>
+			<li><a href="#">test3</a></li>
+			<li><a href="#">test4</a></li>
+			<li><a href="#">test5</a></li>
+			<li><a href="#">test6</a></li>
+			<li><a href="#">test7</a></li>
+			<li><a href="#">test8</a></li>
+		</ul>
+	</div>
+
+</div>
+	
+	<script type="text/javascript">
+		window.onload=start;
+		
+		var scrollbox=document.getElementsByClassName("scrollbox")[0];
+		var ul1=document.getElementsByTagName("ul")[0];
+		var ul2=ul1.cloneNode(true);
+		scrollbox.appendChild(ul2);
+
+
+		function start(){
+			var time=setInterval("scroll()",500);
+
+			scrollbox.onmouseover=function(){
+				clearInterval(time);
+				scrollbox.onmouseout=function(){
+				time=setInterval("scroll()",500);
+				}
+			}
+		}
+
+		function scroll(){
+			if(scrollbox.scrollTop>=ul1.offsetHeight){
+				scrollbox.scrollTop=0;
+			}else{
+				scrollbox.scrollTop++;
+			}
+		}
+	</script>	
+</body>
+</html>
