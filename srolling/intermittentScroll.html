@@ -49,7 +49,7 @@
 
 <body>
 <div class="container">
-	<div class="title">IntermittentScroll Scrolling</div>
+	<div class="title">Intermittent Scrolling</div>
 	<div class="scrollbox">
 		<ul>
 			<li><a href="#">test1</a></li>
@@ -66,7 +66,7 @@
 </div>
 	
 	<script type="text/javascript">
-		window.onload=setTimeout("startRolling()",2000);
+		window.onload=startRolling;
 		
 		var scrollbox=document.getElementsByClassName("scrollbox")[0];
 		var ul1=document.getElementsByTagName("ul")[0];
@@ -74,6 +74,7 @@
 		scrollbox.appendChild(ul2);
 		var liHeight=document.getElementsByTagName("li")[0].offsetHeight;
 		var time;
+		var time2;
 		var speed=50;
 		var stop=2000;
 		function startRolling(){
@@ -81,6 +82,7 @@
 
 			scrollbox.onmouseover=function(){
 				clearInterval(time);
+				clearTimeout(time2);
 				scrollbox.onmouseout=function(){
 				time=setInterval("scroll()",speed);
 				}
@@ -88,16 +90,23 @@
 		}
 
 		function scroll(){
-			if(scrollbox.scrollTop>=ul1.offsetHeight){
-				scrollbox.scrollTop=0;
-			}else if((scrollbox.scrollTop!=0)&&(scrollbox.scrollTop%liHeight==0)){
-				clearInterval(time);
-				scrollbox.scrollTop++;
-				setTimeout("time=setInterval('scroll()',speed)",stop)
-			}else{
-				scrollbox.scrollTop++;
+
+				if(scrollbox.scrollTop>=ul1.offsetHeight){
+					scrollbox.scrollTop=0;	
+					clearInterval(time);
+					clearTimeout(time2);
+					time2=setTimeout("time=setInterval('scroll()',speed)",stop);
+					
+				}else if(scrollbox.scrollTop%liHeight==0){
+					scrollbox.scrollTop++;
+					clearInterval(time);
+					
+					time2=setTimeout("time=setInterval('scroll()',speed)",stop)
+				}else{
+					scrollbox.scrollTop++;
+				}
 			}
-		}
+
 	</script>	
 </body>
 </html>
