@@ -1,0 +1,42 @@
+.container{
+	width: 300px;
+	height: 200px;
+	margin: auto auto;
+	background-color: aqua;
+	position: relative;
+	border-radius: 5px
+}
+
+.title{
+	text-align: center;
+	margin-top:20px;
+	font-size: 20px;
+}
+
+.btns{
+	position: absolute;	
+	bottom: 10px;
+	height:30px;
+	text-align: center;
+	display: inline-block;
+	width: 260px
+}
+
+.btns span{
+	background: #ccc;
+	width: 50px;
+	margin-left: 50px;
+}
+
+.content {
+	height: 85px;
+	margin: 20px 10px 20px 10px;
+	background-color: #fff;
+	border: 3px solid #ccc;
+	border-radius: 3px;
+	font-size: 50px;
+	color:red;
+	text-align: center;
+	padding-top: 15px
+
+}
