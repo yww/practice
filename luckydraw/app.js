@@ -5,6 +5,21 @@ var content=document.getElementsByClassName("content")[0];
 
 start.onclick=_start;
 stop.onclick=_stop;
+document.onkeydown=function(e){
+	if (e.keyCode!=13){
+		return
+	}else{
+		var status=content.getAttribute("status");
+		if(!status||status=="true"){
+			document.onkeyup=_start;
+		}else{
+			document.onkeyup=_stop;
+		}
+	}
+	
+}
+		
+	
 
 
 function _start(e){
@@ -12,19 +27,19 @@ function _start(e){
 	if (status=="false") {
 		return
 	}else{
-		this.style.background='#999';
+		start.style.background='#999';
 		timer=setInterval("_move()",100)
 		e.stopPropagation();
 	}
 }
 function _move(){
-	start.style.background="#ccc";
 	content.setAttribute("status",false);
 	var seq=Math.floor(Math.random()*7);
 	content.innerHTML=arr[seq];
 }
 
 function _stop(e){
+	start.style.background="#ccc";
 	content.setAttribute("status",true);
 	clearInterval(timer);
 	e.stopPropagation();

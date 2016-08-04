@@ -9,7 +9,8 @@
 
 .title{
 	text-align: center;
-	margin-top:20px;
+
+	padding-top: 10px;
 	font-size: 20px;
 }
 
@@ -30,7 +31,7 @@
 
 .content {
 	height: 85px;
-	margin: 20px 10px 20px 10px;
+	margin: 10px 10px 20px 10px;
 	background-color: #fff;
 	border: 3px solid #ccc;
 	border-radius: 3px;
