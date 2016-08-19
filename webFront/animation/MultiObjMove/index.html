@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title>animation</title>
+
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+
+		div{
+			width: 190px;
+			height: 90px;
+			opacity: 1;
+			border: 5px solid #ccc;
+			background-color: aqua; 
+			margin: 20px 0;
+			position: relative;
+
+		}
+
+		.button{
+			background-color: #ccc;
+			height: 30px;
+			width: 20px;
+			position: relative;
+			margin: 0;
+			border: none;
+			top:30px;
+			right: -190px
+		}
+
+		.move{
+			left: -200px;
+		}
+	</style>
+	<script type="text/javascript" src="js/buffering.js"></script>
+</head>
+<body>
+<div class="move">
+	<div class="button"></div>
+</div>
+
+<div class="move">
+	<div class="button"></div>
+</div>
+
+<div class="move">
+	<div class="button"></div>
+</div>
+
+
+</body>
+</html>
