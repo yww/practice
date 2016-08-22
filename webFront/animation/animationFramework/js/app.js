@@ -7,7 +7,6 @@ window.onload=function(){
 				div[i].onmouseover=function(event){
 					var target=event.target;
 					startMove(target,{'width':300,'height':300},function(){startMove(target,{'opacity':100})});
-					target.timer=null;
 				}
 			}
 		}
