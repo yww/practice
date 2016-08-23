@@ -1,17 +1,15 @@
 window.onload=function(){
-			var div=document.getElementsByClassName('move');
-			for(var i=0;i<div.length;i++){
-				// div[i].onmouseover=function(){startMove(this,{'height':300,'width':300,'opacity':100})};
-				// div[i].onmouseout=function(){startMove(this,{'height':90,'width':190,'opacity':30})};
-
-				div[i].onmouseover=function(event){
+			var oDiv=document.getElementsByClassName('move')[0];
+				oDiv.onmouseover=function(event){
 					var target=event.target;
 					startMove(target,{'width':300,'height':300},function(){startMove(target,{'opacity':100})});
-				}
+			}
+			
+			oDiv.onmouseout=function(event){
+					var target=event.target;
+					startMove(target,{'opacity':30},function(){startMove(target,{'height':90,'width':190})});
 			}
 		}
-		
-
 function startMove(obj,json,fn){
 	clearInterval(obj.timer);
 	obj.timer=setInterval(function(){

@@ -8,7 +8,7 @@
 			padding: 0;
 		}
 
-		div{
+		.oDiv{
 			width: 190px;
 			height: 90px;
 			opacity: 1;
@@ -16,6 +16,7 @@
 			background-color: aqua; 
 			margin: 20px 0;
 			position: relative;
+			left:-200px;
 
 		}
 
@@ -29,17 +30,24 @@
 			top:30px;
 			right: -190px
 		}
-		#div1{
+		#div1,#div2,#div3{
 			left: -200px;
 		}
 	</style>
-	<script type="text/javascript" src="js/constant.js"></script>
+	<script type="text/javascript" src="js/multiple.js"></script>
 </head>
 <body>
-<div id="div1">
+<div class="oDiv">
 	<div class="button"></div>
 </div>
 
+<div class="oDiv">
+	<div class="button"></div>
+</div>
+
+<div class="oDiv">
+	<div class="button"></div>
+</div>
 
 </body>
 </html>
