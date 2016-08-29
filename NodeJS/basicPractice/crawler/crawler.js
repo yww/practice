@@ -6,10 +6,10 @@ var globalTunnel = require('global-tunnel');
 var cheerio = require('cheerio');
 
 //set proxy for http request
-	globalTunnel.initialize({
-		host:'proxy.pvgl.sap.corp',
-		port:8080
-	})
+	// globalTunnel.initialize({
+	// 	host:'proxy.pvgl.sap.corp',
+	// 	port:8080
+	// })
 
 /* parse html; Structure of couseData
 	[
@@ -26,8 +26,10 @@ var cheerio = require('cheerio');
 //test
 
 function filterChapters(html){
+
 	var $ = cheerio.load(html);
-	var chapters = $('.elevator');
+
+	var chapters = $('.mod-chapters');
 
 	var courseData=[];
 	chapters.each(function(item){
