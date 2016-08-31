@@ -8,7 +8,7 @@ var app = express();
 
 app.set('views','./views/pages');
 app.set('view engine','jade');
-app.use(bodyParser());
+app.use(bodyParser({extended:true}));
 app.use(serveStatic(path.join(__dirname,'library')));
 app.listen(port);
 
@@ -84,7 +84,7 @@ app.get('/admin/movie',function(req,res){
 app.get('/admin/list',function(req,res){
 	res.render('list',{
 		title:'imooc 列表页',
-		movie:{
+		movies:[{
 			title:'机械战警',
 			_id:1,
 			director:'何塞',
@@ -94,6 +94,6 @@ app.get('/admin/list',function(req,res){
 			language:'英语',
 			flash:'http://player.youku.com/player.php/sid/XNjA1Njc0NTUy/v.swf',
 			summary:'This is summary blablabla...'
-		}
+		}]
 	})
 })
