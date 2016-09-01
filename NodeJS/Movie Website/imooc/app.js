@@ -30,7 +30,6 @@ console.log('imooc started on port'+port);
 //index page
 app.get('/',function(req,res){
 		Movie.fetch(function(err, movies){
-			console.log('search done')
 			if(!err){
 				console.log(err)
 			}
@@ -56,7 +55,8 @@ app.get('/movie/:id',function(req,res){
 app.get('/admin/movie',function(req,res){
 		res.render('admin',{
 		title:'imooc 后台录入',
-		movie:{
+		movie: 
+		{
 			title:'',
 			direcotr:'',
 			country:'',
@@ -69,7 +69,20 @@ app.get('/admin/movie',function(req,res){
 	})
 })
 
-
+//admin update movie page
+app.get('/admin/update/:id',function(req,res){
+	var id = req.params.id;
+	console.log(id)
+	if(id){
+		Movie.findById(id,function(err,movie){
+			//console.log('MOVIE: '+movie)
+			res.render('admin',{
+				title :'imooc 后台更新页',
+				movie: movie
+			})
+		})
+	}
+})
 
 //admin post movie (to add movie)
 app.post('/admin/movie/new',function(req,res){
@@ -125,16 +138,6 @@ app.get('/admin/list',function(req,res){
 	})
 })
 
-//admin update movie page
-app.post('admin/update/:id',function(req,res){
-	var id = req.params.id;
-	if(id){
-		Movie.findById(id,function(err,movie){
-			res.render('admin',{
-				title :'imooc 后台更新页',
-				movie: movie
 
-			})
-		})
-	}
-})
+
+
