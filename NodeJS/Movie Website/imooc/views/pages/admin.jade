@@ -3,6 +3,7 @@ block content
 	.container
 		.row
 			form.form-horizontal(method="post", action="/admin/movie/new")
+				input(type="hidden", name="movie[_id]", value="#{movie._id}")
 				.form-group
 					label.col-sm-2.control-label(for="inputTitle") 电影名字
 					.col-sm-10
@@ -22,7 +23,7 @@ block content
 				.form-group
 					label.col-sm-2.control-label(for="inputTitle") 上映年份
 					.col-sm-10
-						input#inputTitle.form-control(type="text",name="movie[year]")
+						input#inputTitle.form-control(type="number",name="movie[year]")
 				.form-group
 					label.col-sm-2.control-label(for="inputTitle") 简介
 					.col-sm-10
