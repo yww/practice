@@ -58,7 +58,7 @@ app.get('/admin/movie',function(req,res){
 		movie: 
 		{
 			title:'',
-			direcotr:'',
+			director:'',
 			country:'',
 			year:'',
 			poster:'',
@@ -105,7 +105,7 @@ app.post('/admin/movie/new',function(req,res){
 		})
 	}else{
 		_movie = new Movie({
-			director: movieObj.direcor,
+			director: movieObj.director,
 			title: movieObj.title,
 			year: movieObj.year,
 			language: movieObj.language,
