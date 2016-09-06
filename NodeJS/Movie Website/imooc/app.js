@@ -8,6 +8,7 @@ var bodyParser=require('body-parser');
 var Movie = require('./models/movie');
 
 
+
 var app = express();
 
 //connect to mongoDB
