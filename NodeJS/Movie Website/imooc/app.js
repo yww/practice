@@ -1,12 +1,16 @@
 var express=require('express');
-var port= process.env.PORT || 3000;
 var path = require('path');
 var mongoose = require('mongoose');
 var _=require('underscore');
 var serveStatic=require('serve-static');
 var bodyParser=require('body-parser');
-var Movie = require('./models/movie');
 
+//require mongoose models
+var Movie = require('./models/movie');
+var User = require('./models/user');
+
+//
+var port= process.env.PORT || 3000;
 
 
 var app = express();
@@ -158,4 +162,48 @@ app.delete('/admin/list',function(req,res){
 	}
 })
 
+//User signin
+app.post('/user/singin',function(req,res){
 
+})
+
+//User signup
+app.post('/user/signup',function(req,res){
+	var _user = req.body.user;
+	console.log('req'+req)
+	//req.param('user') priority: path > body >query string
+	//req.query.user
+	//req.params.user only /sign/signup/:user
+
+	User.find({name:_user.name},function(err,user){
+		console.log('USER'+user)
+		if(err){
+			console.log(err)
+		}
+		if(user.length>0){
+			return res.redirect('/admin/userList')
+		}else{
+				var user = new User(_user);
+				user.save(function(err,user){
+				if(err){
+					console.log(err)
+				}
+				res.redirect('/admin/userList')
+			})
+		}
+	})
+})
+
+//user list page
+app.get('/admin/userList',function(req,res){
+	User.fetch(function(err,users){
+		if(err){
+			console.log(err)
+		}
+
+		res.render('userList',{
+			title: 'User list',
+			users:users
+		})
+	})
+})

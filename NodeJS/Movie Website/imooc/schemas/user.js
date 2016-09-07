@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 var SALT_WORK_FACTOR = 10;
 
 var UserSchema = new mongoose.Schema({
@@ -22,33 +22,22 @@ var UserSchema = new mongoose.Schema({
 
 // execute function before saving data to database
 UserSchema.pre('save',function(next){
+	var user = this;
 	if (this.isNew){
 		this.meta.createAt = this.meta.updateAt = Date.now();
 	}else{
 		this.meta.updateAt = Date.now();
 	}
+		console.log(this.password);
 	bcrypt.genSalt(SALT_WORK_FACTOR,function(err,salt){
 		if (err) return next(err);
 
 		bcrypt.hash(user.password,salt,function(err, hash){
 			if(err) return next(err);
-
-			this.password=hash;
+			user.password=hash;
 			next()
 		})
 	})
-})
-
-//generate a randorm salt
-bcrypt.genSalt(SALT_WORK_FACTOR,funtion(err,salt){
-	if (err){
-		 return next(err)
-	}
-
-	bcrypt.hash(user.password,salt,function(){
-
-	})
-
 })
 
 UserSchema.statics={
