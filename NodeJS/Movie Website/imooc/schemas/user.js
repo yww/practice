@@ -20,6 +20,17 @@ var UserSchema = new mongoose.Schema({
 	}
 })
 
+UserSchema.methods={
+	comparePassword: function(_password,cb){
+		bcrypt.compare(_password, this.password, function(err, isMatch){
+			if(err){
+				return cb(err);
+			}
+			cb(null, isMatch)
+		})
+	}
+}
+
 // execute function before saving data to database
 UserSchema.pre('save',function(next){
 	var user = this;
@@ -28,7 +39,7 @@ UserSchema.pre('save',function(next){
 	}else{
 		this.meta.updateAt = Date.now();
 	}
-		console.log(this.password);
+	
 	bcrypt.genSalt(SALT_WORK_FACTOR,function(err,salt){
 		if (err) return next(err);
 
@@ -49,3 +60,4 @@ UserSchema.statics={
 	}
 }
 module.exports = UserSchema
+

@@ -1,23 +1,25 @@
-var express=require('express');
+var express = require('express');
 var path = require('path');
 var mongoose = require('mongoose');
-var _=require('underscore');
-var serveStatic=require('serve-static');
-var bodyParser=require('body-parser');
-
+var expressSession = require('express-session');
+var mongoStore = require('connect-mongo')(expressSession);
+var _ = require('underscore');
+var serveStatic = require('serve-static');
+var bodyParser = require('body-parser');
 //require mongoose models
 var Movie = require('./models/movie');
 var User = require('./models/user');
 
 //
 var port= process.env.PORT || 3000;
-
-
 var app = express();
+
+//
+var dbUrl = 'mongodb://localhost:27017/imooc';
 
 //connect to mongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/imooc',function(err){
+mongoose.connect(dbUrl,function(err){
 	if(err){
 		console.log('database connection failure '+ err)
 	}
@@ -29,6 +31,14 @@ mongoose.connect('mongodb://localhost:27017/imooc',function(err){
 app.set('views','./views/pages');
 app.set('view engine','jade');
 app.use(bodyParser({extended:true}));
+//app.use(cookieParser());
+app.use(expressSession({
+	secret: 'imooc',
+	store: new mongoStore({
+		url: dbUrl,
+		collection: 'session'
+	})
+}));
 app.use(serveStatic(path.join(__dirname,'public')));
 app.locals.moment = require('moment');
 app.listen(port);
@@ -37,6 +47,9 @@ console.log('imooc started on port'+port);
 
 //index page
 app.get('/',function(req,res){
+
+		console.log(req.session.user);
+
 		Movie.fetch(function(err, movies){
 			if(!err){
 				console.log(err)
@@ -120,10 +133,9 @@ app.post('/admin/movie/new',function(req,res){
 //admin update movie page
 app.get('/admin/update/:id',function(req,res){
 	var id = req.params.id;
-	console.log(id)
 	if(id){
 		Movie.findById(id,function(err,movie){
-			//console.log('MOVIE: '+movie)
+			
 			res.render('admin',{
 				title :'imooc 后台更新页',
 				movie: movie
@@ -164,19 +176,41 @@ app.delete('/admin/list',function(req,res){
 
 //User signin
 app.post('/user/singin',function(req,res){
+	var _user=req.body.user;
+	var name=_user.name;
+	var password=_user.password;
 
+	User.findOne({name:name},function(err,user){
+		if(err){
+			console.log(err)
+		}
+		if(!user){
+			return res.redirect('/')
+		}
+		user.comparePassword(password,function(err,isMatch){
+			if(err){
+				return console.log(err)
+			}
+			if(isMatch){
+				req.session.user = user;
+				return res.redirect('/') 
+				res.redirect('/')
+			}else{
+				console.log('Password don\'t match')
+				res.end();
+			}
+		})
+	})
 })
 
 //User signup
 app.post('/user/signup',function(req,res){
 	var _user = req.body.user;
-	console.log('req'+req)
 	//req.param('user') priority: path > body >query string
 	//req.query.user
 	//req.params.user only /sign/signup/:user
 
 	User.find({name:_user.name},function(err,user){
-		console.log('USER'+user)
 		if(err){
 			console.log(err)
 		}
@@ -206,4 +240,41 @@ app.get('/admin/userList',function(req,res){
 			users:users
 		})
 	})
+})
+
+//delete user
+app.delete('/user/userList',function(req,res){
+	var id = req.query.id;
+
+	if(id){
+		User.remove({_id:id},function(err,user){
+			if(err){
+				console.log(err)
+			}else{
+				res.json({
+					success:1
+				})
+			}
+		})
+	}
+})
+
+
+
+
+//Delete user
+app.delete('/admin/list',function(req,res){
+	var id = req.query.id;
+
+	if(id){
+		Movie.remove({_id:id},function(err, movie){
+			if(err){
+				console.log(err)
+			}else{
+				res.json({
+					success:1
+				})
+			}
+		})
+	}
 })
