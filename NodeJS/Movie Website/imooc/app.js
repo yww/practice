@@ -5,6 +5,8 @@ var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')(expressSession);
 var serveStatic = require('serve-static');
 var bodyParser = require('body-parser');
+var morgan =  require('morgan');
+
 var port= process.env.PORT || 3000;
 var app = express();
 var dbUrl = 'mongodb://localhost:27017/imooc';
@@ -19,11 +21,20 @@ mongoose.connect(dbUrl,function(err){
 	}
 )
 
+//Error handling
+if('development'== app.get('env')){
+	app.set('showStackError',true);
+	app.use(morgan(':method :url :status'));
+	app.locals.pretty = true;
+	mongoose.set('debug',true);
+}
+
 //set static resource path
 app.set('views','./views/pages');
 app.set('view engine','jade');
+
+//Parse body and session
 app.use(bodyParser({extended:true}));
-//app.use(cookieParser());
 app.use(expressSession({
 	secret: 'imooc',
 	store: new mongoStore({
