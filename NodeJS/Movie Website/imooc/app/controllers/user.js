@@ -1,7 +1,18 @@
 
 var User = require('../models/user');
-
+var app = require('../../app')
 //User signup
+
+//show signup
+exports.showSignup = function(req,res){
+	User.fetch(function(err,users){
+		res.render('signup',{
+			title: 'signup',
+			users:users
+		})
+	})
+}
+
 exports.signup = function(req,res){
 	var _user = req.body.user;
 	//req.param('user') priority: path > body >query string
@@ -13,14 +24,14 @@ exports.signup = function(req,res){
 			console.log(err)
 		}
 		if(user.length>0){
-			return res.redirect('/admin/userList')
+			return res.redirect('/signin')
 		}else{
 				var user = new User(_user);
 				user.save(function(err,user){
 				if(err){
 					console.log(err)
 				}
-				res.redirect('/admin/userList')
+				res.redirect('/')
 			})
 		}
 	})
@@ -28,7 +39,18 @@ exports.signup = function(req,res){
 
 
 //User signin
-exports.singin = function(req,res){
+
+//show signin
+exports.showSignin = function(req,res){
+	User.fetch(function(err,users){
+		res.render('signin',{
+			title: 'signin',
+			users:users
+		})
+	})
+}
+
+exports.signin = function(req,res){
 	var _user=req.body.user;
 	var name=_user.name;
 	var password=_user.password;
@@ -38,7 +60,7 @@ exports.singin = function(req,res){
 			console.log(err)
 		}
 		if(!user){
-			return res.redirect('/')
+			return res.redirect('/signup')
 		}
 		user.comparePassword(password,function(err,isMatch){
 			if(err){
@@ -50,6 +72,7 @@ exports.singin = function(req,res){
 				res.redirect('/')
 			}else{
 				console.log('Password don\'t match')
+				res.redirect('/signin')
 				res.end();
 			}
 		})
@@ -59,7 +82,7 @@ exports.singin = function(req,res){
 //User logout
 exports.logout = function(req,res){
 	
-		//delete req.session.user;
+		delete req.session.user;
 		//delete app.locals.user;
 		res.redirect('/')
 	
@@ -83,7 +106,6 @@ exports.list = function(req,res){
 //delete user
 exports.del = function(req,res){
 	var id = req.query.id;
-
 	if(id){
 		User.remove({_id:id},function(err,user){
 			if(err){
@@ -95,4 +117,23 @@ exports.del = function(req,res){
 			}
 		})
 	}
+}
+
+//User middleware
+exports.signinRequired = function(req,res,next){
+	var user = req.session.user
+
+	if(!user){
+		return res.redirect('/signin')
+	}
+	next()
+}
+
+exports.adminRequired = function(req,res,next){
+	var user = req.session.user
+
+	if(user.role <=10){
+		return res.redirect('/signin')
+	}
+	next()
 }

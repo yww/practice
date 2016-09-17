@@ -22,15 +22,15 @@ mongoose.connect(dbUrl,function(err){
 )
 
 //Error handling
-if('development'== app.get('env')){
-	app.set('showStackError',true);
-	app.use(morgan(':method :url :status'));
-	app.locals.pretty = true;
-	mongoose.set('debug',true);
-}
+// if('development'== app.get('env')){
+// 	app.set('showStackError',true);
+// 	app.use(morgan(':method :url :status'));
+// 	app.locals.pretty = true;
+// 	mongoose.set('debug',true);
+// }
 
 //set static resource path
-app.set('views','./views/pages');
+app.set('views','./app/views/pages');
 app.set('view engine','jade');
 
 //Parse body and session
@@ -51,4 +51,6 @@ app.use(serveStatic(path.join(__dirname,'public')));
 app.locals.moment = require('moment');
 
 console.log('imooc started on port'+port);
+
+module.exports=app;
 

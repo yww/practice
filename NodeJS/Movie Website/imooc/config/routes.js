@@ -1,52 +1,36 @@
 //resource
 
-var Index = require('../app/controllers/models/index');
-var User = require('../app/controllers/models/user');
-var Movie = require('../app/controllers/models/movie');
+var Index = require('../app/controllers/index')
+var User = require('../app/controllers/user')
+var Movie = require('../app/controllers/movie')
 
 module.exports = function(app){
 	
 	//user prehandleing
 	app.use(function(req,res,next){
-		var _user=req.session.user;
-			app.locals.user=_user;
+		var _user=req.session.user
+			app.locals.user=_user
 			next()	
 	})
 
 	//index page
-	app.get('/',Index.index);
+	app.get('/',User.signinRequired,User.adminRequired,Index.index)
 
-	//signup
-	app.post('/user/signup',User.signup);
+	//User
+	app.post('/user/signup',User.signup)
+	app.post('/user/signin',User.signin)
+	app.get('/user/logout',User.logout)
+	app.get('/admin/user/list',User.signinRequired,User.adminRequired,User.list)
+	app.delete('/admin/user/List',User.signinRequired,User.adminRequired,User.del)
+	app.get('/signin',User.showSignin)
+	app.get('/signup',User.showSignup)
 
-	//signin
-	app.post('/user/signin',User.signin);
-
-	//logout
-	app.get('/logout',User.logout);
-
-	//user list
-	app.get('/admin/userList',User.list);
-
-	//delete user
-	app.delete('/admin/userList',User.del);
-
-	//movie detail
-	app.get('/movie/:id',Movie.detail);
-
-	//admin record movie
-	app.get('/admin/new',Movie.new);
-
-	//admin update movie
-	app.get('/admin/update/:id',Movie.update);
-
-	//admin save movie
-	app.post('/admin/movie',Movie.save);
-
-	//admin list movie
-	app.get('/admin/list',Movie.list);
-
-	//admin delete movie
-	app.delete('/admin/list',Movie.del)
+	//Movie
+	app.get('/movie/:id',Movie.detail)
+	app.get('/admin/movie/new',User.signinRequired,User.adminRequired,Movie.new)
+	app.get('/admin/movie/update/:id',User.signinRequired,User.adminRequired,Movie.update)
+	app.post('/admin/movie',User.signinRequired,User.adminRequired,Movie.save)
+	app.get('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.list)
+	app.delete('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.del)
 	
 }
