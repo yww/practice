@@ -14,14 +14,14 @@ module.exports = function(app){
 	})
 
 	//index page
-	app.get('/',User.signinRequired,User.adminRequired,Index.index)
+	app.get('/',Index.index)
 
 	//User
 	app.post('/user/signup',User.signup)
 	app.post('/user/signin',User.signin)
 	app.get('/user/logout',User.logout)
 	app.get('/admin/user/list',User.signinRequired,User.adminRequired,User.list)
-	app.delete('/admin/user/List',User.signinRequired,User.adminRequired,User.del)
+	app.delete('/admin/user/list',User.signinRequired,User.adminRequired,User.del)
 	app.get('/signin',User.showSignin)
 	app.get('/signup',User.showSignup)
 
