@@ -32,5 +32,8 @@ module.exports = function(app){
 	app.post('/admin/movie',User.signinRequired,User.adminRequired,Movie.save)
 	app.get('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.list)
 	app.delete('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.del)
+
+	//Comment
+	app.post('')
 	
 }
