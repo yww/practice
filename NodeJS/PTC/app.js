@@ -6,7 +6,7 @@ var bodyParser = require('body-parser')
 var serveStatic = require('serve-static')
 var mongoStore = require('connect-mongo')(expressSession)
 var morgan = require('morgan')
-
+var User = require('./app/controllers/user')
 var port = process.env.PORT || 8080
 var app = express()
 var dbUrl = 'mongodb://localhost:27017/ptc'
@@ -39,6 +39,7 @@ app.use(expressSession({
 }))
 
 //static resource
+//app.use(User.signinRequired)
 app.use(serveStatic(path.join(__dirname,'public')))
 app.locals.moment = require('moment')
 

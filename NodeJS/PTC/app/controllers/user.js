@@ -59,10 +59,25 @@ exports.logout = function(req,res){
 	delete req.session.user
 	res.redirect('/html/login.html')
 }
+
+//sessionUser
+exports.sessionUser = function(req,res){
+	if(!req.session.user){
+		res.send({error: "error msg", code: 400})
+	}else{
+		res.send({name:req.session.user.userName})
+	}
+	
+}
 //customized middleware, handle permission check
 exports.signinRequired = function(req, res, next){
 	var user = req.session.user
+	console.log('USERS....')
+	console.log(user)
 
+	if (req.path === '/html/login.html' || /\.(map|woff|tff|jpg|png|css|js)$/.test(req.path)) {
+		return next()
+	}
 	if(!user){
 		return res.redirect('/html/login.html')
 	}
@@ -72,7 +87,7 @@ exports.signinRequired = function(req, res, next){
 exports.adminRequired = function(req, res, next){
 	var user = req.session.user
 
-	if(user.rolg < 10){
+	if(user.role < 10){
 		return res.redirect('/login.html#signup')
 	}
 	next()
