@@ -39,7 +39,6 @@ app.use(expressSession({
 }))
 
 //static resource
-//app.use(User.signinRequired)
 app.use(serveStatic(path.join(__dirname,'public')))
 app.locals.moment = require('moment')
 

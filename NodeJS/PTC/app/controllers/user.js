@@ -12,8 +12,9 @@ exports.signin = function(req,res){
 			console.log(err)
 		}
 		if(!user){
+			res.send({error: "User doesn't exist", code: 500})
 			console.log('User doesn\'t exist')
-			return res.redirect('/html/login.html')
+			return res.redirect('/login.html')
 		}
 
 		user.comparePassword(password, function(err, isMatch){
@@ -25,9 +26,8 @@ exports.signin = function(req,res){
 				req.session.user = user;
 				return res.redirect('/')
 			}else{
+				res.send({error: "Password don\'t match", code: 500})
 				console.log('Password don\'t match')
-				res.redirect('/html/login.html')
-				res.end()
 			}
 		})
 	})
@@ -43,7 +43,7 @@ exports.signup = function(req,res){
 			console.log(err)
 		}
 		if(user.length >0){
-			return res.redirect('/html/login.html')
+			return res.redirect('/login.html')
 		}else{
 			var user = new User(_user)
 			user.save(function(err,user){
@@ -57,7 +57,7 @@ exports.signup = function(req,res){
 //logout 
 exports.logout = function(req,res){
 	delete req.session.user
-	res.redirect('/html/login.html')
+	res.redirect('/login.html')
 }
 
 //sessionUser
@@ -69,17 +69,12 @@ exports.sessionUser = function(req,res){
 	}
 	
 }
+
 //customized middleware, handle permission check
 exports.signinRequired = function(req, res, next){
 	var user = req.session.user
-	console.log('USERS....')
-	console.log(user)
-
-	if (req.path === '/html/login.html' || /\.(map|woff|tff|jpg|png|css|js)$/.test(req.path)) {
-		return next()
-	}
 	if(!user){
-		return res.redirect('/html/login.html')
+		return res.send({error: "not authorized", code: 400})
 	}
 	next()
 }
