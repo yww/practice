@@ -1,5 +1,5 @@
 $(document).ready(function(){
-            $("#sigin").submit(function(event){
+            $("#login")[0].submit(function(event){
                 event.preventDefault();
                 alert('success')
                 $.ajax({
