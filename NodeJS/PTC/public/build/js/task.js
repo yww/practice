@@ -10,9 +10,10 @@
 $(document).ready(function(){
 	$('#startTest').click(function(){
 		$.ajax({
+			contentType: 'application/json',
 			type: 'POST',
 			url: '/addTask',
-			data: $("#heard").attr('selected', true).val()
+			data:JSON.stringify({name:$("#heard").attr('selected', true).val()})
 		}).done(function(){
 			alert('success')
 		})

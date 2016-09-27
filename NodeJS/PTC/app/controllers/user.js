@@ -23,7 +23,7 @@ exports.signin = function(req,res){
 
 			if(isMatch){
 				req.session.user = user;
-				res.send({code:200})
+				res.send({code:200, msg:'login successfully'})
 			}else{
 				res.send({msg: "Password does\'t match", code: 500})
 				console.log('Password don\'t match')

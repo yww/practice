@@ -3,9 +3,9 @@ var app = require('../../app')
 
 
 exports.getAllTask = function(req, res){
-	Task.fetch
-		.populate('commitId', 'name')
-		.exec(function(err, tasks){
+	var tasks = Task.fetch
+	tasks.populate('commitId', 'name')
+	tasks.exec(function(err, tasks){
 				if(err){
 					console.log(err)
 				}
@@ -14,20 +14,24 @@ exports.getAllTask = function(req, res){
 }
 
 exports.addTask = function(req,res){
-	console.log(req)
-	var _name = req;
+	//console.log(req)
+	var _name = req.body.name;
 	var _commitId=req.session.user._id;
+	console.log(_name)
+	console.log(_commitId)
 	var task= new Task({
 		name:_name,
 		commitId:_commitId,
 	})
-
-	console.log(task)
 	
+	console.log('TASK')
+	console.log(task)
 	task.save(function(err,task){
 		if(err){
 			console.log(err)
 		}
-		console.log(task)
+		//console.log('task')
+		//console.log(task)
+	    res.send({status: 'success'})
 	})
 }
