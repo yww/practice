@@ -12,9 +12,8 @@ exports.signin = function(req,res){
 			console.log(err)
 		}
 		if(!user){
-			res.send({error: "User doesn't exist", code: 500})
-			console.log('User doesn\'t exist')
-			return res.redirect('/login.html')
+			res.send({msg: "user doesn\'t match", code: 500})
+			return console.log('User doesn\'t exist')
 		}
 
 		user.comparePassword(password, function(err, isMatch){
@@ -24,9 +23,9 @@ exports.signin = function(req,res){
 
 			if(isMatch){
 				req.session.user = user;
-				return res.redirect('/')
+				res.send({code:200})
 			}else{
-				res.send({error: "Password don\'t match", code: 500})
+				res.send({msg: "Password does\'t match", code: 500})
 				console.log('Password don\'t match')
 			}
 		})
@@ -43,12 +42,13 @@ exports.signup = function(req,res){
 			console.log(err)
 		}
 		if(user.length >0){
-			return res.redirect('/login.html')
+			res.send({msg: "email already exist", code: 500})
+			return 
 		}else{
 			var user = new User(_user)
 			user.save(function(err,user){
 				if(err) console.log(err)
-					res.redirect('/')
+					res.send({msg: "resgistration success", code: 201})
 			})
 		}
 	})
@@ -63,7 +63,7 @@ exports.logout = function(req,res){
 //sessionUser
 exports.sessionUser = function(req,res){
 	if(!req.session.user){
-		res.send({error: "error msg", code: 400})
+		res.send({msg: "error msg", code: 400})
 	}else{
 		res.send({name:req.session.user.userName})
 	}
@@ -74,7 +74,7 @@ exports.sessionUser = function(req,res){
 exports.signinRequired = function(req, res, next){
 	var user = req.session.user
 	if(!user){
-		return res.send({error: "not authorized", code: 400})
+		return res.send({msg: "not authorized", code: 400})
 	}
 	next()
 }

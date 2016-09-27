@@ -1,5 +1,5 @@
 var User = require('../app/controllers/user')
-var Case = require('../app/controllers/case')
+var Task = require('../app/controllers/task')
 
 module.exports = function(app){
 
@@ -26,7 +26,8 @@ module.exports = function(app){
 	app.get('/session/user',User.sessionUser)
 
 
-	//Case operation
-	app.get('/test/status',User.signinRequired,Case.getTestStatus)
+	//Case Operation
+	app.get('/getAllTask',Task.getAllTask)
+	app.post('/addTask',Task.addTask)
 }
 

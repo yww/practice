@@ -30,7 +30,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form id="login">
+            <form id="login" method="POST" action="/signin">
               <h1>Login Form</h1>
               <div>
                 <input type="email" class="form-control" name="user[email]" placeholder="Eamil Adderss" required="" />
@@ -62,12 +62,12 @@
           </section>
         </div>
 
-        <div id="register" class="animate form registration_form">
+        <div class="animate form registration_form">
           <section class="login_content">
-            <form  id="register">
+            <form  id="register" method="POST" action="/signup">
               <h1>Create Account</h1>
               <div>
-                <input type="text" class="form-control" name="user[userName]" placeholder="Username" required="" />
+                <input type="text" class="form-control" name="user[userName]" placeholder="name" required="" />
               </div>
               <div>
                 <input type="email" class="form-control" name="user[email]" placeholder="Email" required="" />

@@ -1,15 +1,17 @@
 
 var Movie = require('../models/movie');
-var Comment = require('../models/movie');
+var Comment = require('../models/comment');
 var _ = require('underscore');
 //detail page
 exports.detail = function(req,res){
 	var id = req.params.id;
 	console.log(id)
 	Movie.findById(id,function(err, movie){
+		//console.log(Comment.find({movie:id}))
 		Comment
 			.find({movie: id})
 			.populate('from','name')
+			.populate('reply.from reply.to', 'name')
 			.exec(function(err, comments){
 				console.log(comments)
 				if(err){console.log(err)}

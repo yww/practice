@@ -37,10 +37,9 @@ block content
                         .form-group
                             textarea.form-control(name="comment[content]", row="3") 
                         button.btn.btn-primary(type='submit')提交
-
             #comments
               form#commentForm(method="POST", action="/user/comment")
-                input(type="hidden", name="comment[movie]", value="#{movie._id}")
+                  input(type="hidden", name="comment[movie]", value="#{movie._id}")
                 if user
                   input(type="hidden", name="comment[from]", value="#{user._id}")
                 .form-group
@@ -63,4 +62,4 @@ block content
           dd= movie.year
           dt 简介
           dd= movie.summary
-  script(src="/build/detail.min.js")
+  script(src="/js/detail.js")

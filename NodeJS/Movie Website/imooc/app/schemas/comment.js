@@ -5,6 +5,10 @@ var ObjectId = Schema.Types.ObjectId
 var CommentSchema = new Schema({
 	movie: {type: ObjectId, ref: 'Movie'},
 	from: {type: ObjectId, ref: 'User'},
+	reply:[{to: {type: ObjectId, ref: 'User'},
+				from: {type: ObjectId, ref: 'User'},
+				content: String
+	}],
 	to: {type: ObjectId, ref: 'User'},
 	content: String,
 	meta: {
