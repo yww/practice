@@ -27,7 +27,7 @@ $(document).ready(function(){
 			data:JSON.stringify({name:$("#heard").attr('selected', true).val()})
 		}).done(function(task){
 			console.log(task)
-			$('#dataTable2').dataTable().fnAddData(task)
+			$('#datatable2').dataTable().fnAddData(task)
 		})
 	})
 })
