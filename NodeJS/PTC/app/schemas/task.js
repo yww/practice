@@ -20,12 +20,23 @@ var TaskSchema = new Schema({
 })
 
 //Method of model(tabel)
-TaskSchema.static={
+
+TaskSchema.statics={
 	fetch: function(cb){
-		return this.find({}).sort('meta.startAt').exec(cb)
+		return this.find({}).sort('meta.startAt').exec(cb);
 	},
-	findById: function(id, cb){
-		return this.findOne({_id: id}).exec(cb)
+	findById: function(id,cb){
+		return this.findOne({_id:id}).exec(cb);
 	}
 }
 module.exports = TaskSchema
+
+//task document pre save check
+// TaskSchema.pre('save',function(next){
+// 	if (this.isNew){
+// 		this.meta.createAt = this.meta.updateAt = Date.now();
+// 	}else{
+// 		this.meta.updateAt = Date.now()
+// 	}
+// 	next()
+// })
