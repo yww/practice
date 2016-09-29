@@ -1,0 +1,9 @@
+ssh
+.exec('nohub sleep 10&',{out: function(result){console.log(result)}}).exec('echo$!',{out: function(result){console.log(result)}}).start()
+ssh.exec('nohup sleep 10 & echo $!',{out:console.log.bind(console)}).start()
+
+
+//get process' status and start time
+ps -p 21216 -o s= -o stime=
+
+ssh.exec('ps -p 21216 -o s=',{out:console.log.bind(console)}).start()

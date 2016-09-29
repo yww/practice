@@ -5,11 +5,14 @@ var ObjectId = Schema.Types.ObjectId
 var TaskSchema = new Schema({
 	name: String,
 	commitId: {type: ObjectId, ref:'User'},
+	pid: Number,
+	logFile: Boolean,
 	meta: {
-		startAt: {
+		recordAt: {
 			type: Date,
 			default: Date.now()
 		},
+		startAt: Date,
 		endAt: {
 			type: Date,
 			default: Date.now()
@@ -23,20 +26,22 @@ var TaskSchema = new Schema({
 
 TaskSchema.statics={
 	fetch: function(cb){
-		return this.find({}).sort('meta.startAt').exec(cb);
+		return this.find({}).sort('meta.recordAt').exec(cb);
 	},
 	findById: function(id,cb){
 		return this.findOne({_id:id}).exec(cb);
 	}
 }
-module.exports = TaskSchema
 
 //task document pre save check
-// TaskSchema.pre('save',function(next){
-// 	if (this.isNew){
-// 		this.meta.createAt = this.meta.updateAt = Date.now();
-// 	}else{
-// 		this.meta.updateAt = Date.now()
-// 	}
-// 	next()
-// })
+
+TaskSchema.pre('save',function(next){
+	if (this.isNew){
+		this.meta.recordAt = this.meta.updateAt = Date.now();
+	}else{
+		this.meta.startAt = Date.now()
+	}
+	next()
+})
+
+module.exports = TaskSchema

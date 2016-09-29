@@ -7,6 +7,7 @@ var serveStatic = require('serve-static')
 var mongoStore = require('connect-mongo')(expressSession)
 var morgan = require('morgan')
 var User = require('./app/controllers/user')
+var Control = require('./app/controllers/control')
 var port = process.env.PORT || 8080
 var app = express()
 var dbUrl = 'mongodb://localhost:27017/ptc'
@@ -44,6 +45,11 @@ app.locals.moment = require('moment')
 
 //require routes file
 require('./config/routes')(app)
+
+//polling database, to start/kill/ tasks or copy log
+setInterval(execTask,10000)
+setInterval(killExpired,30000)
+setInterval(parseLog, 30000) 
 
 
 
