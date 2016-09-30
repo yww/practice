@@ -7,3 +7,9 @@ ssh.exec('nohup sleep 10 & echo $!',{out:console.log.bind(console)}).start()
 ps -p 21216 -o s= -o stime=
 
 ssh.exec('ps -p 21216 -o s=',{out:console.log.bind(console)}).start()
+
+
+var SSH = require('simple-ssh')
+var ssh = new SSH({host: "10.58.9.185",user: "root",pass: "Initial0"})
+
+var SSHObj = {host: configObj.targetMachine.host,user: configObj.targetMachine.user,pass: configObj.targetMachine.pass}

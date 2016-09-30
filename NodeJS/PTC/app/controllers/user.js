@@ -1,5 +1,4 @@
 var User = require('../models/user');
-var app = require('../../app')
 
 //signin
 exports.signin = function(req,res){

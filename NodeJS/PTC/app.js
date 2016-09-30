@@ -25,10 +25,6 @@ mongoose.connect(dbUrl, function(err){
 	}
 })
 
-//specify view and model path
-//app.set('view'/'./app/view/pages')
-//app.set('view engine', 'jade')
-
 //parse request body and session
 app.use(bodyParser({extended: true}))
 app.use(expressSession({
@@ -47,9 +43,10 @@ app.locals.moment = require('moment')
 require('./config/routes')(app)
 
 //polling database, to start/kill/ tasks or copy log
-setInterval(execTask,10000)
-setInterval(killExpired,30000)
-setInterval(parseLog, 30000) 
-
+var Control = require('./app/controllers/control')
+   setInterval(Control.execTask,1000)
+// setInterval(FinishTask, 30000) 
+// setInterval(killExpired,30000)
+// setInterval(parseLog, 30000)
 
 

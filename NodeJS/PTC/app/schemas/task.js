@@ -5,21 +5,26 @@ var ObjectId = Schema.Types.ObjectId
 var TaskSchema = new Schema({
 	name: String,
 	commitId: {type: ObjectId, ref:'User'},
-	pid: Number,
-	logFile: Boolean,
+	status: {
+		type: Number,
+		default:1
+	},
+	log: String,
+	pId: Number,
+	logFile: {
+		type:Boolean,
+		default: false
+	},
 	meta: {
+		startAt: Date,
 		recordAt: {
 			type: Date,
 			default: Date.now()
 		},
-		startAt: Date,
 		endAt: {
-			type: Date,
-			default: Date.now()
+			type: Date
 		}
-	},
-	status: String,
-	log: String
+	}
 })
 
 //Method of model(tabel)

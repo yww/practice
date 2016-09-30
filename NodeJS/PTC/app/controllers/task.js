@@ -13,6 +13,7 @@ exports.getAllTask = function(req, res){
 		Task
 			.find({})
 			.populate('commitId','userName')
+			.populate('status','status')
 			.exec(function(err, tasks){
 				var _tasks=[];
 				for(var i in tasks){
@@ -30,19 +31,6 @@ exports.addTask = function(req,res){
 	var taskObj = req.body.task;
 	var _task;
 
-	if(id !=='undefined'){
-		Task.findById(id,function(err,task){
-			if (err){
-				console.log(err)
-			}
-			_task=_.extend(task,movieObj);
-			_task.save(function(err,task){
-				if(err){
-					console.log(err)
-				}
-			})
-		})
-	}else{
 		var _name = req.body.name;
 		var _commitId=req.session.user._id;
 		var task= new Task({
@@ -58,7 +46,11 @@ exports.addTask = function(req,res){
 			var node = [task.name, req.session.user.userName, moment(task.meta.recordAt).format('yyyy/MM/dd HH:mm:ss'),moment(task.meta.endAt).format('yyyy/MM/dd HH:mm:ss'),'In Progress','report' ]
 		    res.send(node)
 		})
-	}
+}
+
+//upload a new case
+exports.uploadCase= function(){
+
 }
 
 
