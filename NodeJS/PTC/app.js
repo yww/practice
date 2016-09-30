@@ -44,8 +44,10 @@ require('./config/routes')(app)
 
 //polling database, to start/kill/ tasks or copy log
 var Control = require('./app/controllers/control')
-   setInterval(Control.execTask,1000)
-// setInterval(FinishTask, 30000) 
+  
+Control.killExpired();
+// setInterval(Control.execTask,1000)
+//setInterval(Control.FinishTask, 1000) 
 // setInterval(killExpired,30000)
 // setInterval(parseLog, 30000)
 

@@ -5,11 +5,6 @@ var moment = require('moment')
 
 
 exports.getAllTask = function(req, res){
-
-	Task.fetch(function(err,tasks){
-		if(err){
-			console.log(err)
-		}
 		Task
 			.find({})
 			.populate('commitId','userName')
@@ -23,7 +18,6 @@ exports.getAllTask = function(req, res){
 				console.log(tasks)
 				res.send(_tasks)
 			})
-	})
 }
 
 exports.addTask = function(req,res){

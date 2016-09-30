@@ -13,3 +13,4 @@ var SSH = require('simple-ssh')
 var ssh = new SSH({host: "10.58.9.185",user: "root",pass: "Initial0"})
 
 var SSHObj = {host: configObj.targetMachine.host,user: configObj.targetMachine.user,pass: configObj.targetMachine.pass}
+'jmeter -n -t' + _doc.name +' -l' + '<test log file>' +' -e -o '+ '<Path to output folder>' + ' & echo $!''
