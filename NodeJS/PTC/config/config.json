@@ -1,5 +1,5 @@
 {
-	"maxDurTime": 45,
+	"maxDurTime": 60,
 	"maxConTasks": 5,
 	"targetMachine":
 		{

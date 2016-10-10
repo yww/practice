@@ -15,20 +15,23 @@ var SSHObj = {
     user: configObj.targetMachine.user,
     pass: configObj.targetMachine.pass
 }
+
 function startTask(doc){
 	var ssh = new SSH(SSHObj)
 	ssh.exec('nohup sleep 300 & echo $!',{out: function(pId){
-		
-		doc.pId = parseInt(pId)
-		doc.save(function(err, doc){
-			if (err){
-				console.log(err)
-			} 
-		})
-		}}).start()
+		if(pId){
+			doc.status=2
+			doc.pId = parseInt(pId)
+			doc.save(function(err, doc){
+					if (err){
+						console.log(err)
+					} 
+				})
+			}}}).start()				
 	}
 
 function killTask(doc){
+	var ssh = new SSH(SSHObj)
 	ssh
 	.exec('kill -9 '+doc.pId,{
 		exit: function(code){
@@ -37,7 +40,8 @@ function killTask(doc){
 			}
 		},
 		out:function(result){
-		console.log(result)
+			console.log('task expire, killed')
+			console.log('result')
 	}}).start()
 }
 
@@ -48,7 +52,7 @@ function copyFile(pid){
 
 // Below functions will be invoked in interval loop 
 
-// if there are pending tasks, execute it accordingly Status: 1 pending, 2 running, 3 finished, 4 killed, 5 unknown
+// if there are pending tasks, execute it accordingly Status: 1 pending, 2 running, 3 finished, 4 killed, 5 Log copied 6 unknown
 exports.execTask = function(){
 
 	var runningTasks 
@@ -56,22 +60,19 @@ exports.execTask = function(){
 		if(err){
 			console.log(err)
 		}else{
-			console.log(count);
 			runningTasks=count
 				var maxConTasks = configObj.maxConTasks;
 			if(runningTasks<maxConTasks){
-				console.log('execTask...')
 				Task
 				.find({status:1})
 				.sort({'meta.recordAt':'desc'})
 				.limit(1)
 				.exec(function(err, tasks){
 					var _task = tasks[0]
-					_task.status=2
-					_task.save(function(err,task){
-						if(err){console.log(err)}
+					if(_task){
 						startTask(_task)
-					})
+						_task.status=2					
+					}
 				})
 			}else{
 				return
@@ -90,14 +91,23 @@ exports.FinishTask = function(){
 				console.log(err)
 			}
 			tasks.forEach(function(t) {
-				var ssh = new SSH(SSHObj)
-				ssh
-				.exec('ps -p '+t.pId+' -o s=',{exit: function(code) {
-					if (code === 1) {
-						t.status = 3
-						t.save()
-					}
-				}}).start()
+				if(t.pId){
+					var ssh = new SSH(SSHObj)
+					ssh
+					.exec('ps -p '+t.pId+' -o s=',{
+						exit: function(code) {
+							if (code === 1) {
+								console.log('exit code ==1, task don\'t exist')
+								t.status = 3
+								t.save()
+							}		
+						},
+						out: function(result){
+							console.log('task is running')
+							console.log(result)
+						}
+					}).start()					
+				}
 			})
 		}
 	)
@@ -106,7 +116,7 @@ exports.FinishTask = function(){
 //kill expired tasks
 exports.killExpired = function(){
 	//read maximum duration (min *60*1000-> s) time from config file
-	var maxDurTime = configObj.maxDurTime*60*1000
+	var maxDurTime = configObj.maxDurTime*1*1000
 	Task
 	.find({status:2})
 	.exec(
@@ -119,6 +129,7 @@ exports.killExpired = function(){
 				console.log(duration)
 
 				if(duration>=maxDurTime){
+					console.log('30 s, kill task')
 					t.status = 4
 					t.save(function(err){
 						if(err){

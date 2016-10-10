@@ -28,3 +28,6 @@ Task
 				console.log('success')
 		})
 	})
+
+
+	nohup sleep 300 & echo $!

@@ -6,18 +6,17 @@ var moment = require('moment')
 
 exports.getAllTask = function(req, res){
 		Task
-			.find({})
-			.populate('commitId','userName')
-			.populate('status','status')
-			.exec(function(err, tasks){
-				var _tasks=[];
-				for(var i in tasks){
-					var subTask=[tasks[i].name, tasks[i].commitId.userName, moment(tasks[i].meta.recordAt).format('yyyy/MM/dd HH:mm:ss'), moment(tasks[i].meta.endAt).format('yyyy/MM/dd HH:mm:ss'), 'In Progress', 'log']
-					_tasks.push(subTask)
-				}
-				console.log(tasks)
-				res.send(_tasks)
-			})
+		.find({})
+		.populate('commitId','userName')
+	//	.populate('status','status')
+		.exec(function (err, tasks) {
+			var _tasks=[];
+			for(var i in tasks){
+				var subTask=[tasks[i].name, tasks[i].commitId.userName, moment(tasks[i].meta.recordAt).format('YYYY/MM/dd HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/dd HH:mm:ss'), tasks[i].status, 'log']
+				_tasks.push(subTask)
+			}
+			res.send(_tasks)
+		})
 }
 
 exports.addTask = function(req,res){
