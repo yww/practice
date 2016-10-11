@@ -16,9 +16,37 @@ var SSHObj = {
     pass: configObj.targetMachine.pass
 }
 
+//make dirs for execution result
+function mkFolder(doc){
+	var ssh = new SSH(SSHObj)
+	var name = doc.name
+	var id = doc._id
+	ssh
+	.exec('mkdir /usr/PTC/logs/dashboard/'+id,
+		{exit: function(code) {
+			if (code === 1) {
+				console.log('make dir failed')
+			}		
+		}})
+	.exec('mkdir /usr/PTC/logs/report/'+id,
+		{exit: function(code) {
+			if (code === 1) {
+				console.log('make dir failed')
+			}		
+		}})
+	.start()				
+	}
+
 function startTask(doc){
 	var ssh = new SSH(SSHObj)
-	ssh.exec('nohup sleep 300 & echo $!',{out: function(pId){
+	var name = doc.name
+	var id = doc._id
+	var path = 'usr/PTC'
+	//console.log('/usr/PTC/JMeter/bin/jmeter.sh -n -t' +path +'cases/'+name+'.jmx -e -o /usr/PTC/logs/reports/'+id+'& echo $!')
+	ssh
+	.exec('cd /usr/PTC')
+	.exec('pwd',{out: function(path){console.log('PWD'); console.log(path)}})
+	.exec('nohup /usr/JMeter/bin/jmeter.sh -n -t /usr/PTC/cases/EmailTemplate.jmx -l /usr/PTC/xxx.xml',{out: function(pId){
 		if(pId){
 			doc.status=2
 			doc.pId = parseInt(pId)
@@ -45,8 +73,9 @@ function killTask(doc){
 	}}).start()
 }
 
+//copy file from target machine
 function copyFile(pid){
-	//copy file from target machine
+	
 }
 
 
@@ -70,8 +99,9 @@ exports.execTask = function(){
 				.exec(function(err, tasks){
 					var _task = tasks[0]
 					if(_task){
+						//mkFolder(_task)	
 						startTask(_task)
-						_task.status=2					
+									
 					}
 				})
 			}else{
