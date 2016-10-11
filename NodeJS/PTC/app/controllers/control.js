@@ -16,37 +16,12 @@ var SSHObj = {
     pass: configObj.targetMachine.pass
 }
 
-//make dirs for execution result
-function mkFolder(doc){
-	var ssh = new SSH(SSHObj)
-	var name = doc.name
-	var id = doc._id
-	ssh
-	.exec('mkdir /usr/PTC/logs/dashboard/'+id,
-		{exit: function(code) {
-			if (code === 1) {
-				console.log('make dir failed')
-			}		
-		}})
-	.exec('mkdir /usr/PTC/logs/report/'+id,
-		{exit: function(code) {
-			if (code === 1) {
-				console.log('make dir failed')
-			}		
-		}})
-	.start()				
-	}
-
 function startTask(doc){
 	var ssh = new SSH(SSHObj)
 	var name = doc.name
 	var id = doc._id
-	var path = 'usr/PTC'
-	//console.log('/usr/PTC/JMeter/bin/jmeter.sh -n -t' +path +'cases/'+name+'.jmx -e -o /usr/PTC/logs/reports/'+id+'& echo $!')
 	ssh
-	.exec('cd /usr/PTC')
-	.exec('pwd',{out: function(path){console.log('PWD'); console.log(path)}})
-	.exec('nohup /usr/JMeter/bin/jmeter.sh -n -t /usr/PTC/cases/EmailTemplate.jmx -l /usr/PTC/xxx.xml',{out: function(pId){
+	.exec('/usr/PTC/start.sh ' + id + ' ' + name,{out: function(pId){
 		if(pId){
 			doc.status=2
 			doc.pId = parseInt(pId)
@@ -99,9 +74,7 @@ exports.execTask = function(){
 				.exec(function(err, tasks){
 					var _task = tasks[0]
 					if(_task){
-						//mkFolder(_task)	
-						startTask(_task)
-									
+						startTask(_task)		
 					}
 				})
 			}else{
@@ -129,6 +102,7 @@ exports.FinishTask = function(){
 							if (code === 1) {
 								console.log('exit code ==1, task don\'t exist')
 								t.status = 3
+								t.logFile = true
 								t.save()
 							}		
 						},
@@ -146,7 +120,7 @@ exports.FinishTask = function(){
 //kill expired tasks
 exports.killExpired = function(){
 	//read maximum duration (min *60*1000-> s) time from config file
-	var maxDurTime = configObj.maxDurTime*1*1000
+	var maxDurTime = configObj.maxDurTime*60*1000
 	Task
 	.find({status:2})
 	.exec(

@@ -2,8 +2,9 @@ var Task = require('../models/task');
 var app = require('../../app')
 var _ = require('underscore');
 var moment = require('moment')
-
-
+var fs = require('fs')
+var configObj = JSON.parse(fs.readFileSync(__dirname + '/../../config/config.json', 'utf8'))
+var host = configObj.targetMachine.host
 exports.getAllTask = function(req, res){
 		Task
 		.find({})
@@ -12,7 +13,7 @@ exports.getAllTask = function(req, res){
 		.exec(function (err, tasks) {
 			var _tasks=[];
 			for(var i in tasks){
-				var subTask=[tasks[i].name, tasks[i].commitId.userName, moment(tasks[i].meta.recordAt).format('YYYY/MM/dd HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/dd HH:mm:ss'), tasks[i].status, 'log']
+				var subTask=[tasks[i].name, tasks[i].commitId.userName, moment(tasks[i].meta.recordAt).format('YYYY/MM/dd HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/dd HH:mm:ss'), tasks[i].status, host+'/'+tasks[i]._id]
 				_tasks.push(subTask)
 			}
 			res.send(_tasks)
@@ -36,7 +37,7 @@ exports.addTask = function(req,res){
 				console.log(err)
 			}
 			task.commitId = req.session.user.userName
-			var node = [task.name, req.session.user.userName, moment(task.meta.recordAt).format('yyyy/MM/dd HH:mm:ss'),moment(task.meta.endAt).format('yyyy/MM/dd HH:mm:ss'),'In Progress','report' ]
+			var node = [task.name, req.session.user.userName, moment(task.meta.recordAt).format('YYYY/MM/DD HH:mm:ss'),moment(task.meta.endAt).format('YYYY/MM/DD HH:mm:ss'),'1','log' ]
 		    res.send(node)
 		})
 }

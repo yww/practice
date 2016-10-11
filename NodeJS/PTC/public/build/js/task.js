@@ -12,7 +12,11 @@ $(document).ready(function(){
 			{"sTitle": "StartTime"},
 			{"sTitle": "End Time"},
 			{"sTitle": "Status"},
-			{"sTitle": "Report"}
+			{"sTitle": "Report",
+				"render": function(Id){
+					return '<a style= ""href="http://'+Id+'/dashboard">log</a>'
+					}
+				}
 			]
 		})
 	})
@@ -26,7 +30,7 @@ $(document).ready(function(){
 			url: '/addTask',
 			data:JSON.stringify({name:$("#heard").attr('selected', true).val()})
 		}).done(function(task){
-			console.log(task)
+			//console.log(task)
 			$('#datatable2').dataTable().fnAddData(task)
 		})
 	})
