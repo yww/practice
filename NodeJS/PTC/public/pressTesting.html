@@ -208,7 +208,7 @@
             <!-- Select Case -->
             <div class="x_content">
               <div class="row">
-                  <label class="control-label col-md-6 col-sm-12 col-xs-12">URL</label>
+                  <label class="control-label col-md-6 col-sm-12 col-xs-12">Host</label>
                   <label class="control-label col-md-4 col-sm-12 col-xs-12">Case</label>
               </div>
               <div class="row">
@@ -224,12 +224,33 @@
                 </select>
                   </div>
                   <div class="col-md-2 col-sm-6 col-xs-6 form-group">
-                    <button id="startTest" type="button" class="btn btn-primary" onclick="">
+                    <!-- Button trigger modal -->
+                    <button id="startTest" type="button" class="btn btn-primary" data-toggle="modal" data-target="#JMeter">
                       START TEST
                   </button>
                 </div>
               </div>
             </div>
+
+            <!-- Modal body, to fill JMeter properties-->
+            <div class="modal fade" id="JMeter" tabindex="-1" role="dialog" aria-labelledby="JMeterLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             <!-- Result Table -->
             <div class="row">
@@ -299,7 +320,7 @@
 
     <!-- Custom user Script -->
     <script type="text/javascript" src="/build/js/user.js"></script>
-    <script type="text/javascript" src= "/build/js/task.js"></script>
+    <!--<script type="text/javascript" src= "/build/js/task.js"></script> -->
     <!-- Datatables -->
     <script>
       $(document).ready(function() {
