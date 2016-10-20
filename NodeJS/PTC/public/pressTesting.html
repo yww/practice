@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Press Testing</title>
+    <title>JMeter Test</title>
 
     <!-- Bootstrap -->
     <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,9 +23,11 @@
     <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- Dropzone.css -->
+    <link href="../vendors/dropzone/dist/dropzone.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="/build/css/custom.min.css" rel="stylesheet">
+    <link href="/build/css/custom.css" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -62,12 +64,12 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="#">pressTesting</a></li>
+                      <li><a href="#">JMter Test</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Performance Testing <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="pressTesting.html">Press Testing</a></li>
+                      <li><a href="pressTesting.html">JMter Test</a></li>
                       <li><a href="#">Advanced Components</a></li>
                     </ul>
                   </li>
@@ -197,60 +199,109 @@
 
             <div class="right_col" role="main">
               <div class="">
-                <div class="clearfix"></div>
-
-            <!-- Main title -->
-            <div class="row" style="text-align:center;margin-bottom:30px">
-                    <h1>Performance Testing Center</h1>
-                    <h4>Description.</h4>
-            </div>
-
-            <!-- Select Case -->
-            <div class="x_content">
-              <div class="row">
-                  <label class="control-label col-md-6 col-sm-12 col-xs-12">Host</label>
-                  <label class="control-label col-md-4 col-sm-12 col-xs-12">Case</label>
-              </div>
-              <div class="row">
-                  <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                      <input type="text" placeholder="Please Enter a Website URL" class="form-control">
-                  </div>
-                  <div class="col-md-4 col-sm-12 col-xs-12 form-group">
-                      <select id="heard" class="form-control" name="website_chrome_type">
-                  <option value="">Choose a JMeter Case</option>
-                  <option value="Chrome">Case 1</option>
-                  <option value="Firefox">Case 2</option>
-                  <option value="IE11">Case 3</option>
-                </select>
-                  </div>
-                  <div class="col-md-2 col-sm-6 col-xs-6 form-group">
-                    <!-- Button trigger modal -->
-                    <button id="startTest" type="button" class="btn btn-primary" data-toggle="modal" data-target="#JMeter">
-                      START TEST
-                  </button>
+              <div class="page-title">
+                <div class="title_left">
+                  <h3>Form Elements</h3>
                 </div>
-              </div>
-            </div>
 
-            <!-- Modal body, to fill JMeter properties-->
-            <div class="modal fade" id="JMeter" tabindex="-1" role="dialog" aria-labelledby="JMeterLabel">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                  </div>
-                  <div class="modal-body">
-                    ...
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="title_right">
+                  <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search for...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
+              <div class="clearfix"></div>
+
+
+            <div class="x_panel">
+                  <div class="x_title">
+                    <h2>JMeter Test <small>different form elements</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li>
+                        <button class="btn btn-primary">Save</button>
+                        <button class="btn btn-warning">Reset</button>
+                      </li>
+
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+
+              <div class="x_content">
+                <div class="row">  
+                  <div class="form-horizontal" role="form form-label-left">
+                    <div class="col-md-6 col-sm-12 col-xs-12" style="padding-top: 20px">
+                    <h4>Case upload/Basic configuration</h4>
+                    <form action="form_upload.html" class="dropzone" style="margin-bottom: 15px"></form>
+                      <div class="form-group">
+                        <div class="checkbox col-sm-4">
+                          <label for="overideHost">
+                            <input type="checkbox" class="flat" checked="checked"> Host
+                          </label>
+                        </div>
+                        <div class="col-sm-8">
+                          <input type="text" name="overideHost" class="form-control" id="overideHost">
+                        </div>
+                      </div>
+                    </div>   
+
+                    <div class="col-md-6 col-sm-12 col-xs-12" style="padding-top: 20px"> 
+                      <h4> Load Configuration</h4>
+                      <div class="form-group">
+                        <div class="checkbox col-sm-4">
+                          <label for="overideUser">
+                            <input type="checkbox" class="flat" checked="checked"> Users
+                          </label>
+                        </div>
+                        <div class="col-sm-8">
+                          <input type="text" name="overideHost" class="form-control" id="overideUser">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="checkbox col-sm-4">
+                          <label for="overideRampup">
+                            <input type="checkbox" class="flat" checked="checked"> Rampup
+                          </label>
+                        </div>
+                        <div class="col-sm-8">
+                          <input type="text" name="overideRampup" class="form-control" id="overideRampup">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="checkbox col-sm-4">
+                          <label for="overideIteration">
+                            <input type="checkbox" class="flat" checked="checked"> Iteration
+                          </label>
+                        </div>
+                        <div class="col-sm-8">
+                          <input type="text" name="overideIteration" class="form-control" id="overideIteration">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="checkbox col-sm-4">
+                          <label for="overideDuration">
+                            <input type="checkbox" class="flat" checked="checked"> Duration
+                          </label>
+                        </div>
+                        <div class="col-sm-8">
+                          <input type="text" name="overideDuration" class="form-control" id="overideDuration">
+                        </div>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <!-- Result Table -->
             <div class="row">
@@ -263,18 +314,16 @@
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                      Description ...</code>
+                      Description ...
                     </p>
                     <div id="tabelWrap">
 
                     </div>
-
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+           </div>
         <!-- /page content -->
 
         <!-- footer content -->
@@ -314,9 +363,13 @@
     <script src="/vendors/jszip/dist/jszip.min.js"></script>
     <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script src="/vendors/validator/validator.js"></script>
+
+    <!-- Dropzone.js -->
+    <script src="../vendors/dropzone/dist/dropzone.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="/build/js/custom.min.js"></script>
+    <script src="/build/js/custom.js"></script>
 
     <!-- Custom user Script -->
     <script type="text/javascript" src="/build/js/user.js"></script>
