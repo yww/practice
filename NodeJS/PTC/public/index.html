@@ -329,8 +329,53 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane fade" id="Project" aria-labelledby="profile-tab">
-                      <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                        booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+                      <div class="row">
+                        <div class="row">
+                          <div class="nav navbar-right panel_toolbox">
+                             <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Create Project</button>
+                          </div>
+                        </div>
+                        <div class="col-md-12 table">
+                          <table class="table table-striped">
+                            <tbody>
+                              <tr>
+                                <td><h4><a href=""> All Tests</a></h4></td>
+                                <td class="description blue"> All of your personal test</td>
+                              </tr>
+
+                              <tr>
+                                <td><h4><a href="" class="blue"> Default</a></h4></td>
+                                <td class="description"> All of your personal test</td>
+                              </tr>                              
+                            </tbody>
+                          </table>
+                        </div> 
+
+                        <!--modal-->
+                        <!-- Small modal -->
+                        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel2">Create a new project</h4>
+                              </div>
+                              <div class="modal-body">
+                                <form class="">
+                                  <div class="form-group">
+                                    <label for="new-project-name" class="control-label">Name</label>
+                                    <input type="text" placeholder="Project name" value="" id="new-project-name" class="form-control"></div>
+                                  <div class="form-group">
+                                    <label for="new-project-description" class="control-label">Description</label>
+                                    <input type="text" label="Description" placeholder="Project description" value="" id="new-project-description" class="form-control"></div>
+                                  <button type="submit"  class="btn btn-primary">Create project</button>
+                                </form>
+                            </div>
+                          </div>
+                        </div>                                               
+                      </div>
                     </div>
                   </div>
                 </div>
