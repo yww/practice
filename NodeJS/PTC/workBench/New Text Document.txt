@@ -1,0 +1,1 @@
+d:\Software&Tool\apache-jmeter-3.0\apache-jmeter-3.0\bin>jmeter -n -t C:\Users\I075483\Desktop\blazemeter.jmx -JV_Host=localhost -JV_Users=20 -JV_Rampup=120 -JV_Port=8080 -l C:\Users\I075483\Desktop\log\log\blazemeter.jtl -e -o C:\Users\I075483\Desktop\log\graph
