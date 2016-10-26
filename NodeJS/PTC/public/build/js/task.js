@@ -14,13 +14,27 @@ $(document).ready(function(){
 			{"sTitle": "Status"},
 			{"sTitle": "Report",
 				"render": function(Id){
-					return '<a style= ""href="http://'+Id+'/dashboard">log</a>'
+					return '<a class="blue" href="http://'+Id+'/dashboard">log</a>'
 					}
 				}
 			]
 		})
 	})
 })
+
+function getConfiguration(){
+	var configList=["caseName","overideHost","overideRampup","overideIteration","overideDuration","overideUser"]
+	var config={}
+
+	for (i in configList){
+		var configValue=$("#"+configList[i]+"[disabled!=disabled]").val();
+	   	if(configValue){
+	   		config[configList[i]]=configValue
+	   }
+	}	
+	return config;
+}
+
 
 $(document).ready(function(){
 	$('#startTest').click(function(){

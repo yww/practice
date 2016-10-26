@@ -1,8 +1,9 @@
 var User = require('../app/controllers/user')
 var Task = require('../app/controllers/task')
+var Project = require('../app/controllers/project')
+var Test = require('../app/controllers/test')
 
 module.exports = function(app){
-
 	//user prehandling 
 	app.use(function(req,res,next){
 		var _user = req.session.user
@@ -26,8 +27,16 @@ module.exports = function(app){
 	app.get('/session/user',User.sessionUser)
 
 
-	//Case Operation
+	//Task Operation
 	app.get('/getAllTask',Task.getAllTask)
 	app.post('/addTask',Task.addTask)
+
+	//Project Operation
+	app.get('/getAllProject',Project.getAllProject)
+	app.post('/addProject',Project.addProject)
+	//Test Operation
+	app.get('/getAllTest',Test.getAllTest)
+	app.post('/addTest',Test.addTest)
+	
 }
 

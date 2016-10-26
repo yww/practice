@@ -296,7 +296,7 @@
                   <div class="form-horizontal" role="form form-label-left">
                     <div class="col-md-6 col-sm-12 col-xs-12" style="padding-top: 20px">
                     <h4>Case upload/Basic configuration</h4>
-                    <form action="form_upload.html" class="dropzone" style="margin-bottom: 15px"></form>
+                    <form action="/uploadCase" method="POST" class="dropzone" style="margin-bottom: 15px"></form>
                       <div class="form-group">
                         <div class="checkbox col-sm-4">
                           <label for="overideHost">
@@ -314,7 +314,7 @@
                       <div class="form-group">
                         <div class="checkbox col-sm-4">
                           <label for="overideUser">
-                            <input type="checkbox" class="flat" checked="checked"> Users
+                            <input type="checkbox" class="flat" checked="checked" id="users"> Users
                           </label>
                         </div>
                         <div class="col-sm-8">
@@ -325,7 +325,7 @@
                       <div class="form-group">
                         <div class="checkbox col-sm-4">
                           <label for="overideRampup">
-                            <input type="checkbox" class="flat" checked="checked"> Rampup
+                            <input type="checkbox" class="flat" checked="checked" id="rampup"> Rampup
                           </label>
                         </div>
                         <div class="col-sm-8">
@@ -336,7 +336,7 @@
                       <div class="form-group">
                         <div class="checkbox col-sm-4">
                           <label for="overideIteration">
-                            <input type="checkbox" class="flat" checked="checked"> Iteration
+                            <input type="checkbox" class="flat" checked="checked" id="iteration"> Iteration
                           </label>
                         </div>
                         <div class="col-sm-8">
@@ -347,7 +347,7 @@
                       <div class="form-group">
                         <div class="checkbox col-sm-4">
                           <label for="overideDuration">
-                            <input type="checkbox" class="flat" checked="checked"> Duration
+                            <input type="checkbox" class="flat" checked="checked" id="duration"> Duration
                           </label>
                         </div>
                         <div class="col-sm-8">
