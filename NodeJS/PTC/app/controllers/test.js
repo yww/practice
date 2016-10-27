@@ -14,8 +14,7 @@ exports.addTest = function(req,res){
 			if(err){
 				console.log(err)
 			}
-			var node = [test.name, req.session.user.userName, test.type,test.users, moment(test.meta.createAtmoment).format('YYYY/MM/DD HH:mm:ss')]
-		    res.send(node)
+		    res.send(test)
 	})
 }
 
@@ -31,6 +30,14 @@ exports.getAllTest = function(req, res){
 	})
 }
 
+exports.getTest = function(req, res){
+	var _id=req.params.id
+	Test
+	.findById(function(err,test){
+		if(err){console.log(err)}
+			res.send(test)
+	})
+}
 //upload a new case
 exports.uploadCase= function(){
 

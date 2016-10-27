@@ -17,6 +17,17 @@ exports.addProject = function(req,res){
 		})
 }
 
+exports.getProject = function(req,res){
+	var _id=req.params.id
+	Project
+	.findById(_id, function(err, project){
+		if(err){
+			console.log(err)
+		}
+		res.send(project)
+	})
+}
+
 exports.getAllProject = function(req, res){
 	Project
 	.find({})

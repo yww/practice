@@ -5,6 +5,7 @@ var moment = require('moment')
 var fs = require('fs')
 var configObj = JSON.parse(fs.readFileSync(__dirname + '/../../config/config.json', 'utf8'))
 var host = configObj.targetMachine.host
+
 exports.getAllTask = function(req, res){
 		Task
 		.find({})

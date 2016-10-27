@@ -32,11 +32,14 @@ module.exports = function(app){
 	app.post('/addTask',Task.addTask)
 
 	//Project Operation
-	app.get('/getAllProject',Project.getAllProject)
-	app.post('/addProject',Project.addProject)
+	app.get('/project',Project.getAllProject)
+	app.get('/project/:id', Project.getProject)
+	app.post('/project',Project.addProject)
+
 	//Test Operation
-	app.get('/getAllTest',Test.getAllTest)
-	app.post('/addTest',Test.addTest)
+	app.get('/test',Test.getAllTest)
+	app.get('/test/:id',Test.getTest)
+	app.post('test',Test.addTest)
 	
 }
 
