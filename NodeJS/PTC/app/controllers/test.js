@@ -1,14 +1,15 @@
 var Test = require('../models/test');
 var app = require('../../app')
 var _ = require('underscore');
-var moment = require('moment')
+var moment = require('moment');
+var fs  = require('fs');
+var path = require('path');
+
 
 exports.addTest = function(req,res){
 		var _test=req.body;
 		_test.owner=req.session.user._id;
-		var test= new Test({
-			_test
-		})
+		var test= new Test(_test)
 
 		test.save(function(err,test){
 			if(err){
@@ -39,8 +40,25 @@ exports.getTest = function(req, res){
 	})
 }
 //upload a new case
-exports.uploadCase= function(){
+exports.uploadCase= function(req,res,next){
+	var caseData = req.files.uploadCase
+	var filePath = caseData.path
+	var originalFilename = caseData.originalFilename
 
+	if(originalFilename){
+		fs.readFile(filePath, function(err,data){
+			var timestamp = Date.now();
+			var type = caseData.type.split('/')[1];
+			var newName = timestamp+'.'+'jmx';
+			var newPath = path.join(__dirname,'../../','/public/upload/case/'+newName);
+
+			fs.writeFile(newPath,data,function(err){
+				console.log(err)
+				res.send("success")
+				next()
+			})
+		})
+	}else{next()}
 }
 
 

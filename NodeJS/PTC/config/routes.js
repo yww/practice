@@ -39,7 +39,8 @@ module.exports = function(app){
 	//Test Operation
 	app.get('/test',Test.getAllTest)
 	app.get('/test/:id',Test.getTest)
-	app.post('test',Test.addTest)
+	app.post('/test',Test.addTest)
+	app.post('/upload',Test.uploadCase)
 	
 }
 

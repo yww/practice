@@ -8,6 +8,7 @@ var mongoStore = require('connect-mongo')(expressSession)
 var morgan = require('morgan')
 var User = require('./app/controllers/user')
 var Control = require('./app/controllers/control')
+var multiparty = require('connect-multiparty')
 var port = process.env.PORT || 8080
 var app = express()
 var dbUrl = 'mongodb://localhost:27017/ptc'
@@ -17,6 +18,7 @@ console.log('ptc started on'+ port)
 
 //connet mongoDB
 mongoose.Promise = global.Promise
+
 mongoose.connect(dbUrl, function(err){
 	if(err){
 		console.log(err)
@@ -34,6 +36,10 @@ app.use(expressSession({
 		collection: 'session'
 	})
 }))
+
+//parse multipart form data
+app.use(multiparty())
+
 
 //static resource
 app.use(serveStatic(path.join(__dirname,'public')))
