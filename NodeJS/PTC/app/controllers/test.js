@@ -34,7 +34,7 @@ exports.getAllTest = function(req, res){
 exports.getTest = function(req, res){
 	var _id=req.params.id
 	Test
-	.findById(function(err,test){
+	.findById(_id,function(err,test){
 		if(err){console.log(err)}
 			res.send(test)
 	})
@@ -54,7 +54,7 @@ exports.uploadCase= function(req,res,next){
 
 			fs.writeFile(newPath,data,function(err){
 				console.log(err)
-				res.send("success")
+				res.send(newName)
 				next()
 			})
 		})

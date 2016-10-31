@@ -214,7 +214,7 @@
               <div class="">
               <div class="page-title">
                 <div class="title_left">
-                  <h3>Form Elements</h3>
+                  <h3>JMeter Test</h3>
                 </div>
 
                 <div class="title_right">
@@ -269,7 +269,7 @@
                       </div>
                     </div>
                   <div class="modal-footer">
-                    <button title="Launch Servers" type="button" class="btn btn-success">Launch Servers</button>
+                    <button title="Launch Servers" type="button" class="btn btn-success" id="launchTest">Launch Servers</button>
                   </div>
                 </div>
               </div>                                               
@@ -278,7 +278,30 @@
             <!--main part-->
             <div class="x_panel">
                   <div class="x_title">
-                    <h2>JMeter Test <small>different form elements</small></h2>
+                    <div class="col-md-8" style="margin:0">
+                      <form class="form-horizontal form-label-left input_mask" style="margin-left:-65px">
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Project:</label>
+                          <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" name="project">
+                              <option>Default Project</option>
+                              <option>Option one</option>
+                              <option>Option two</option>
+                              <option>Option three</option>
+                              <option>Option four</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Name:</label>
+                          <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" name="testName" class="form-control" placeholder="Please specify test name here">
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
                     <ul class="nav navbar-right panel_toolbox">
                       <li>
                         <button class="btn btn-primary" data-toggle="modal" data-target=".start-stoptest--dialog">Save</button>
@@ -296,15 +319,21 @@
                   <div class="form-horizontal" role="form form-label-left">
                     <div class="col-md-6 col-sm-12 col-xs-12" style="padding-top: 20px">
                     <h4>Case upload/Basic configuration</h4>
-                    <form class="dropzone" style="margin-bottom: 15px"></form>
+                    <form class="dropzone" style="margin-bottom: 15px">
+                      <!-- hidden input field, to store new case name(time stampt)-->
+                      <input type="text" name="caseName" class="hidden" id="overideCase">
+                    </form>
+
+
                       <div class="form-group">
                         <div class="checkbox col-sm-4">
-                          <label for="overideHost">
-                            <input type="checkbox" class="flat" checked="checked"> Host
+                          <label for="host">
+
+                            <input type="checkbox" class="flat" checked="checked"> host
                           </label>
                         </div>
                         <div class="col-sm-8">
-                          <input type="text" name="overideHost" class="form-control" id="overideHost">
+                          <input type="text" name="host" class="form-control" id="overideHost">
                         </div>
                       </div>
                     </div>   
@@ -318,7 +347,7 @@
                           </label>
                         </div>
                         <div class="col-sm-8">
-                          <input type="text" name="overideHost" class="form-control" id="overideUser">
+                          <input type="text" name="users" class="form-control" id="overideUser">
                         </div>
                       </div>
 
@@ -329,7 +358,7 @@
                           </label>
                         </div>
                         <div class="col-sm-8">
-                          <input type="text" name="overideRampup" class="form-control" id="overideRampup">
+                          <input type="text" name="rampup" class="form-control" id="overideRampup">
                         </div>
                       </div>
 
@@ -340,7 +369,7 @@
                           </label>
                         </div>
                         <div class="col-sm-8">
-                          <input type="text" name="overideIteration" class="form-control" id="overideIteration">
+                          <input type="text" name="iteration" class="form-control" id="overideIteration">
                         </div>
                       </div>
 
@@ -351,7 +380,7 @@
                           </label>
                         </div>
                         <div class="col-sm-8">
-                          <input type="text" name="overideDuration" class="form-control" id="overideDuration">
+                          <input type="text" name="duration" class="form-control" id="overideDuration">
                         </div>
                       </div> 
                     </div>
@@ -430,6 +459,7 @@
 
     <!-- Custom user Script -->
     <script type="text/javascript" src="/build/js/user.js"></script>
+    <script type="text/javascript" src="/build/js/test.js"></script>
     <!--<script type="text/javascript" src= "/build/js/task.js"></script> -->
     <!-- Datatables -->
     <script>

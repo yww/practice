@@ -5,9 +5,9 @@ var ObjectId = Schema.Types.ObjectId
 
 var TestSchema = new Schema({
 	name:{uniqe: true,type: String},
-	type:{type: ObjectId, ref:'testType', default:1},
+	//type:{type: ObjectId, ref:'testType', default:1},
 	owner: {type: ObjectId, ref:'User'},	
-	project: {type: ObjectId, ref:'Project'},
+	//project: {type: ObjectId, ref:'Project'},
 	caseName:String,
 	host: String,
 	port: Number,

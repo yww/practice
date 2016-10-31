@@ -370,8 +370,10 @@
       totaluploadprogress: noop,
       sending: noop,
       sendingmultiple: noop,
-      success: function(file) {
+      success: function(file,responseText) {
         if (file.previewElement) {
+          console.log(responseText)
+          $("input[name='caseName']").val(responseText)
           return file.previewElement.classList.add("dz-success");
         }
       },
