@@ -13,7 +13,8 @@ exports.addProject = function(req,res){
 			if(err){
 				console.log(err)
 			}
-		    res.send(project)
+			var node=[project.name, project.desc, project.owner, moment(project.meta.createAt).format('YYYY/MM/DD')]
+		    res.redirect(req.get('referer'))
 		})
 }
 
@@ -31,11 +32,13 @@ exports.getProject = function(req,res){
 exports.getAllProject = function(req, res){
 	Project
 	.find({})
-	.populate('owner','userName')
+	//.populate('commitId','userName')
 	.exec(function(err, projects){
-		if(err){console.log(err)}
-			res.send(projects)
+		var _projects=[];
+		for(var i in projects){
+			var subProject=[projects[i].name, projects[i].desc, projects[i].owner, moment(projects[i].meta.createAt).format('YYYY/MM/DD')]
+			_projects.push(subProject)
+		}
+		res.send(_projects)
 	})
 }
-
-

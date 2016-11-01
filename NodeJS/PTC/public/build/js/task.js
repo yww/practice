@@ -22,20 +22,6 @@ $(document).ready(function(){
 	})
 })
 
-function getConfiguration(){
-	var configList=["caseName","overideHost","overideRampup","overideIteration","overideDuration","overideUser"]
-	var config={}
-
-	for (i in configList){
-		var configValue=$("#"+configList[i]+"[disabled!=disabled]").val();
-	   	if(configValue){
-	   		config[configList[i]]=configValue
-	   }
-	}	
-	return config;
-}
-
-
 $(document).ready(function(){
 	$('#startTest').click(function(){
 		$.ajax({
@@ -49,5 +35,9 @@ $(document).ready(function(){
 		})
 	})
 })
+
+
+
+
 
 
