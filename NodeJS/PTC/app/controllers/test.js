@@ -7,7 +7,7 @@ var path = require('path');
 
 
 exports.addTest = function(req,res){
-		var _test=req.body;
+		var _test=req.body.test;
 		_test.owner=req.session.user._id;
 		var test= new Test(_test)
 
@@ -15,7 +15,7 @@ exports.addTest = function(req,res){
 			if(err){
 				console.log(err)
 			}
-		    res.send(test)
+		    res.redirect(req.get('referer'))
 	})
 }
 

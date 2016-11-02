@@ -2,6 +2,7 @@ var User = require('../app/controllers/user')
 var Task = require('../app/controllers/task')
 var Project = require('../app/controllers/project')
 var Test = require('../app/controllers/test')
+var Config = require('../app/controllers/config')
 
 module.exports = function(app){
 	//user prehandling 
@@ -39,7 +40,7 @@ module.exports = function(app){
 	//Test Operation
 	app.get('/test',Test.getAllTest)
 	app.get('/test/:id',Test.getTest)
-	app.post('/test',Test.addTest)
+	app.post('/test',Config.addConfig,Test.addTest)
 	app.post('/upload',Test.uploadCase)
 	
 }

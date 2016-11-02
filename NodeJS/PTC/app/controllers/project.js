@@ -36,7 +36,7 @@ exports.getAllProject = function(req, res){
 	.exec(function(err, projects){
 		var _projects=[];
 		for(var i in projects){
-			var subProject=[projects[i].name, projects[i].desc, projects[i].owner, moment(projects[i].meta.createAt).format('YYYY/MM/DD')]
+			var subProject=[projects[i]._id,projects[i].name, projects[i].desc, projects[i].owner, moment(projects[i].meta.createAt).format('YYYY/MM/DD')]
 			_projects.push(subProject)
 		}
 		res.send(_projects)

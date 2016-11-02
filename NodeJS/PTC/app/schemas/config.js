@@ -3,29 +3,29 @@ var Schema = mongoose.Schema
 var ObjectId = Schema.Types.ObjectId
 
 
-var TestSchema = new Schema({
-	name:{uniqe: true,type: String},
-	//type:{type: ObjectId, ref:'testType', default:1},
-	owner: {type: ObjectId, ref:'User'},	
-	project: {type: ObjectId, ref:'Project'},
-	configId: {type: ObjectId, ref:'Config'},
-	caseName:String,
+var ConfigSchema = new Schema({
+	host: String,
+	port: Number,
+	users: Number,
+	rampup: Number,
+	iteration:Number,
+	duration: Number,
+	commandParam:String,
 	meta: {
 		createAt:{
 			type: Date,
 			default: Date.now()
 		},
 		updateAt:{
-			type: Date
-		}
+			type: Date,
+			default: Date.now()
+		},
 	}
 })
 
-//method of document
-TestSchema.methods={}
 
 // execute function before saving data to database
-TestSchema.pre('save',function(next){
+ConfigSchema.pre('save',function(next){
 	var user = this;
 	if (this.isNew){
 		this.meta.createAt = this.meta.updateAt = Date.now();
@@ -36,7 +36,7 @@ TestSchema.pre('save',function(next){
 })
 
 //Method of model(table)
-TestSchema.statics={
+ConfigSchema.statics={
 	fetch: function(cb){
 		return this.find({}).sort('meta.updateAt').exec(cb);
 	},
@@ -44,5 +44,5 @@ TestSchema.statics={
 		return this.findOne({_id:id}).exec(cb);
 	}
 }
-module.exports = TestSchema
+module.exports = ConfigSchema
 

@@ -7,6 +7,7 @@ $(document).ready(function(){
 			"responsive": true,
 			"data": projects,
 			"columns": [
+				{"sTitle":"_Id"},
 				{"sTitle": "Name"},
 				{"sTitle": "Description"},
 				{"sTitle": "Owner"},
