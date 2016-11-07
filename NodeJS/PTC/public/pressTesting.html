@@ -299,7 +299,7 @@
 
                     <ul class="nav navbar-right panel_toolbox">
                       <li>
-                        <button class="btn btn-primary" data-toggle="modal" data-target=".start-stoptest--dialog">Save</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target=".start-stoptest--dialog" id="saveTest">Save</button>
                         <button class="btn btn-warning">Reset</button>
                       </li>
 
@@ -349,7 +349,7 @@
                       <div class="form-group">
                         <div class="checkbox col-sm-4">
                           <label for="overideRampup">
-                            <input type="checkbox" class="flat" checked="checked" id="rampup"> Rampup
+                            <input type="checkbox" class="flat" checked="checked" id="rampup"> Rampup (sec)
                           </label>
                         </div>
                         <div class="col-sm-8">
@@ -371,7 +371,7 @@
                       <div class="form-group">
                         <div class="checkbox col-sm-4">
                           <label for="overideDuration">
-                            <input type="checkbox" class="flat" checked="checked" id="duration"> Duration
+                            <input type="checkbox" class="flat" checked="checked" id="duration"> Duration(min)
                           </label>
                         </div>
                         <div class="col-sm-8">
@@ -455,7 +455,6 @@
     <!-- Custom user Script -->
     <script type="text/javascript" src="/build/js/user.js"></script>
     <script type="text/javascript" src="/build/js/test.js"></script>
-    <!--<script type="text/javascript" src= "/build/js/task.js"></script> -->
     <!-- Datatables -->
     <script>
       $(document).ready(function() {

@@ -29,8 +29,8 @@ module.exports = function(app){
 
 
 	//Task Operation
-	app.get('/getAllTask',Task.getAllTask)
-	app.post('/addTask',Task.addTask)
+	app.get('/task',Task.getAllTask)
+	app.post('/task',Task.addTask)
 
 	//Project Operation
 	app.get('/project',Project.getAllProject)

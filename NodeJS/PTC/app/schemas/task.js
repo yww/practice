@@ -3,7 +3,8 @@ var Schema = mongoose.Schema
 var ObjectId = Schema.Types.ObjectId
 
 var TaskSchema = new Schema({
-	test: {type: ObjectId, ref: 'Test'},
+	testId: {type: ObjectId, ref: 'Test'},
+	configId: {type: ObjectId, ref: 'Config'},
 	commitId: {type: ObjectId, ref:'User'},
 	status: {
 		type: Number,

@@ -9,13 +9,16 @@ var path = require('path');
 exports.addTest = function(req,res){
 		var _test=req.body.test;
 		_test.owner=req.session.user._id;
+
 		var test= new Test(_test)
 
 		test.save(function(err,test){
 			if(err){
 				console.log(err)
 			}
-		    res.redirect(req.get('referer'))
+			var id=test._doc._id;
+			res.send({testId:test._doc._id,configId:test._doc.configId})
+		    //res.redirect(req.get('referer'))
 	})
 }
 
