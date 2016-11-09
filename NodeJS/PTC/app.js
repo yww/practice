@@ -49,8 +49,8 @@ app.locals.moment = require('moment')
 require('./config/routes')(app)
 
 //polling database, to start/kill/ tasks or copy log  
-   
-   // setInterval(Control.execTask,5000)
+  Control.execTask()
+   //setInterval(Control.execTask,5000)
    // setInterval(Control.FinishTask, 5000) 
    // setInterval(Control.killExpired,10000)
 // setInterval(parseLog, 30000)

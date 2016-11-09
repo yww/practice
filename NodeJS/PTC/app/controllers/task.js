@@ -12,11 +12,11 @@ exports.getAllTask = function(req, res){
 		Task
 		.find({})
 		.populate('commitId','userName')
-		.populate('testId','name')
+		.populate('testId','testName')
 		.exec(function (err, tasks) {
 			var _tasks=[];
 			for(var i in tasks){
-				var subTask=[tasks[i].testId.name, tasks[i].commitId.userName, moment(tasks[i].meta.recordAt).format('YYYY/MM/dd HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/dd HH:mm:ss'), tasks[i].status, host+'/'+tasks[i]._id]
+				var subTask=[tasks[i].testId.testName, tasks[i].commitId.userName, moment(tasks[i].meta.recordAt).format('YYYY/MM/dd HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/dd HH:mm:ss'), tasks[i].status, host+'/'+tasks[i]._id]
 				_tasks.push(subTask)
 			}
 			res.send(_tasks)

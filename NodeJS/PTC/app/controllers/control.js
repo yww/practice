@@ -2,6 +2,8 @@
 var fs = require('fs')
 var SSH = require('simple-ssh')
 var Task = require('../models/task')
+var Test = require('../models/test')
+var Config = require('../models/config')
 
 var moment = require('moment')
 
@@ -17,11 +19,29 @@ var SSHObj = {
 }
 
 function startTask(doc){
-	var ssh = new SSH(SSHObj)
-	var name = doc.name
-	var id = doc._id
+	
+	var name
+	var id=doc._doc._id
+	var configString=" "
+	var configItems=['host','users','rampup','iteration']
+	
+	Test
+	.findById(doc.testId,function(err,test){
+		name=test._doc.caseName
+	})
+
+	Config
+	.findById(doc.configId,function(err,config){
+		configItems.forEach(function(c){
+			if(config._doc[c]){
+				configString += '-J'+c+'='+config[c]+' '
+				configString
+			}
+		})
+	console.log("configString"+configString)
+	var ssh = new SSH(SSHObj)	
 	ssh
-	.exec('/usr/PTC/start.sh ' + id + ' ' + name,{out: function(pId){
+	.exec('/usr/PTC/start.sh ' + id + ' ' + name + config,{out: function(pId){
 		if(pId){
 			doc.status=2
 			doc.pId = parseInt(pId)
@@ -30,8 +50,11 @@ function startTask(doc){
 						console.log(err)
 					} 
 				})
-			}}}).start()				
-	}
+			}}}).start()
+	})				
+}
+
+
 
 function killTask(doc){
 	var ssh = new SSH(SSHObj)
@@ -48,18 +71,12 @@ function killTask(doc){
 	}}).start()
 }
 
-//copy file from target machine
-function copyFile(pid){
-	
-}
-
-
 // Below functions will be invoked in interval loop 
 
 // if there are pending tasks, execute it accordingly Status: 1 pending, 2 running, 3 finished, 4 killed, 5 Log copied 6 unknown
 exports.execTask = function(){
 
-	var runningTasks 
+	var runningTasks;
 	Task.find({status:2}).count(function(err,count){
 		if(err){
 			console.log(err)

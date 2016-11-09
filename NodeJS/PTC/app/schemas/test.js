@@ -4,7 +4,7 @@ var ObjectId = Schema.Types.ObjectId
 
 
 var TestSchema = new Schema({
-	name:{uniqe: true,type: String},
+	testName:{uniqe: true,type: String},
 	//type:{type: ObjectId, ref:'testType', default:1},
 	owner: {type: ObjectId, ref:'User'},	
 	project: {type: ObjectId, ref:'Project'},
