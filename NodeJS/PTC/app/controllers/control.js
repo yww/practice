@@ -35,13 +35,13 @@ function startTask(doc){
 		configItems.forEach(function(c){
 			if(config._doc[c]){
 				configString += '-J'+c+'='+config[c]+' '
-				configString
 			}
 		})
-	console.log("configString"+configString)
+
 	var ssh = new SSH(SSHObj)	
 	ssh
-	.exec('/usr/PTC/start.sh ' + id + ' ' + name + config,{out: function(pId){
+	.exec(' bash /usr/PTC/start.sh ' + id + ' ' + name + configString,{
+		out: function(pId){
 		if(pId){
 			doc.status=2
 			doc.pId = parseInt(pId)
@@ -50,7 +50,12 @@ function startTask(doc){
 						console.log(err)
 					} 
 				})
-			}}}).start()
+			}},
+		exit: function(code){
+			console.log('code')
+			console.log(code)
+		}	
+		}).start()
 	})				
 }
 

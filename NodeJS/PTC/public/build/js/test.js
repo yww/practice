@@ -5,8 +5,8 @@ $(document).ready(function(){
 	showTasks();
 })
 
+//check if all mandantory params are provided before submit test
 function checkParams(e){
-	//check if mandantory params are provided
 	var caseName=$("input[name='caseName']").val();
 	var name=$("input[name='testName']").val();
 	var project=$("select[name='project'] option:selected" ).attr("id");
@@ -19,6 +19,7 @@ function checkParams(e){
 	}
 }
 
+//submit a test to server
 function commitTest(){
 	//construct config object
 	var configObj={}
@@ -55,6 +56,7 @@ function commitTest(){
 	})
 }
 
+//get available projects and show in dropdown list
 function showProjects(){
 	//to get all projects from server side
 	$.ajax({
@@ -67,6 +69,7 @@ function showProjects(){
 	})
 }
 
+//get all test execution records also known as tasks
 function showTasks(){
 	$.ajax({
 		type: 'GET',
@@ -91,6 +94,7 @@ function showTasks(){
 	})
 }
 
+//Add a task, means test is executed for once
 function addTask(obj){
 		$.ajax({
 			contentType: 'application/json',
@@ -103,3 +107,29 @@ function addTask(obj){
 			window.location.pathname="/pressTesting.html"
 		})
 	}
+
+//get all tests under specified project
+function showTests(id){
+		$.ajax({
+			type: 'GET',
+			url: '/tests/?project=id'
+		}).done(function(tests){
+			$('#tabelWrap').html('<table id="datatable3" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info"></table>')
+			$('#datatable2').dataTable({
+				"aaData": _tests,
+				"aoColumns": [
+				{"sTitle": "test name"},
+				{"sTitle": "Commit By"},
+				{"sTitle": "StartTime"},
+				{"sTitle": "End Time"},
+				{"sTitle": "Status"},
+				{"sTitle": "Report",
+					"render": function(Id){
+						return '<a class="blue" href="http://'+Id+'/dashboard">log</a>'
+						}
+					}
+				]
+			})
+			window.location.pathname="/pressTesting.html"
+		})
+}	

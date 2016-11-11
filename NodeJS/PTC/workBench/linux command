@@ -1,5 +1,7 @@
 ssh
-.exec('nohub sleep 10&',{out: function(result){console.log(result)}}).exec('echo$!',{out: function(result){console.log(result)}}).start()
+.exec('nohub sleep 10&',{out: function(result){console.log(result)}})
+.exec('echo$!',{out: function(result){console.log(result)}}).start()
+
 ssh.exec('nohup sleep 10 & echo $!',{out:console.log.bind(console)}).start()
 
 
