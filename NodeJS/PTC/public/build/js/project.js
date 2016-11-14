@@ -7,8 +7,12 @@ $(document).ready(function(){
 			"responsive": true,
 			"data": projects,
 			"columns": [
-				{"sTitle":"_Id"},
-				{"sTitle": "Name"},
+				{"sTitle": "Name",
+					"render": function(project){
+						return '<a class="blue" href="http://'+ document.location.host+'/tests.html?projectId='+project.id + '">' +project.name +'</a>'
+						return '<a class="blue" href="http://'+project.id+'">'+project.name+'</a>'
+					}
+				},
 				{"sTitle": "Description"},
 				{"sTitle": "Owner"},
 				{"sTitle": "Created At"}				

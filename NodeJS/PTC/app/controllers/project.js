@@ -1,7 +1,10 @@
 var Project = require('../models/project');
 var app = require('../../app')
-var _ = require('underscore');
+var _ = require('underscore')
 var moment = require('moment')
+var fs = require('fs')
+var configObj = JSON.parse(fs.readFileSync(__dirname + '/../../config/config.json', 'utf8'))
+var host = configObj.targetMachine.host
 
 exports.addProject = function(req,res){
 		var _project= req.body.project;
@@ -32,11 +35,11 @@ exports.getProject = function(req,res){
 exports.getAllProject = function(req, res){
 	Project
 	.find({})
-	//.populate('commitId','userName')
+	.populate('owner','userName')
 	.exec(function(err, projects){
 		var _projects=[];
 		for(var i in projects){
-			var subProject=[projects[i]._id,projects[i].name, projects[i].desc, projects[i].owner, moment(projects[i].meta.createAt).format('YYYY/MM/DD')]
+			var subProject=[{name:projects[i].name,id:projects[i]._id}, projects[i].desc, projects[i].owner.userName, moment(projects[i].meta.createAt).format('YYYY/MM/DD')]
 			_projects.push(subProject)
 		}
 		res.send(_projects)

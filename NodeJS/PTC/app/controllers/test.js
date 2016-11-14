@@ -1,4 +1,5 @@
 var Test = require('../models/test');
+var Config = require('../models/config')
 var app = require('../../app')
 var _ = require('underscore');
 var moment = require('moment');
@@ -23,15 +24,34 @@ exports.addTest = function(req,res){
 }
 
 exports.getAllTest = function(req, res){
-	Test
-	.find({})
-	.populate('owner','userName')
-	.populate('type','testType')
-	.populate('project','name')
-	.exec(function(err, tests){
-		if(err){console.log(err)}
-			res.send(tests)
-	})
+	if(req.query.projectId){
+		Test
+		.find({project:req.query.projectId})
+		.populate('owner','userName')
+		.populate('type','testType')
+		.populate('project','name')
+		.populate('configId','users')
+		.exec(function(err, tests){
+			if(err){console.log(err)}
+			var _tests=[];
+			for(var i in tests){
+				var subTest=[tests[i].testName,tests[i].owner.userName,tests[i].configId.users, moment(tests[i].meta.createAt).format('YYYY/MM/dd HH:mm:ss')]
+				_tests.push(subTest)					
+			}
+			
+			res.send(_tests)
+		})		
+	}else{
+		Test
+		.find({})
+		.populate('owner','userName')
+		.populate('type','testType')
+		.populate('project','name')
+		.exec(function(err, tests){
+			if(err){console.log(err)}
+				res.send(tests)
+		})		
+	}
 }
 
 exports.getTest = function(req, res){
