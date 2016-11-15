@@ -10,7 +10,7 @@ $(document).ready(function(){
 				{"sTitle": "Name",
 					"render": function(project){
 						return '<a class="blue" href="http://'+ document.location.host+'/tests.html?projectId='+project.id + '">' +project.name +'</a>'
-						return '<a class="blue" href="http://'+project.id+'">'+project.name+'</a>'
+					//	return '<a class="blue" href="http://'+project.id+'">'+project.name+'</a>'
 					}
 				},
 				{"sTitle": "Description"},

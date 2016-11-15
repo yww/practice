@@ -1,135 +1,21 @@
 $(document).ready(function(){
-	$('#launchTest').click(commitTest);
-	$('#saveTest').click(checkParams);
-	showProjects();
-	showTasks();
-})
-
-//check if all mandantory params are provided before submit test
-function checkParams(e){
-	var caseName=$("input[name='caseName']").val();
-	var name=$("input[name='testName']").val();
-	var project=$("select[name='project'] option:selected" ).attr("id");
-
-	if(caseName&&name&&project){
-		return
-	}else{
-		alert('please input mandantory value')
-		e.stopPropagation()
-	}
-}
-
-//submit a test to server
-function commitTest(){
-	//construct config object
-	var configObj={}
-	var config=["host","users","rampup","duration","iteration"]
-
-	config.forEach(function(c){
-		var inputVal=$("input[name="+c+"]").val()
-		if(inputVal){
-			configObj[c]=inputVal			
-		}
-	})
-
-	//constuct test object
-	var testObj={}
-	var test= ["caseName","testName"]
-	test.forEach(function(c){
-		var inputVal=$("input[name="+c+"]").val()
-		if(inputVal){
-		testObj[c]=inputVal			
-		}
-	})
-	testObj.project=$("select[name='project'] option:selected" ).attr("id")
-
-	var dataObj={"config":configObj,"test":testObj}
-
-	//send ajax to server
-	$.ajax({
-		contentType: 'application/json',
-		type: 'POST',
-		url: '/test',
-		data:JSON.stringify({"test":testObj,"config":configObj})
-	}).done(function(result){
-		addTask(result)
-	})
-}
-
-//get available projects and show in dropdown list
-function showProjects(){
-	//to get all projects from server side
 	$.ajax({
 		type: 'GET',
-		url: '/project',
-	}).done(function(projects){
-		projects.forEach(function(p){
-			$("select[name='project']").append( "<option id=" + p[0] + ">" + p[1] + "</option>" )
-		})
-	})
-}
-
-//get all test execution records also known as tasks
-function showTasks(){
-	$.ajax({
-		type: 'GET',
-		url: '/task'
+		url: '/task/'+document.location.search
 	}).done(function(_tasks){
-		$('#tabelWrap').html('<table id="datatable2" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info"></table>')
-		$('#datatable2').dataTable({
+		$('#tabelWrap').html('<table id="datatable4" class="table table-striped dataTable no-footer" role="grid" aria-describedby="datatable_info"></table>')
+		$('#datatable4').dataTable({
 			"aaData": _tasks,
 			"aoColumns": [
-			{"sTitle": "test name"},
-			{"sTitle": "Commit By"},
-			{"sTitle": "StartTime"},
-			{"sTitle": "End Time"},
-			{"sTitle": "Status"},
-			{"sTitle": "Report",
-				"render": function(Id){
-					return '<a class="blue" href="http://'+Id+'/dashboard">log</a>'
-					}
+			{"sTitle": "test name",
+				"render": function(task){
+					return '<a class="blue" href="http://'+ document.location.host+'/report.html?taskId='+ task.id + '">' + task.name +'</a>'
+				//	return '<a class="blue" href="http://'+project.id+'">'+project.name+'</a>'
 				}
+			},
+			{"sTitle": "Users"},
+			{"sTitle": "Created At"}
 			]
 		})
 	})
-}
-
-//Add a task, means test is executed for once
-function addTask(obj){
-		$.ajax({
-			contentType: 'application/json',
-			type: 'POST',
-			url: '/task',
-			data:JSON.stringify(obj)
-		}).done(function(task){
-			//console.log(task)
-			//$('#datatable2').dataTable().fnAddData(task)
-			window.location.pathname="/pressTesting.html"
-		})
-	}
-
-//get all tests under specified project
-function showTests(id){
-		$.ajax({
-			type: 'GET',
-			url: '/tests/?project=id'
-		}).done(function(tests){
-			$('#tabelWrap').html('<table id="datatable3" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info"></table>')
-			$('#datatable2').dataTable({
-				"aaData": _tests,
-				"aoColumns": [
-				{"sTitle": "test name"},
-				{"sTitle": "Commit By"},
-				{"sTitle": "StartTime"},
-				{"sTitle": "End Time"},
-				{"sTitle": "Status"},
-				{"sTitle": "Report",
-					"render": function(Id){
-						return '<a class="blue" href="http://'+Id+'/dashboard">log</a>'
-						}
-					}
-				]
-			})
-			window.location.pathname="/pressTesting.html"
-		})
-}	
+})

@@ -42,6 +42,5 @@ module.exports = function(app){
 	app.get('/test/:id',Test.getTest)
 	app.post('/test',Config.addConfig,Test.addTest)
 	app.post('/upload',Test.uploadCase)
-	
 }
 

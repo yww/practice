@@ -9,6 +9,22 @@ var configObj = JSON.parse(fs.readFileSync(__dirname + '/../../config/config.jso
 var host = configObj.targetMachine.host
 
 exports.getAllTask = function(req, res){
+	if(req.query.testId){
+		Task
+		.find({testId:req.query.testId})
+		.populate('testId','testName')
+		.populate('configId','users')
+		.exec(function(err, tasks){
+			if(err){console.log(err)}
+			var _tasks=[];
+			for(var i in tasks){
+				var subTask=[{name:tasks[i].testId.testName,id:tasks[i]._id},tasks[i].configId.users, moment(tasks[i].meta.createAt).format('YYYY/MM/dd HH:mm:ss')]
+				_tasks.push(subTask)					
+			}
+			
+			res.send(_tasks)
+		})
+	}else{
 		Task
 		.find({})
 		.populate('commitId','userName')
@@ -21,6 +37,7 @@ exports.getAllTask = function(req, res){
 			}
 			res.send(_tasks)
 		})
+	}
 }
 
 exports.addTask = function(req,res){

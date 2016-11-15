@@ -35,7 +35,7 @@ exports.getAllTest = function(req, res){
 			if(err){console.log(err)}
 			var _tests=[];
 			for(var i in tests){
-				var subTest=[tests[i].testName,tests[i].owner.userName,tests[i].configId.users, moment(tests[i].meta.createAt).format('YYYY/MM/dd HH:mm:ss')]
+				var subTest=[{name:tests[i].testName,id:tests[i]._id},tests[i].owner.userName,tests[i].configId.users, moment(tests[i].meta.createAt).format('YYYY/MM/dd HH:mm:ss')]
 				_tests.push(subTest)					
 			}
 			
