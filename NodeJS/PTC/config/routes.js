@@ -1,6 +1,7 @@
 var User = require('../app/controllers/user')
 var Task = require('../app/controllers/task')
 var Project = require('../app/controllers/project')
+var Activity = require('../app/controllers/activity')
 var Test = require('../app/controllers/test')
 var Config = require('../app/controllers/config')
 
@@ -40,7 +41,11 @@ module.exports = function(app){
 	//Test Operation
 	app.get('/test',Test.getAllTest)
 	app.get('/test/:id',Test.getTest)
-	app.post('/test',Config.addConfig,Test.addTest)
+	app.post('/test',Config.addConfig,Test.addTest,Activity.addAcctivity)
+	app.post('/reExcTest',Test.reExcTest,Task.addTask)
 	app.post('/upload',Test.uploadCase)
+
+	//Activity operation
+	app.get('/activity',Activity.getAllActivity)
 }
 

@@ -1,8 +1,0 @@
-timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,grpThreads,allThreads,Latency,IdleTime
-1476197422257,850,Get All Email templates,404,Not Found,Thread Group 1-1,text,true,,3187,1,1,849,0
-1476197423434,21,Get specified Email template,404,Not Found,Thread Group 1-1,text,true,,3187,1,1,21,0
-1476197423469,9,Update specified template,501,Not Implemented,Thread Group 1-1,text,true,,1539,1,1,9,0
-1476197423490,9,Preview template,404,Not Found,Thread Group 1-1,text,true,,3187,1,1,9,0
-1476197423509,9,Reset template,404,Not Found,Thread Group 1-1,text,true,,3187,1,1,9,0
-1476197423527,9,Copy template,404,Not Found,Thread Group 1-1,text,true,,3187,1,1,9,0
-1476197423552,9,Delete Template,404,Not Found,Thread Group 1-1,text,true,,3187,1,1,9,0

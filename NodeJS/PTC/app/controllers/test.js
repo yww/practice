@@ -7,7 +7,7 @@ var fs  = require('fs');
 var path = require('path');
 
 
-exports.addTest = function(req,res){
+exports.addTest = function(req,res,next){
 		var _test=req.body.test;
 		_test.owner=req.session.user._id;
 
@@ -19,6 +19,13 @@ exports.addTest = function(req,res){
 			}
 			var id=test._doc._id;
 			res.send({testId:test._doc._id,configId:test._doc.configId})
+
+			req.body.testId = test._doc._id;
+			req.body.configId = test._doc.configId
+			req.body.action = 'created'
+
+			next();
+
 		    //res.redirect(req.get('referer'))
 	})
 }
@@ -84,4 +91,18 @@ exports.uploadCase= function(req,res,next){
 	}else{next()}
 }
 
+//re-excute a test
+exports.reExcTest = function(req,res,next){
+	var _id = req.body.testId
+	var configId
+	Test
+	.findById(_id,function(err,test){
+		if(err){
+			console.log(err)
+		}else{
+			req.body.configId = test._doc.configId
+			next()
+		}
+	})
+}
 

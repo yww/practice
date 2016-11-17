@@ -56,6 +56,7 @@ function commitTest(){
 		data:JSON.stringify({"test":testObj,"config":configObj})
 	}).done(function(result){
 		addTask(result)
+		alert('success')
 	})
 }
 
@@ -67,7 +68,7 @@ function showProjects(){
 		url: '/project',
 	}).done(function(projects){
 		projects.forEach(function(p){
-			$("select[name='project']").append( "<option id=" + p[0] + ">" + p[1] + "</option>" )
+			$("select[name='project']").append( "<option id=" + p[0].id + ">" + p[0].name + "</option>" )
 		})
 	})
 }
