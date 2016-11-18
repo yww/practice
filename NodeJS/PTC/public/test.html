@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentellela Alela! | </title>
+    <title>PTC! | </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,6 +29,9 @@
     <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+    <!-- Dropzone.css -->
+    <link href="../vendors/dropzone/dist/dropzone.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
   </head>
@@ -39,7 +42,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i></a>
             </div>
 
             <div class="clearfix"></div>
@@ -223,21 +226,6 @@
 
                 <span id="testName">...</span>
               </h2>
-              <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Settings 1</a>
-                    </li>
-                    <li><a href="#">Settings 2</a>
-                    </li>
-                  </ul>
-                </li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-              </ul>
               <div class="clearfix"></div>
             </div>
 
@@ -341,8 +329,100 @@
                   </div>
 
                   <div role="tabpanel" class="tab-pane fade" id="configuration" aria-labelledby="profile-tab">
-                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                      booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+
+                  <div class="x_title">
+                    <div class="col-md-8" style="margin:0">
+                      <form class="form-horizontal form-label-left input_mask" style="margin-left:-65px">
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Project:</label>
+                          <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" name="project" disabled="disabled">
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Name:</label>
+                          <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" name="testName" class="form-control" placeholder="test name">
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+
+                <div class="x_content">
+                  <div class="row">  
+                    <div class="form-horizontal" role="form form-label-left">
+                      <div class="col-md-6 col-sm-12 col-xs-12" style="padding-top: 20px">
+                      <h4>Case upload/Basic configuration</h4>
+                      <form class="dropzone" style="margin-bottom: 15px">
+                        <!-- hidden input field, to store new case name(time stampt)-->
+                        <input type="text" name="caseName" class="hidden" id="overideCase">
+                      </form>
+
+
+                        <div class="form-group">
+                          <div class="checkbox col-sm-4">
+                            <label for="host">
+
+                              <input type="checkbox" class="flat" checked="checked"> host
+                            </label>
+                          </div>
+                          <div class="col-sm-8">
+                            <input type="text" name="host" class="form-control" id="overideHost">
+                          </div>
+                        </div>
+                      </div>   
+
+                      <div class="col-md-6 col-sm-12 col-xs-12" style="padding-top: 20px"> 
+                        <h4> Load Configuration</h4>
+                        <div class="form-group">
+                          <div class="checkbox col-sm-4">
+                            <label for="overideUser">
+                              <input type="checkbox" class="flat" checked="checked" id="users"> Users
+                            </label>
+                          </div>
+                          <div class="col-sm-8">
+                            <input type="text" name="users" class="form-control" id="overideUser">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="checkbox col-sm-4">
+                            <label for="overideRampup">
+                              <input type="checkbox" class="flat" checked="checked" id="rampup"> Rampup (sec)
+                            </label>
+                          </div>
+                          <div class="col-sm-8">
+                            <input type="text" name="rampup" class="form-control" id="overideRampup">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="checkbox col-sm-4">
+                            <label for="overideIteration">
+                              <input type="checkbox" class="flat" checked="checked" id="iteration"> Iteration
+                            </label>
+                          </div>
+                          <div class="col-sm-8">
+                            <input type="text" name="iteration" class="form-control" id="overideIteration">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="checkbox col-sm-4">
+                            <label for="overideDuration">
+                              <input type="checkbox" class="flat" checked="checked" id="duration"> Duration(min)
+                            </label>
+                          </div>
+                          <div class="col-sm-8">
+                            <input type="text" name="duration" class="form-control" id="overideDuration">
+                          </div>
+                        </div> 
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -354,7 +434,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            PTC by <a href="https://colorlib.com">WW</a>
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -370,6 +450,9 @@
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
+
+    <!-- Dropzone.js -->
+    <script src="../vendors/dropzone/dist/dropzone.js"></script>
     <!-- Chart.js -->
     <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- gauge.js -->

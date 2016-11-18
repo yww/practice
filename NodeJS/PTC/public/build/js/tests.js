@@ -1,5 +1,11 @@
 //used by tests page
 $(document).ready(function(){
+	getCurrentTests();
+	getCurrentProject();
+	$('#delProject').click(delCurrentProject);
+})
+
+function getCurrentTests(){
 	$.ajax({
 		type: 'GET',
 		url: '/test/'+document.location.search
@@ -19,5 +25,27 @@ $(document).ready(function(){
 			{"sTitle": "Created At"}
 			]
 		})
-	})
-})
+	})	
+}
+
+function getCurrentProject(){
+		$.ajax({
+			type: 'GET',
+			url: '/project/'+document.location.search.split('=')[1],
+		}).done(function(project){		
+			$('#projectId').val(document.location.search.split('=')[1]);
+			$('#project-name').val(project.name);
+			$('#project-desc').val(project.desc);
+			$('#project-created').text(project.meta.createAt)
+		})
+}
+
+function delCurrentProject(){
+		$.ajax({
+			type: 'DELETE',
+			url: '/project/'+document.location.search.split('=')[1],
+		}).done(function(result){		
+			alert(result.message)
+			window.location.pathname='/'
+		})	
+}

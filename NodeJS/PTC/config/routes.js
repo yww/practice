@@ -37,6 +37,7 @@ module.exports = function(app){
 	app.get('/project',Project.getAllProject)
 	app.get('/project/:id', Project.getProject)
 	app.post('/project',Project.addProject)
+	app.delete('/project/:id',Project.delProject)
 
 	//Test Operation
 	app.get('/test',Test.getAllTest)

@@ -216,49 +216,54 @@
               <div class="x_content">
                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
                   <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#Dashboard" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Tests</a>
+                    <li role="presentation" class="active"><a href="#Tests" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Tests</a>
                     </li>
-                    <li role="presentation" class=""><a href="#Project" role="tab" id="tab" data-toggle="tab" aria-expanded="false">Settings</a>
+                    <li role="presentation" class=""><a href="#Settings" role="tab" id="tab" data-toggle="tab" aria-expanded="false">Settings</a>
                     </li>                    
                   </ul>
 
                   <!--pannel content-->
                   <div id="myTabContent" class="tab-content">
 
-                    <div role="tabpanel" class="tab-pane fade active in" id="Dashboard" aria-labelledby="home-tab">
+                    <div role="tabpanel" class="tab-pane fade active in" id="Tests" aria-labelledby="home-tab">
 	                	<div id="tabelWrap">
 	                	</div>
                     </div>
 
-                    <div role="tabpanel" class="tab-pane fade" id="Project" aria-labelledby="profile-tab">
-                      <div class="row">
-                        <div class="row">
-                          <div class="nav navbar-right panel_toolbox">
-                             <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Create Project</button>
-                          </div>
-                        </div>
+                    <div role="tabpanel" class="tab-pane fade" id="Settings" aria-labelledby="profile-tab">
+                      <div>
+                        <h4> Project Setting</h4>
+                        <br>
+                        <form  method="post", action="/project">
+                          <div class="col-lg-5 col-md-6 col-xs-6">
+                            <div class="form-group">
+                              <input type="text" name="project[_id]" class="hidden" id="projectId">
+                            </div>
+                            <div class="form-group">
+                              <label for="project-name" class="control-label">Name:</label>
+                              <input type="text" placeholder="Enter project name" id="project-name" class="form-control" value="" name="project[name]">
+                            </div>
 
-                    <!--table to show project content-->
-                    <div class="row">
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                          <div class="x_title">
-                            <h2>Default Example <small>Users</small></h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content"> 
-                            <table id="project" class="table table-striped">
-                            </table>
-                          </div>
-                        </div>
+                            <div class="form-group">
+                              <label for="project-desc" class="control-label">Description:</label>
+                              <input type="text" placeholder="Enter project description" id="project-desc" class="form-control" value="" name="project[desc]">
+                            </div> 
+
+                            <div class="form-group">
+                              <label for="project-created" class="control-label">Created:</label>
+                              <p id="project-created" class="form-control-static">...</p>
+                            </div>  
+
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <hr>
+
+                            <h5>Delete project</h5>
+                            <p>Once you delete an project, it will be deleted forever.</p>
+                            <button type="button" class="btn btn-danger" id="delProject">Delete</button>
+
+                          </div>                          
+                        </form>
                       </div>
-                    </div>
                     </div>
                   </div>
                 </div>
