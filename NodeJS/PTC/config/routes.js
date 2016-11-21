@@ -43,10 +43,15 @@ module.exports = function(app){
 	app.get('/test',Test.getAllTest)
 	app.get('/test/:id',Test.getTest)
 	app.post('/test',Config.addConfig,Test.addTest,Activity.addAcctivity)
+	app.post('/updateTest',Config.addConfig,Test.updateTest,Activity.addAcctivity)
 	app.post('/reExcTest',Test.reExcTest,Task.addTask)
 	app.post('/upload',Test.uploadCase)
 
 	//Activity operation
 	app.get('/activity',Activity.getAllActivity)
+
+	//config
+	app.get('/config',Config.getAllConfig)
+	app.get('/config/:id',Config.getConfig)
 }
 

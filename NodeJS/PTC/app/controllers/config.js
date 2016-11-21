@@ -7,17 +7,28 @@ var path = require('path');
 
 
 exports.addConfig = function(req,res,next){
-		var _config=req.body.config;
-		var config= new Config(_config)
+		var configObj=req.body.config
+		var id = configObj._id
+		var _config
 
-		config.save(function(err,config){
+	if(id){
+		Config.findById(_id,function(err,config){
+			_config = _.extend(config,configObj)
+			_config.save(function(err,config){
+		    	next()	
+			})
+		})
+	}else{
+		_config= new Config(configObj)
+		_config.save(function(err,config){
 			if(err){
 				console.log(err)
 				next()
 			}
 		    req.body.test.configId=config._id;
-		    next()
-	})
+		    next()		
+		}
+	)}
 }
 
 exports.getConfig = function(req, res){
@@ -29,5 +40,13 @@ exports.getConfig = function(req, res){
 	})
 }
 
+exports.getAllConfig = function(req,res){
+	Config
+	.find({})
+	.exec(function(err, configs){
+		if(err){console.log(err)}
+		res.send(configs)
+	})
+}
 
 

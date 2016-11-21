@@ -30,10 +30,11 @@
     <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
     <!-- Dropzone.css -->
-    <link href="../vendors/dropzone/dist/dropzone.css" rel="stylesheet">
+    <link href="/vendors/dropzone/dist/dropzone.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="/build/css/custom.css" rel="stylesheet">
+
   </head>
 
   <body class="nav-md">
@@ -336,7 +337,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Project:</label>
                           <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" name="project" disabled="disabled">
+                            <select class="form-control" name="project" disabled="disabled" id="overideProject">
                             </select>
                           </div>
                         </div>
@@ -344,11 +345,18 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Name:</label>
                           <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" name="testName" class="form-control" placeholder="test name">
+                            <input type="text" name="testName" class="form-control" placeholder="test name" id="overideTestName">
                           </div>
                         </div>
-                      </form>
+                      </form>     
+                                      
                     </div>
+
+                    <div class="nav navbar-right panel_toolbox">
+                        <button class="btn btn-primary" id="update">Save</button>
+                        <button class="btn btn-danger" id="delete">Delete</button>
+                    </div> 
+
                     <div class="clearfix"></div>
                   </div>
 
@@ -362,6 +370,9 @@
                         <input type="text" name="caseName" class="hidden" id="overideCase">
                       </form>
 
+                        <div class="form-group">
+                          <input type="text" class="hidden" name="configId">
+                        </div>
 
                         <div class="form-group">
                           <div class="checkbox col-sm-4">

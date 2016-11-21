@@ -8,26 +8,55 @@ var path = require('path');
 
 
 exports.addTest = function(req,res,next){
-		var _test=req.body.test;
-		_test.owner=req.session.user._id;
+	var testObj=req.body.test
+	var id = req.body.test._id
+	var _test
 
-		var test= new Test(_test)
+	testObj.owner=req.session.user._id;
 
-		test.save(function(err,test){
+	_test= new Test(testObj)
+
+	_test.save(function(err,test){
+		if(err){
+			console.log(err)
+		}
+		var id=test._doc._id;
+
+		res.send({testId:test._doc._id,configId:test._doc.configId})
+
+		req.body.testId = test._doc._id;
+		req.body.configId = test._doc.configId
+		req.body.action = 'created'
+		next();	    //res.redirect(req.get('referer'))
+	})
+}
+
+exports.updateTest = function(req,res,next){
+		var id = req.body.test._id
+		var testObj=req.body.test
+		var _test
+		
+		if(id){
+		Test.findById(id,function(err,test){
 			if(err){
 				console.log(err)
+				res.send({code:400,message:'failed'})
+			}else{
+				_test = _.extend(test,testObj)
+				_test.save(function(err,test){
+					res.send({code:200,message:'successfully'})
+					
+					req.body.testId = test._doc._id;
+					req.body.configId = test._doc.configId
+					req.body.action = 'updated'
+					
+					next()
+				})
 			}
-			var id=test._doc._id;
-			res.send({testId:test._doc._id,configId:test._doc.configId})
-
-			req.body.testId = test._doc._id;
-			req.body.configId = test._doc.configId
-			req.body.action = 'created'
-
-			next();
-
-		    //res.redirect(req.get('referer'))
-	})
+		})
+	}else{
+		res.end()
+	}
 }
 
 exports.getAllTest = function(req, res){
@@ -62,9 +91,13 @@ exports.getAllTest = function(req, res){
 }
 
 exports.getTest = function(req, res){
-	var _id=req.params.id
+	var id=req.params.id
 	Test
-	.findById(_id,function(err,test){
+	.find({_id:id})
+	.populate('owner','userName')
+	.populate('type','testType')
+	.populate('project','name')	
+	.exec(function(err, test){
 		if(err){console.log(err)}
 			res.send(test)
 	})
