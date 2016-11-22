@@ -1,5 +1,7 @@
 var Test = require('../models/test');
 var Config = require('../models/config')
+var Activity = require('../models/activity')
+var Task = require('../models/task')
 var app = require('../../app')
 var _ = require('underscore');
 var moment = require('moment');
@@ -128,14 +130,60 @@ exports.uploadCase= function(req,res,next){
 exports.reExcTest = function(req,res,next){
 	var _id = req.body.testId
 	var configId
-	Test
-	.findById(_id,function(err,test){
-		if(err){
-			console.log(err)
-		}else{
-			req.body.configId = test._doc.configId
-			next()
-		}
-	})
+		if(_id){
+		Test
+		.findById(_id,function(err,test){
+			if(err){
+				console.log(err)
+			}else{
+				req.body.configId = test._doc.configId
+				next()
+			}
+		})		
+	}
 }
 
+//delete a test
+exports.delTest = function(req,res){
+	var id = req.params.id
+	if(id){
+		Test
+		.find({_id:id})
+		.exec(function(err,test){
+			if(test.length>0){
+			//Delete test
+				Test.remove({_id:id},function(err,test){
+					//delete task and related config
+					Task
+					.find({testId:id})
+					.exec(function(err,tasks){
+						tasks.forEach(function(T){
+							Config.remove({_id:T.configId},function(err,config){
+								console.log("delete config " + T.configId)
+							})
+							Task.remove({_id:T._id},function(err,task){
+								console.log("delete task "+ T._id)
+							})
+						})
+
+						res.send({status:200,message:"Test is deleted successfully"})
+					})
+					//delete activity
+					Activity
+					.find({target:id})
+					.exec(function(err,activities){
+						activities.forEach(function(A){
+							Activity.remove({_id:A._id},function(err,activity){
+								console.log("delete activity "+ A._id)
+							})
+						})
+					})
+				}) 
+			}else{
+				res.send({status:400, message:"Test doesn't exist"})
+			}
+		})
+	}else{
+		res.end()
+	}
+}

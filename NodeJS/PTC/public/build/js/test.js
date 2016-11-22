@@ -124,18 +124,19 @@ function updateTest(e){
 		url: '/updateTest',
 		data:JSON.stringify({"test":testObj,"config":configObj})
 	}).done(function(result){
-		alert('Test case updated'+result.message)
+		alert('Test case updated '+result.message)
 		window.location.pathname='/test.html'
 	})
 }
 
-function deleteTest(id){
-	if (confirm('Are you sure you want to delete the test?')){
+function deleteTest(){
+	var testId = document.location.search.split('=')[1]
+	if (confirm('If you delete the test, all the execution history will be deleted too. Are you sure you want to delete the test, ?')){
 		$.ajax({
 			type: 'DELETE',
-			url:'/test/'+id
+			url:'/test/'+testId
 		}).done(function(result){
-			alert('Test case deleted'+result.message)
+			alert(result.message)
 			window.location.pathname='/test.html'
 		})
 	}else{

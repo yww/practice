@@ -46,6 +46,7 @@ module.exports = function(app){
 	app.post('/updateTest',Config.addConfig,Test.updateTest,Activity.addAcctivity)
 	app.post('/reExcTest',Test.reExcTest,Task.addTask)
 	app.post('/upload',Test.uploadCase)
+	app.delete('/test/:id',Test.delTest)
 
 	//Activity operation
 	app.get('/activity',Activity.getAllActivity)

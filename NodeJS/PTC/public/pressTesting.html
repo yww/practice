@@ -64,26 +64,12 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="#">JMter Test</a></li>
                     </ul>
                   </li>
 
                   <li><a><i class="fa fa-edit"></i> Performance Testing <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="pressTesting.html">JMter Test</a></li>
-                      <li><a href="#">Advanced Components</a></li>
-                    </ul>
-                  </li>
-
-                  <li><a><i class="fa fa-edit"></i> Reports <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="reports.html">Reports</a></li>
-                    </ul>
-                  </li>   
-
-                  <li><a><i class="fa fa-edit"></i> Tests <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="testDetail.html">Tests</a></li>
                     </ul>
                   </li>                                  
                 </ul>
@@ -135,71 +121,6 @@
                     </li>
                     <li><a href="javascript:;">Help</a></li>
                     <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                  </ul>
-                </li>
-
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span class="currentUser"></span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span class="currentUser"></span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span class="currentUser"></span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span class="currentUser"></span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
                   </ul>
                 </li>
               </ul>
@@ -269,37 +190,37 @@
 
             <!--main part-->
             <div class="x_panel">
-                  <div class="x_title">
-                    <div class="col-md-8" style="margin:0">
-                      <form class="form-horizontal form-label-left input_mask" style="margin-left:-65px">
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Project:</label>
-                          <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" name="project">
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Name:</label>
-                          <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" name="testName" class="form-control" placeholder="test name">
-                          </div>
-                        </div>
-                      </form>
+              <div class="x_title">
+                <div class="col-md-8" style="margin:0">
+                  <form class="form-horizontal form-label-left input_mask" style="margin-left:-65px">
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Project:</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <select class="form-control" name="project">
+                        </select>
+                      </div>
                     </div>
 
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li>
-                        <button class="btn btn-primary" data-toggle="modal" data-target=".start-stoptest--dialog" id="saveTest">Save</button>
-                        <button class="btn btn-warning">Reset</button>
-                      </li>
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Name:</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" name="testName" class="form-control" placeholder="test name">
+                      </div>
+                    </div>
+                  </form>
+                </div>
 
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
+                <ul class="nav navbar-right panel_toolbox">
+                  <li>
+                    <button class="btn btn-primary" data-toggle="modal" data-target=".start-stoptest--dialog" id="saveTest">Save</button>
+                    <button class="btn btn-warning"><a href="/">Cancel</a></button>
+                  </li>
+
+                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                  </li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
 
               <div class="x_content">
                 <div class="row">  
@@ -377,24 +298,24 @@
             </div>
 
             <!-- Result Table -->
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:50px">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Execution History </h2>
+            <div class="x_panel">
+              <div class="x_title">
+                <h2>Execution History </h2>              
+                <div class="col-md-8" style="margin:0">
 
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                      Description ...
-                    </p>
-                    <div id="tabelWrap">
-
-                    </div>
-                  </div>
                 </div>
-              </div>
+
+                <ul class="nav navbar-right panel_toolbox">
+                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                  </li>
+                </ul>
+                <div class="clearfix"></div>
+              </div> 
+              
+              <div class="x_content">
+                <div id="tabelWrap">
+                </div>              
+              </div>           
             </div>
            </div>
         <!-- /page content -->
@@ -402,7 +323,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            Anywhere PTC
           </div>
           <div class="clearfix"></div>
         </footer>

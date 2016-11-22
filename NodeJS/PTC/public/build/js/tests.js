@@ -14,7 +14,7 @@ function getCurrentTests(){
 		$('#datatable3').dataTable({
 			"aaData": _tests,
 			"aoColumns": [
-			{"sTitle": "test name",
+			{"sTitle": "Test name",
 				"render": function(test){
 						return '<a class="blue" href="http://'+ document.location.host+'/test.html?testId='+ test.id + '">' + test.name +'</a>'
 					}
