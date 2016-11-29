@@ -86,7 +86,13 @@ function showTasks(){
 			{"sTitle": "test name"},
 			{"sTitle": "Commit By"},
 			{"sTitle": "StartTime"},
-			{"sTitle": "End Time"},
+			{"sTitle": "End Time",
+				"render": function(endTime){
+					if(endTime == "Invalid date"){
+						return '---'
+					}
+				}
+			},
 			{"sTitle": "Status"},
 			{"sTitle": "Report",
 				"render": function(Id){

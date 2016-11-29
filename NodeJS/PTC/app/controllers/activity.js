@@ -21,6 +21,7 @@ exports.addAcctivity = function(req,res){
 exports.getAllActivity = function(req,res){
 	Activity
 	.find({})
+	.sort({'meta.createAt':'desc'})
 	.populate('user','userName')
 	.populate('target','testName')
 	.populate('config','users')
@@ -30,12 +31,14 @@ exports.getAllActivity = function(req,res){
 		// 	var subProject=[{name:projects[i].name,id:projects[i]._id}, projects[i].desc, projects[i].owner.userName, moment(projects[i].meta.createAt).format('YYYY/MM/DD')]
 		// 	_projects.push(subProject)
 		// }
+		var _activities=[];
+
 		activities.forEach(function(A){
-			console.log(moment(A.meta.createAt).fromNow())
-			A.updateAt= 123
+			var subActivity ={activity: A, createAt: moment(A.meta.createAt).fromNow()}
+			_activities.push(subActivity)
+			
 		})
-		console.log(activities)
-		res.send(activities)
+		res.send(_activities)
 	})
 }
 

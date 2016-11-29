@@ -8,10 +8,23 @@ $(document).ready(function(){
             data: $(this).serialize(),
             success: function(results){
                 if(results.code ===200){
-                    alert(results.msg)
-                    document.location.pathname= '/'
+                    new PNotify({
+                          title: 'Success',
+                          text: results.msg,
+                          type: 'success',
+                          styling: 'bootstrap3',
+                          addclass: "stack-modal"
+                      })
+                   // alert(results.msg)
+                    setTimeout(function(){document.location.pathname= '/'},1500)
                 }else{
-                    alert("ERROR: "+ results.msg)
+                    new PNotify({
+                          title: 'Error',
+                          text: results.msg,
+                          type: 'error',
+                          styling: 'bootstrap3',
+                          addclass: "stack-modal"
+                      })
                 }
             }
         })

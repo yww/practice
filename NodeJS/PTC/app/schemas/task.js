@@ -17,13 +17,17 @@ var TaskSchema = new Schema({
 		default: false
 	},
 	meta: {
-		startAt: Date,
+		startAt: {
+			type:Date,
+			default: null
+			},
 		recordAt: {
 			type: Date,
 			default: Date.now()
 		},
 		endAt: {
-			type: Date
+			type: Date,
+			default: null
 		}
 	}
 })

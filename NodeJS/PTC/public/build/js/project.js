@@ -2,7 +2,9 @@ $(document).ready(function(){
 		$.ajax({
 			type: 'GET',
 			url: '/project',
-		}).done(function(projects){		
+		}).done(function(projects){	
+			console.log(projects)
+
 			$('#project').dataTable({
 			"responsive": true,
 			"data": projects,
