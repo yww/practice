@@ -55,8 +55,16 @@ function commitTest(){
 		url: '/test',
 		data:JSON.stringify({"test":testObj,"config":configObj})
 	}).done(function(result){
-		addTask(result)
-		alert('success')
+         new PNotify({
+          title: 'Success',
+          text: 'Test has been added, you can track execution status in below',
+          type: 'info',
+          styling: 'bootstrap3',
+          addclass: "stack-modal"
+      })
+
+		setTimeout(function(){addTask(result)},1500)
+
 	})
 }
 
@@ -85,7 +93,14 @@ function showTasks(){
 			"aoColumns": [
 			{"sTitle": "test name"},
 			{"sTitle": "Commit By"},
-			{"sTitle": "StartTime"},
+			{"sTitle": "StartTime",
+				"render": function(startTime){
+					if(startTime == "Invalid date"){
+						return '---'
+					}
+				}
+			},
+			
 			{"sTitle": "End Time",
 				"render": function(endTime){
 					if(endTime == "Invalid date"){
