@@ -2,7 +2,6 @@
 $(document).ready(function(){
 	$('#launchTest').click(commitTest);
 	$('#saveTest').click(checkParams);
-	
 	showTasks();
 	showProjects();
 })
@@ -10,16 +9,26 @@ $(document).ready(function(){
 
 //check if all mandantory params are provided before submit test
 function checkParams(e){
-	var caseName=$("input[name='caseName']").val();
-	var name=$("input[name='testName']").val();
-	var project=$("select[name='project'] option:selected" ).attr("id");
-
-	if(caseName&&name&&project){
-		return
+	if($('#testBasic').parsley().validate()){
+		if($("input[name='caseName']").val()){
+			return
+		}else{
+			e.stopPropagation()
+			alert('Please upload a JMeter case first')
+		}
 	}else{
-		alert('please input mandantory value')
 		e.stopPropagation()
 	}
+	// var caseName=$("input[name='caseName']").val();
+	// var name=$("input[name='testName']").val();
+	// var project=$("select[name='project'] option:selected" ).attr("id");
+
+	// if(caseName&&name&&project){
+	// 	return
+	// }else{
+	// 	alert('please input mandantory value')
+	// 	e.stopPropagation()
+	// }
 }
 
 //submit a test to server

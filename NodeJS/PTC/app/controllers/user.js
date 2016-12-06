@@ -12,7 +12,7 @@ exports.signin = function(req,res){
 		}
 		if(!user){
 			res.send({msg: "user doesn\'t match", code: 500})
-			return console.log('User doesn\'t exist')
+			return
 		}
 
 		user.comparePassword(password, function(err, isMatch){
@@ -25,7 +25,6 @@ exports.signin = function(req,res){
 				res.send({code:200, msg:'login successfully'})
 			}else{
 				res.send({msg: "Password does\'t match", code: 500})
-				console.log('Password don\'t match')
 			}
 		})
 	})

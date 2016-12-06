@@ -155,19 +155,19 @@
                       <div>
                         <h4> Project Setting</h4>
                         <br>
-                        <form  method="post", action="/project">
+                        <form  class="" data-parsley-validate method="post", action="/project">
                           <div class="col-lg-5 col-md-6 col-xs-6">
                             <div class="form-group">
                               <input type="text" name="project[_id]" class="hidden" id="projectId">
                             </div>
                             <div class="form-group">
-                              <label for="project-name" class="control-label">Name:</label>
-                              <input type="text" placeholder="Enter project name" id="project-name" class="form-control" value="" name="project[name]">
+                              <label for="project-name" class="control-label">Name<span class="required">*</span></label>
+                              <input type="text" placeholder="Enter project name" required="required" id="project-name" class="form-control" value="" name="project[name]">
                             </div>
 
                             <div class="form-group">
-                              <label for="project-desc" class="control-label">Description:</label>
-                              <input type="text" placeholder="Enter project description" id="project-desc" class="form-control" value="" name="project[desc]">
+                              <label for="project-desc" class="control-label">Description<span class="required">*</span></label>
+                              <input type="text" placeholder="Enter project description" required="required" id="project-desc" class="form-control" value="" name="project[desc]">
                             </div> 
 
                             <div class="form-group">
@@ -261,8 +261,12 @@
     <script src="/build/js/custom.min.js"></script>
 
     <!-- Customized user -->
-   <script type="text/javascript" src="/build/js/user.js"></script>
+    <script type="text/javascript" src="/build/js/user.js"></script>
     <script type="text/javascript" src="/build/js/tests.js"></script>
+    
+    <!-- Parsley -->
+    <script src="/vendors/parsleyjs/dist/parsley.min.js"></script>
+
     <!-- Flot -->
     <script>
       $(document).ready(function() {

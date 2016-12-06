@@ -4,7 +4,7 @@ $(document).ready(function(){
         type: 'GET',
         url: '/session/user'
     }).done(function(results){
-        console.log(results)
+       // console.log(results)
         if(results.name){
             var users = $('.currentUser')
             for(i in users){

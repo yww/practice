@@ -41,7 +41,6 @@ function excuteTest(){
 			url: '/reExcTest',
 			data:JSON.stringify(obj)
 		}).done(function(task){
-			//console.log(task)
 			//$('#datatable2').dataTable().fnAddData(task)
 			window.location.pathname="/test.html"
 	})
@@ -52,7 +51,6 @@ function getTestDetail(){
 		type: 'GET',
 		url: '/test/'+document.location.search.split('=')[1],
 	}).done(function(test){
-		//console.log(task)
 		//$('#datatable2').dataTable().fnAddData(task)
 		$('#testName').text(test[0].testName)
 		$("input[name='testName']").val(test[0].testName)
@@ -67,8 +65,6 @@ function getConfigDetail(id){
 		type: 'GET',
 		url: '/config/'+id
 	}).done(function(config){
-		console.log(config)
-
 		$("input[name='host']").val(config.host)
 		$("input[name='users']").val(config.users)
 		$("input[name='rampup']").val(config.rampup)

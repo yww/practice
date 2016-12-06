@@ -159,10 +159,10 @@ exports.delTest = function(req,res){
 					.exec(function(err,tasks){
 						tasks.forEach(function(T){
 							Config.remove({_id:T.configId},function(err,config){
-								console.log("delete config " + T.configId)
+								//console.log("delete config " + T.configId)
 							})
 							Task.remove({_id:T._id},function(err,task){
-								console.log("delete task "+ T._id)
+								//console.log("delete task "+ T._id)
 							})
 						})
 
@@ -174,7 +174,7 @@ exports.delTest = function(req,res){
 					.exec(function(err,activities){
 						activities.forEach(function(A){
 							Activity.remove({_id:A._id},function(err,activity){
-								console.log("delete activity "+ A._id)
+								//console.log("delete activity "+ A._id)
 							})
 						})
 					})
