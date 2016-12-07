@@ -135,7 +135,10 @@ exports.reExcTest = function(req,res,next){
 		.findById(_id,function(err,test){
 			if(err){
 				console.log(err)
-			}else{
+			}else if(! test){
+				res.send({status:400,message:"Test doesn't exist"})
+			}
+			else{
 				req.body.configId = test._doc.configId
 				next()
 			}

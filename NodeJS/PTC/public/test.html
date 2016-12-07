@@ -30,7 +30,11 @@
     <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
-
+    <!-- PNotify -->
+    <link href="/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+    
     <!-- Ion.RangeSlider -->
     <link href="/vendors/normalize-css/normalize.css" rel="stylesheet">
     <link href="/vendors/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
@@ -142,14 +146,57 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <!--modal-->
+        <div class="start-stoptest--dialog fade in modal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-md">
+              <div class="modal-content">
 
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel2">Launch Test</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="ready-section">
+                    <p>You are about to launch a new load test.Your test will automatically terminate according to your test configuration.</p>
+                    <p>Only continue if you have a permission to carry out this load test.</p>
+                    <div class="test-information">
+                      <div class="info">
+                        <strong>Your test will run with following configuration:</strong>
+                          <ul>
+                            <li>
+                              <i class="ico ico-ok" aria-hidden="true"></i>
+                               1 Console
+                            </li>
+                            <li>
+                              <i class="ico ico-ok" aria-hidden="true"></i> 20 Total threads
+                            </li>
+
+                            <li>
+                              <i class="ico ico-ok" aria-hidden="true"></i>Max duration of 20 minutes
+                            </li>
+                          </ul>
+                      </div>
+                    </div>
+                    <p>Click 
+                      <strong>Launch Servers</strong>to start the servers and run
+                    </p>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button title="Launch Servers" type="button" class="btn btn-success" id="launchTest" data-dismiss="modal">Launch Servers</button>
+                </div>
+            </div>
+          </div>                                               
+        </div>    
+        <!--modal end-->              
+        <div class="right_col" role="main">
 
         <!-- x_panne_tab start-->
           <div class="x_panel">
             <div class="x_title">
               <h2> 
-                <div class="btn btn-primary btn-success" id="exc1">
+                <div class="btn btn-primary btn-success" data-toggle="modal" data-target=".start-stoptest--dialog" id="exc1">
                   <i class="fa fa-play"></i> 
                 </div>
 
@@ -256,15 +303,15 @@
                   <div class="col-md-8" style="margin:0">
                     <form data-parsley-validate id="testBasic" class="form-horizontal form-label-left input_mask">
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"><span class="required">*</span>Project:</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Project <span class="required">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="form-control" name="project" required="required">
+                          <select class="form-control" disabled="disabled" name="project" required="required">
                           </select>
                         </div>
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"><span class="required">*</span>Name:</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Name <span class="required">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <input type="text" name="testName" class="form-control" required="required" placeholder="test name">
                         </div>
@@ -390,6 +437,10 @@
     <!-- Chart.js -->
     <script src="/vendors/Chart.js/dist/Chart.min.js"></script>
 
+    <!-- PNotify -->
+    <script src="/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="/vendors/pnotify/dist/pnotify.nonblock.js"></script>
     <!-- Datatables -->
     <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -418,7 +469,8 @@
     <!-- Custom Theme Scripts -->
     <script src="/build/js/custom.js"></script>
     <script src="/build/js/test.js"></script>
-
+    <!-- Parsley -->
+    <script src="/vendors/parsleyjs/dist/parsley.min.js"></script> 
     <!-- slider-->
     <script>
       $(document).ready(function(){

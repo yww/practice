@@ -14,7 +14,13 @@ function checkParams(e){
 			return
 		}else{
 			e.stopPropagation()
-			alert('Please upload a JMeter case first')
+			new PNotify({
+	          title: 'Error',
+	          text: 'Please upload a JMeter case first',
+	          type: 'error',
+	          styling: 'bootstrap3',
+	          addclass: "stack-modal"
+	      })
 		}
 	}else{
 		e.stopPropagation()

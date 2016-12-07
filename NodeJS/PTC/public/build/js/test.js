@@ -5,7 +5,7 @@ $(document).ready(function(){
 	}).done(function(_tasks){
 
 		$('#tabelWrap').html('<table id="datatable4" class="table table-striped dataTable no-footer no-header" role="grid" aria-describedby="datatable_info"></table>')
-		$('#datatable4').dataTable({
+		$('#datatable4').dataTable({  
 			"aaData": _tasks,
 			"aoColumns": [
 			{"sTitle": "Test Name",
@@ -20,13 +20,13 @@ $(document).ready(function(){
 		})
 	})
 
-	$('#exc1').click(excuteTest)
+	$('#launchTest').click(excuteTest)
 	$('#delete').click(deleteTest)
 	$('#update').click(function(e){
-		checkNewParams(e)
-		updateTest(e)
+		if(checkNewParams(e)){
+			updateTest()
+		}
 	})
-
 	getTestDetail()
 })
 
@@ -40,9 +40,17 @@ function excuteTest(){
 			type: 'POST',
 			url: '/reExcTest',
 			data:JSON.stringify(obj)
-		}).done(function(task){
-			//$('#datatable2').dataTable().fnAddData(task)
-			window.location.pathname="/test.html"
+		}).done(function(result){
+			if(result.status==400){
+		         new PNotify({
+		          title: 'Error',
+		          text: result.message,
+		          type: 'error',
+		          styling: 'bootstrap3',
+		          addclass: "stack-modal"
+		      })
+			}else{window.location.pathname="/test.html"}			
+			//$('#datatable2').dataTable().fnAddData(task)			
 	})
 }
 
@@ -54,6 +62,7 @@ function getTestDetail(){
 		//$('#datatable2').dataTable().fnAddData(task)
 		$('#testName').text(test[0].testName)
 		$("input[name='testName']").val(test[0].testName)
+		$("input[name='caseName']").val(test[0].caseName)
 		$("select[name='project']").append( "<option id=" + test[0].project._id + ">" + test[0].project.name + "</option>" )
 
 		getConfigDetail(test[0].configId)
@@ -76,20 +85,26 @@ function getConfigDetail(id){
 
 
 function checkNewParams(e){
-	var caseName=$("input[name='caseName']").val();
-	var name=$("input[name='testName']").val();
-	var project=$("select[name='project'] option:selected" ).attr("id");
-
-	if(name){
-		return
+	if($('#testBasic').parsley().validate()){
+		if($("input[name='caseName']").val()){
+			return true
+		}else{
+	         new PNotify({
+	          title: 'Error',
+	          text: 'Please upload a JMeter case first',
+	          type: 'error',
+	          styling: 'bootstrap3',
+	          addclass: "stack-modal"
+	      })			
+			return false
+		}
 	}else{
-		alert('Test name can not be empty')
-		e.stopPropagation()
-	}
+		return false
+	}	
 }
 
 //submit a test to server
-function updateTest(e){
+function updateTest(){
 	//construct config object
 	var configObj={}
 	var config=["host","users","rampup","duration","iteration"]
@@ -127,7 +142,7 @@ function updateTest(e){
 
 function deleteTest(){
 	var testId = document.location.search.split('=')[1]
-	if (confirm('If you delete the test, all the execution history will be deleted too. Are you sure you want to delete the test, ?')){
+	if (confirm('If you delete the test, all the execution history will be deleted too. Are you sure you want to delete the test?')){
 		$.ajax({
 			type: 'DELETE',
 			url:'/test/'+testId

@@ -22,7 +22,12 @@ function getCurrentTests(){
 			{"sTitle": "Owner"},
 			//{"sTitle": "Type"},
 			{"sTitle": "Users"},
-			{"sTitle": "Created At"}
+			{"sTitle": "Created At"},
+			{"sTitle": "Delete",
+				"render": function(test){
+					return '<button class="btn btn-danger btn-sm">Delete</button>'
+				}
+			}
 			]
 		})
 	})	
