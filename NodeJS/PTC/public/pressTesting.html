@@ -76,7 +76,7 @@
                     </ul>
                   </li>
 
-                  <li><a><i class="fa fa-edit"></i> Performance Testing <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-line-chart"></i> Performance Testing <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="pressTesting.html">JMter Test</a></li>
                     </ul>
@@ -330,14 +330,13 @@
            </div>
         <!-- /page content -->
 
-        <!-- footer content -->
+        <!-- footer content
         <footer>
           <div class="pull-right">
             Anywhere PTC
           </div>
           <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+        </footer>-->
       </div>
     </div>
 
@@ -387,88 +386,6 @@
     <script type="text/javascript" src="/build/js/jmeterTest.js"></script>
     <!-- Parsley -->
     <script src="/vendors/parsleyjs/dist/parsley.min.js"></script>    
-    <!-- Datatables -->
-    <script>
-      $(document).ready(function() {
-        var handleDataTableButtons = function() {
-          if ($("#datatable-buttons").length) {
-            $("#datatable-buttons").DataTable({
-              dom: "Bfrtip",
-              buttons: [
-                {
-                  extend: "copy",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "csv",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "excel",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "pdfHtml5",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "print",
-                  className: "btn-sm"
-                },
-              ],
-              responsive: true
-            });
-          }
-        };
-
-        TableManageButtons = function() {
-          "use strict";
-          return {
-            init: function() {
-              handleDataTableButtons();
-            }
-          };
-        }();
-
-        $('#datatable').dataTable();
-
-        $('#datatable-keytable').DataTable({
-          keys: true
-        });
-
-        $('#datatable-responsive').DataTable();
-
-        $('#datatable-scroller').DataTable({
-          ajax: "js/datatables/json/scroller-demo.json",
-          deferRender: true,
-          scrollY: 380,
-          scrollCollapse: true,
-          scroller: true
-        });
-
-        $('#datatable-fixed-header').DataTable({
-          fixedHeader: true
-        });
-
-        var $datatable = $('#datatable-checkbox');
-
-        $datatable.dataTable({
-          'order': [[ 1, 'asc' ]],
-          'columnDefs': [
-            { orderable: false, targets: [0] }
-          ]
-        });
-        // $datatable.on('draw.dt', function() {
-        //   $('input').iCheck({
-        //     checkboxClass: 'icheckbox_flat-blue'
-        //   });
-        // });
-
-        TableManageButtons.init();
-      });
-    </script>
-    <!-- /Datatables -->
-
     <!-- slider-->
     <script>
       $(document).ready(function(){
@@ -505,7 +422,6 @@
           max: 20,
           //from: 1,
           //to: 50,
-          disable: true,
           max_interval: 50
         });
       })

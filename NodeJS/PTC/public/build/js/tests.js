@@ -12,6 +12,7 @@ function getCurrentTests(){
 	}).done(function(_tests){
 		$('#tabelWrap').html('<table id="datatable3" class="table table-striped dataTable no-footer" role="grid" aria-describedby="datatable_info"></table>')
 		$('#datatable3').dataTable({
+			"autoWidth": false,
 			"aaData": _tests,
 			"aoColumns": [
 			{"sTitle": "Test name",
@@ -24,8 +25,9 @@ function getCurrentTests(){
 			{"sTitle": "Users"},
 			{"sTitle": "Created At"},
 			{"sTitle": "Delete",
-				"render": function(test){
-					return '<button class="btn btn-danger btn-sm">Delete</button>'
+				"render": function(id){
+					var _id = "'"+id+"'"
+					return '<button onclick="delTest('+_id+')" class="btn btn-danger btn-sm" id="'+id+'">Delete</button>'
 				}
 			}
 			]
@@ -49,8 +51,54 @@ function delCurrentProject(){
 		$.ajax({
 			type: 'DELETE',
 			url: '/project/'+document.location.search.split('=')[1],
-		}).done(function(result){		
-			alert(result.message)
-			window.location.pathname='/'
-		})	
+		}).done(function(result){
+				if(result.code==200){
+		         new PNotify({
+		          title: 'Success',
+		          text: result.message,
+		          type: 'success',
+		          styling: 'bootstrap3',
+		          addclass: "stack-modal"
+		      })
+		      setTimeout(function(){window.location.pathname='/'}, 1500);
+			}else{
+		         new PNotify({
+		          title: 'Error',
+		          text: result.message,
+		          type: 'error',
+		          styling: 'bootstrap3',
+		          addclass: "stack-modal"				
+			})		
+		}	
+	})
+}		        
+
+function delTest(id){
+	if (confirm('If you delete the test, all the execution history will be deleted too. Are you sure you want to delete the test?')){
+		$.ajax({
+			type: 'DELETE',
+			url:'/test/'+ id
+		}).done(function(result){
+			if(result.code==200){
+				new PNotify({
+				  title: 'Success',
+		          text: result.message,
+		          type: 'success',
+		          styling: 'bootstrap3',
+		          addclass: "stack-modal"					
+				})
+				setTimeout(function(){window.location.pathname='/tests.html'}, 1500);
+			}else{
+				new PNotify({
+				  title: 'Error',
+		          text: result.message,
+		          type: 'error',
+		          styling: 'bootstrap3',
+		          addclass: "stack-modal"					
+				})				
+			}		
+		})
+	}else{
+		return
+	}
 }

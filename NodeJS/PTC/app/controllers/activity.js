@@ -22,15 +22,11 @@ exports.getAllActivity = function(req,res){
 	Activity
 	.find({})
 	.sort({'meta.createAt':'desc'})
+	.limit(50)
 	.populate('user','userName')
 	.populate('target','testName')
 	.populate('config','users')
 	.exec(function(err, activities){
-		// var _projects=[];
-		// for(var i in projects){
-		// 	var subProject=[{name:projects[i].name,id:projects[i]._id}, projects[i].desc, projects[i].owner.userName, moment(projects[i].meta.createAt).format('YYYY/MM/DD')]
-		// 	_projects.push(subProject)
-		// }
 		var _activities=[];
 
 		activities.forEach(function(A){

@@ -30,10 +30,17 @@ exports.addProject = function(req,res){
 
 		_project.save(function(err, project){
 			if(err){
+				if(err.code == 11000){
+					res.send({code: 400, message:"Project name already exists"})
+				}else{
+					res.send({code: 400})
+				}
 				console.log(err)
+			}else{
+				var node=[project.name, project.desc, project.owner, moment(project.meta.createAt).format('YYYY/MM/DD')]
+				//res.redirect(req.get('referer'))
+				res.send({code:200, message: "Project created successfully"})
 			}
-			var node=[project.name, project.desc, project.owner, moment(project.meta.createAt).format('YYYY/MM/DD')]
-			res.redirect(req.get('referer'))
 		})
 	}
 }
@@ -53,12 +60,13 @@ exports.getProject = function(req,res){
 exports.getAllProject = function(req, res){
 	Project
 	.find({})
-	.sort({'meta.createAt':'desc'})
+	//.sort({'meta.createAt':'desc'})
 	.populate('owner','userName')
+	.sort({'meta.createAt':'desc'})
 	.exec(function(err, projects){
 		var _projects=[];
 		for(var i in projects){
-			var subProject=[{name:projects[i].name,id:projects[i]._id}, projects[i].desc, projects[i].owner.userName, moment(projects[i].meta.createAt).fromNow()]
+			var subProject=[{name:projects[i].name,id:projects[i]._id}, projects[i].desc, projects[i].owner.userName, moment(projects[i].meta.createAt).fromNow(),projects[i]._id]
 			_projects.push(subProject)
 		}
 		res.send(_projects)
@@ -72,10 +80,10 @@ exports.delProject = function(req,res){
 		.find({project:id})
 		.exec(function(err,tests){
 			if(tests.length>0){
-				res.send({status:400, message:"Bad request, can not delete non-empty project"})
+				res.send({code:400, message:"Bad request, can not delete non-empty project"})
 			}else{
 				Project.remove({_id:id},function(err,project){
-					res.send({status:200, message:"Deleted successfully"})
+					res.send({code:200, message:"Deleted successfully"})
 				})	
 			}
 		})

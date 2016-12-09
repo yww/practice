@@ -25,16 +25,6 @@ function checkParams(e){
 	}else{
 		e.stopPropagation()
 	}
-	// var caseName=$("input[name='caseName']").val();
-	// var name=$("input[name='testName']").val();
-	// var project=$("select[name='project'] option:selected" ).attr("id");
-
-	// if(caseName&&name&&project){
-	// 	return
-	// }else{
-	// 	alert('please input mandantory value')
-	// 	e.stopPropagation()
-	// }
 }
 
 //submit a test to server
@@ -104,6 +94,7 @@ function showTasks(){
 	}).done(function(_tasks){
 		$('#tabelWrap').html('<table id="datatable2" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info"></table>')
 		$('#datatable2').dataTable({
+			"autoWidth": false,
 			"aaData": _tasks,
 			"aoColumns": [
 			{"sTitle": "test name"},
@@ -112,6 +103,8 @@ function showTasks(){
 				"render": function(startTime){
 					if(startTime == "Invalid date"){
 						return '---'
+					}else{
+						return startTime
 					}
 				}
 			},
@@ -120,6 +113,8 @@ function showTasks(){
 				"render": function(endTime){
 					if(endTime == "Invalid date"){
 						return '---'
+					}else{
+						return endTime
 					}
 				}
 			},

@@ -1,32 +1,90 @@
-$(document).ready(function(){
+$(document).ready(showProjecs)
+
+function showProjecs(){
 	$.ajax({
 		type: 'GET',
-		url: '/project',
-	}).done(function(projects){	
-		$('#project').dataTable({
-		"responsive": true,
-		"data": projects,
-		"columns": [
-			{"sTitle": "Name",
-				"render": function(project){
-					return '<a class="blue" href="http://'+ document.location.host+'/tests.html?projectId='+project.id + '">' +project.name +'</a>'
-				//	return '<a class="blue" href="http://'+project.id+'">'+project.name+'</a>'
+		url: '/project'
+	}).done(function(_projects){
+		$('#tabelWrap').html('<table id="datatable3" class="table table-striped dataTable no-footer" role="grid"></table>')
+		$('#datatable3').dataTable({
+			"autoWidth": false,
+			"aaData": _projects,
+			"aoColumns": [
+			{"sTitle": "Project Name",
+				"render": function(obj){
+					return '<a class="blue" href="http://'+ document.location.host+'/tests.html?projectId='+obj.id + '">' +obj.name +'</a>'
 				}
 			},
 			{"sTitle": "Description"},
-			{"sTitle": "Owner"},
-			{"sTitle": "Created At"}				
+			{"sTitle": "owner"},
+			{"sTitle": "Created At"},
+			{"sTitle": "Delete",
+					"render": function(id){
+					var _id = "'"+id+"'"
+					return '<button onclick="delProject('+_id+')" class="btn btn-danger btn-sm" id="'+id+'">Delete</button>'
+				}
+			}
 			]
 		})
 	})
-})
-
-
-
-function getProject(id){
-	//...
 }
 
-function deleteProject(){
-	//
+$('#addProject').submit(function(e){
+	if(! $('#addProject').parsley().validate()){
+		return
+	}else{
+	    $.ajax({
+	        type: "POST",
+	        url: "/project",
+	        data: $(this).serialize(),
+	        success: function(results){
+	            if(results.code ===200){
+	                new PNotify({
+	                      title: 'Success',
+	                      text: results.message,
+	                      type: 'success',
+	                      styling: 'bootstrap3',
+	                      addclass: "stack-modal"
+	                  })
+	               // alert(results.msg)
+	                setTimeout(function(){document.location.pathname= '/'},1500)
+	            }else{
+	                new PNotify({
+	                      title: 'Error',
+	                      text: results.message,
+	                      type: 'error',
+	                      styling: 'bootstrap3',
+	                      addclass: "stack-modal"
+	                  })
+	            }
+	        }
+	    })
+	    return e.preventDefault()
+	}
+})
+
+function delProject(id){
+		$.ajax({
+			type: 'DELETE',
+			url: '/project/'+id,
+		}).done(function(result){
+				if(result.code==200){
+		         new PNotify({
+		          title: 'Success',
+		          text: result.message,
+		          type: 'success',
+		          styling: 'bootstrap3',
+		          addclass: "stack-modal"
+		      })
+		      setTimeout(function(){window.location.pathname='/'}, 1500);
+			}else{
+		         new PNotify({
+		          title: 'Error',
+		          text: result.message,
+		          type: 'error',
+		          styling: 'bootstrap3',
+		          addclass: "stack-modal"				
+			})		
+		}	
+	})
 }

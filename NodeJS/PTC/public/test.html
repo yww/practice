@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>PTC! | </title>
+    <title>PTC! | Test Detail</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -44,6 +44,7 @@
     <link href="/vendors/dropzone/dist/dropzone.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
+    <script type="text/javascript" src="/build/js/user.js"></script>    
     <link href="/build/css/custom.css" rel="stylesheet">
 
   </head>
@@ -84,7 +85,7 @@
                     </ul>
                   </li>
 
-                  <li><a><i class="fa fa-edit"></i> Performance Testing <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-line-chart"></i> Performance Testing <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="pressTesting.html">JMter Test</a></li>
                     </ul>
@@ -410,14 +411,13 @@
 
         <!-- /page content -->
 
-        <!-- footer content -->
+        <!-- footer content 
         <footer>
           <div class="pull-right">
             Anywhere PTC
           </div>
           <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+        </footer>-->
       </div>
     </div>
 
@@ -434,9 +434,6 @@
 
     <!-- Dropzone.js -->
     <script src="/vendors/dropzone/dist/dropzone.js"></script>
-    <!-- Chart.js -->
-    <script src="/vendors/Chart.js/dist/Chart.min.js"></script>
-
     <!-- PNotify -->
     <script src="/vendors/pnotify/dist/pnotify.js"></script>
     <script src="/vendors/pnotify/dist/pnotify.buttons.js"></script>
@@ -466,95 +463,12 @@
     <script src="js/moment/moment.min.js"></script>
     <script src="js/datepicker/daterangepicker.js"></script>
 
-    <!-- Custom Theme Scripts -->
+    <!-- Custom Theme Scripts -->   
     <script src="/build/js/custom.js"></script>
     <script src="/build/js/test.js"></script>
+    <script type="text/javascript" src="/build/js/user.js"></script> 
     <!-- Parsley -->
     <script src="/vendors/parsleyjs/dist/parsley.min.js"></script> 
-    <!-- slider-->
-    <script>
-      $(document).ready(function(){
-        $("#overideUser").ionRangeSlider({
-          type: "single",
-          min: 1,
-          max: 50,
-          //from: 1,
-          //to: 50,
-          max_interval: 50
-        });
-
-        $("#overideRampup").ionRangeSlider({
-          type: "single",
-          min: 0,
-          max: 3600,
-          //from: 1,
-          //to: 50,
-          max_interval: 3600
-        });
-
-        $("#overideIteration").ionRangeSlider({
-          type: "single",
-          min: 1,
-          max: 100,
-          //from: 1,
-          //to: 50,
-          max_interval: 1
-        });
-
-        $("#overideDuration").ionRangeSlider({
-          type: "single",
-          min: 1,
-          max: 20,
-          //from: 1,
-          //to: 50,
-          disable: true,
-          max_interval: 50
-        });
-      })
-    </script>
-    <!--slider end-->
-    <!-- Doughnut Chart -->
-    <script>
-      $(document).ready(function(){
-        var options = {
-          legend: false,
-          responsive: false
-        };
-
-        new Chart(document.getElementById("canvas1"), {
-          type: 'doughnut',
-          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-          data: {
-            labels: [
-              "Symbian",
-              "Blackberry",
-              "Other",
-              "Android",
-              "IOS"
-            ],
-            datasets: [{
-              data: [15, 20, 30, 10, 30],
-              backgroundColor: [
-                "#BDC3C7",
-                "#9B59B6",
-                "#E74C3C",
-                "#26B99A",
-                "#3498DB"
-              ],
-              hoverBackgroundColor: [
-                "#CFD4D8",
-                "#B370CF",
-                "#E95E4F",
-                "#36CAAB",
-                "#49A9EA"
-              ]
-            }]
-          },
-          options: options
-        });
-      });
-    </script>
-    <!-- /Doughnut Chart -->
     
     <!-- bootstrap-daterangepicker -->
     <script>

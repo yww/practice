@@ -43,10 +43,12 @@ exports.updateTest = function(req,res,next){
 			if(err){
 				console.log(err)
 				res.send({code:400,message:'failed'})
+			}else if(!test){
+				res.send({code: 400, message: "test doesn't exist"})
 			}else{
 				_test = _.extend(test,testObj)
 				_test.save(function(err,test){
-					res.send({code:200,message:'successfully'})
+					res.send({code:200,message:'test updated successfully'})
 					
 					req.body.testId = test._doc._id;
 					req.body.configId = test._doc.configId
@@ -69,14 +71,14 @@ exports.getAllTest = function(req, res){
 		.populate('type','testType')
 		.populate('project','name')
 		.populate('configId','users')
+		.sort({'meta.createAt':'desc'})
 		.exec(function(err, tests){
 			if(err){console.log(err)}
 			var _tests=[];
 			for(var i in tests){
-				var subTest=[{name:tests[i].testName,id:tests[i]._id},tests[i].owner.userName,tests[i].configId.users, moment(tests[i].meta.createAt).format('YYYY/MM/dd HH:mm:ss')]
+				var subTest=[{name:tests[i].testName,id:tests[i]._id},tests[i].owner.userName,tests[i].configId.users, moment(tests[i].meta.createAt).fromNow(),tests[i]._id]
 				_tests.push(subTest)					
-			}
-			
+			}			
 			res.send(_tests)
 		})		
 	}else{
@@ -136,7 +138,7 @@ exports.reExcTest = function(req,res,next){
 			if(err){
 				console.log(err)
 			}else if(! test){
-				res.send({status:400,message:"Test doesn't exist"})
+				res.send({code:400,message:"Test doesn't exist"})
 			}
 			else{
 				req.body.configId = test._doc.configId
@@ -169,7 +171,7 @@ exports.delTest = function(req,res){
 							})
 						})
 
-						res.send({status:200,message:"Test is deleted successfully"})
+						res.send({code:200,message:"Test is deleted successfully"})
 					})
 					//delete activity
 					Activity
@@ -183,7 +185,7 @@ exports.delTest = function(req,res){
 					})
 				}) 
 			}else{
-				res.send({status:400, message:"Test doesn't exist"})
+				res.send({code:400, message:"Test doesn't exist"})
 			}
 		})
 	}else{
