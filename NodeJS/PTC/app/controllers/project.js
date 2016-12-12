@@ -60,9 +60,7 @@ exports.getProject = function(req,res){
 exports.getAllProject = function(req, res){
 	Project
 	.find({})
-	//.sort({'meta.createAt':'desc'})
 	.populate('owner','userName')
-	.sort({'meta.createAt':'desc'})
 	.exec(function(err, projects){
 		var _projects=[];
 		for(var i in projects){

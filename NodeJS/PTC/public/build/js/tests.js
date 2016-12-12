@@ -12,6 +12,7 @@ function getCurrentTests(){
 	}).done(function(_tests){
 		$('#tabelWrap').html('<table id="datatable3" class="table table-striped dataTable no-footer" role="grid" aria-describedby="datatable_info"></table>')
 		$('#datatable3').dataTable({
+			"order": [[3,'desc']],
 			"autoWidth": false,
 			"aaData": _tests,
 			"aoColumns": [

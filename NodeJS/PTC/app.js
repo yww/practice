@@ -47,6 +47,14 @@ app.locals.moment = require('moment')
 
 //require routes file
 require('./config/routes')(app)
+app.use(function clientErrorHandler(err, req, res, next) {
+  if (req.xhr) {
+    res.redirect('/page_404.html')
+  } else {
+    next(err);
+  }
+})
+//app.use(errorHandler)
 
 //polling database, to start/kill/ tasks or copy log  
    setInterval(Control.execTask,5000)

@@ -42,10 +42,22 @@ $(document).ready(function(){
             data: $(this).serialize(),
             success: function(results){
                 if(results.code===201){
-                    alert(results.msg)
-                    document.location.hash=''
+                    new PNotify({
+                          title: 'Success',
+                          text: results.msg,
+                          type: 'success',
+                          styling: 'bootstrap3',
+                          addclass: "stack-modal"
+                      })
+                    setTimeout(function(){document.location.hash=''},1500)
                 }else{
-                    alert(results.msg)
+                    new PNotify({
+                          title: 'Error',
+                          text: results.msg,
+                          type: 'error',
+                          styling: 'bootstrap3',
+                          addclass: "stack-modal"
+                      })
                 }
             }
         })

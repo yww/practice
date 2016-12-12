@@ -9,10 +9,17 @@ var configObj = JSON.parse(fs.readFileSync(__dirname + '/../../config/config.jso
 var host = configObj.targetMachine.host
 
 exports.getAllTask = function(req, res){
+	var statusMap = {
+		1: 'Pending',
+		2: 'Running',
+		3: 'Finished',
+		4: 'Timeout',
+		5: 'Unknow'
+	}
+
 	if(req.query.testId){
 		Task
 		.find({testId:req.query.testId})
-		.sort({'meta.startAt':'desc'})
 		.populate('testId','testName')
 		.populate('configId','users')
 		.exec(function(err, tasks){
@@ -28,13 +35,13 @@ exports.getAllTask = function(req, res){
 	}else{
 		Task
 		.find({})
-		.sort({'meta.startAt':'desc'})
 		.populate('commitId','userName')
 		.populate('testId','testName')
 		.exec(function (err, tasks) {
 			var _tasks=[];
 			for(var i in tasks){
-				var subTask=[tasks[i].testId.testName, tasks[i].commitId.userName, moment(tasks[i].meta.startAt).format('YYYY/MM/DD HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/DD HH:mm:ss'), tasks[i].status, host+'/'+tasks[i]._id]
+				var subTask=[tasks[i].testId, tasks[i].commitId.userName, moment(tasks[i].meta.startAt).format('YYYY/MM/DD HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/DD HH:mm:ss'), statusMap[tasks[i].status], host+'/'+tasks[i]._id]
+				//{name:tasks[i].testId.testName,id:tasks[i].testId}
 				_tasks.push(subTask)
 			}
 			res.send(_tasks)

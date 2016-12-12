@@ -3,11 +3,11 @@ $(document).ready(function(){
 		type: 'GET',
 		url: '/task/'+document.location.search
 	}).done(function(_tasks){
-
 		$('#tabelWrap').html('<table id="datatable4" class="table table-striped dataTable no-footer no-header" role="grid" aria-describedby="datatable_info"></table>')
 		$('#datatable4').dataTable({  
 			"autoWidth": false,
 			"aaData": _tasks,
+			"order": [[2,'desc']],
 			"aoColumns": [
 			{"sTitle": "Test Name",
 				"render": function(task){

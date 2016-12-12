@@ -7,6 +7,7 @@ function showProjecs(){
 	}).done(function(_projects){
 		$('#tabelWrap').html('<table id="datatable3" class="table table-striped dataTable no-footer" role="grid"></table>')
 		$('#datatable3').dataTable({
+			"order": [[3,'desc']],
 			"autoWidth": false,
 			"aaData": _projects,
 			"aoColumns": [

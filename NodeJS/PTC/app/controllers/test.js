@@ -71,7 +71,6 @@ exports.getAllTest = function(req, res){
 		.populate('type','testType')
 		.populate('project','name')
 		.populate('configId','users')
-		.sort({'meta.createAt':'desc'})
 		.exec(function(err, tests){
 			if(err){console.log(err)}
 			var _tests=[];

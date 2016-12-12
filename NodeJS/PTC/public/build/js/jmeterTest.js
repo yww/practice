@@ -94,10 +94,15 @@ function showTasks(){
 	}).done(function(_tasks){
 		$('#tabelWrap').html('<table id="datatable2" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info"></table>')
 		$('#datatable2').dataTable({
+			"order": [[2,'desc']],
 			"autoWidth": false,
 			"aaData": _tasks,
 			"aoColumns": [
-			{"sTitle": "test name"},
+			{"sTitle": "Test name",
+				"render": function(test){
+						return '<a class="blue" href="http://'+ document.location.host+'/test.html?testId='+ test._id + '">' + test.testName +'</a>'
+					}			
+			},
 			{"sTitle": "Commit By"},
 			{"sTitle": "StartTime",
 				"render": function(startTime){
@@ -121,7 +126,7 @@ function showTasks(){
 			{"sTitle": "Status"},
 			{"sTitle": "Report",
 				"render": function(Id){
-					return '<a class="blue" href="http://'+Id+'/dashboard">log</a>'
+					return '<a class="blue" target="_blank" href="http://'+Id+'/dashboard">log</a>'
 					}
 				}
 			]

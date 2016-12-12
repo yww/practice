@@ -46,7 +46,7 @@ exports.signup = function(req,res){
 			var user = new User(_user)
 			user.save(function(err,user){
 				if(err) console.log(err)
-					res.send({msg: "resgistration success", code: 201})
+					res.send({msg: "resgistration succeed", code: 201})
 			})
 		}
 	})
