@@ -16,6 +16,7 @@ var TaskSchema = new Schema({
 		type:Boolean,
 		default: false
 	},
+	retry: {type: Number, default:0},
 	meta: {
 		startAt: {
 			type:Date,
@@ -48,8 +49,6 @@ TaskSchema.statics={
 TaskSchema.pre('save',function(next){
 	if (this.isNew){
 		this.meta.recordAt = this.meta.updateAt = Date.now();
-	}else{
-		this.meta.startAt = Date.now()
 	}
 	next()
 })

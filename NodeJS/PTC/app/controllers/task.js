@@ -14,7 +14,7 @@ exports.getAllTask = function(req, res){
 		2: 'Running',
 		3: 'Finished',
 		4: 'Timeout',
-		5: 'Unknow'
+		5: 'Unknown'
 	}
 
 	if(req.query.testId){

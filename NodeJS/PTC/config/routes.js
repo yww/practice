@@ -7,14 +7,14 @@ var Config = require('../app/controllers/config')
 
 module.exports = function(app){
 	//user prehandling 
-	app.use(function(req,res,next){
-		var _user = req.session.user
-		//for debug use
-		console.log('Current user\'s session ' )
-		console.log(req.session)
-		app.locals.user = _user
-		next()
-	})
+	// app.use(function(req,res,next){
+	// 	var _user = req.session.user
+	// 	//for debug use
+	// 	console.log('Current user\'s session ' )
+	// 	console.log(req.session)
+	// 	app.locals.user = _user
+	// 	next()
+	// })
 
 	//index page
 	app.get('/',function(req,res){
