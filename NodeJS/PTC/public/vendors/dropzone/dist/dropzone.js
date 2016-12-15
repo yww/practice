@@ -134,7 +134,7 @@
       acceptedMimeTypes: null,
       autoProcessQueue: true,
       autoQueue: true,
-      addRemoveLinks: false,
+      addRemoveLinks: true,
       previewsContainer: null,
       hiddenInputContainer: "body",
       capture: null,
@@ -147,7 +147,7 @@
       dictResponseError: "Server responded with {{statusCode}} code.",
       dictCancelUpload: "Cancel upload",
       dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
-      dictRemoveFile: "Remove file",
+      dictRemoveFile: "delete",
       dictRemoveFileConfirmation: null,
       dictMaxFilesExceeded: "You can not upload any more files.",
       accept: function(file, done) {
@@ -304,6 +304,7 @@
         if (file.previewElement) {
           if ((_ref = file.previewElement) != null) {
             _ref.parentNode.removeChild(file.previewElement);
+            $("input[name='caseName']").val("")
           }
         }
         return this._updateMaxFilesReachedClass();
@@ -372,7 +373,6 @@
       sendingmultiple: noop,
       success: function(file,responseText) {
         if (file.previewElement) {
-          console.log(responseText)
           $("input[name='caseName']").val(responseText)
           return file.previewElement.classList.add("dz-success");
         }
