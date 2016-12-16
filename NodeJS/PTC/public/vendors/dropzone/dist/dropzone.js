@@ -1479,6 +1479,10 @@
       dropzone = dropzones[_i];
       if (Dropzone.optionsForElement(dropzone) !== false) {
         _results.push(new Dropzone(dropzone));
+
+       //below code is added by wenwen 
+        // myDropzone = _results[0]
+
       } else {
         _results.push(void 0);
       }

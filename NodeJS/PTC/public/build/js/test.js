@@ -73,7 +73,7 @@ function getTestDetail(){
 		$("input[name='testName']").val(test[0].testName)
 		$("input[name='caseName']").val(test[0].caseName)
 		$("select[name='project']").append( "<option id=" + test[0].project._id + ">" + test[0].project.name + "</option>" )
-
+		existingCase()
 		getConfigDetail(test[0].configId)
 	})
 }
@@ -163,8 +163,9 @@ function updateTest(){
 
 	//constuct test object
 	var testObj={}
-	var test= ["testName"]
+	var test= ["caseName","testName"]
 	testObj._id = window.location.search.split('=')[1]
+	
 	test.forEach(function(c){
 		var inputVal=$("input[name="+c+"]").val()
 		if(inputVal){
@@ -235,3 +236,27 @@ function deleteTest(){
 	}
 }
 
+//below function is to display existing case of current test
+function existingCase(){
+	var caseName = $('input[name="caseName"]').val()
+	if(caseName){
+		
+		var myDropzone = Dropzone.forElement("#caseUpdate")
+		// Create the mock file:
+		//var mockFile = { name: caseName, size: 12345 }
+		var mockFile = new File([""], caseName, {type: "text/plain", lastModified: Date.now()})
+		// Call the default addedfile event handler. myDropzone is defined in dropzone.js line 1484
+		myDropzone.emit("addedfile", mockFile);
+
+		// Make sure that there is no progress bar, etc...
+		myDropzone.emit("complete", mockFile);
+
+		// If you use the maxFiles option, make sure you adjust it to the
+		// correct amount:
+		// var existingFileCount = 1; // The number of files already uploaded
+		// myDropzone.options.maxFiles = myDropzone.options.maxFiles - existingFileCount;
+		
+		myDropzone.files.push(mockFile)
+		//myDropzone.removeEventListeners()
+	}
+}
