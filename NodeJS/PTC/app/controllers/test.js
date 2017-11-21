@@ -109,6 +109,7 @@ exports.getTest = function(req, res){
 exports.uploadCase= function(req,res,next){
 	var caseData = req.files.uploadCase
 	var filePath = caseData.path
+	var size = caseData.size
 	var originalFilename = caseData.originalFilename
 
 	if(originalFilename){
@@ -116,11 +117,15 @@ exports.uploadCase= function(req,res,next){
 			var timestamp = Date.now();
 			var type = caseData.type.split('/')[1];
 			var newName = timestamp+'.'+'jmx';
-			var newPath = path.join(__dirname,'../../','/public/upload/case/'+newName);
-
+			//var newPath = path.join(__dirname,'../../','/public/upload/case/'+newName);
+			var newPath = path.join(__dirname,'../../../','/cases/'+newName);
 			fs.writeFile(newPath,data,function(err){
 				console.log(err)
-				res.send(newName)
+				res.send({
+					caseName: newName,
+					size: size,
+					originalFilename: originalFilename
+				})
 				next()
 			})
 		})

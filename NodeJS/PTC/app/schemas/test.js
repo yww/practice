@@ -10,6 +10,8 @@ var TestSchema = new Schema({
 	project: {type: ObjectId, ref:'Project'},
 	configId: {type: ObjectId, ref:'Config'},
 	caseName:String,
+	caseOriginName: String,
+	caseSize: Number,
 	meta: {
 		createAt:{
 			type: Date,

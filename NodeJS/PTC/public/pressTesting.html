@@ -13,8 +13,6 @@
     <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="/vendors/iCheck/skins/flat/blue.css" rel="stylesheet">
     <!-- Datatables -->
@@ -86,7 +84,7 @@
             </div>
             <!-- /sidebar menu -->
 
-            <!-- /menu footer buttons -->
+            <!-- /menu footer buttons 
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
@@ -100,7 +98,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
-            </div>
+            </div>-->
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -239,6 +237,8 @@
                     <form class="dropzone" style="margin-bottom: 15px" id="caseUpload">
                       <!-- hidden input field, to store new case name(time stampt)-->
                       <input type="text" name="caseName" class="hidden" id="overideCase" required="required">
+                      <input type="text" name="caseSize" class="hidden" id="caseSize" required="required">
+                      <input type="text" name="caseOriginName" class="hidden" id="caseOriginName" required="required">
                     </form>
 
 
@@ -344,10 +344,6 @@
     <script src="/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="/vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->
     <script src="/vendors/iCheck/icheck.min.js"></script>
     <!-- Ion.RangeSlider -->
@@ -366,8 +362,6 @@
     <script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
     <script src="/vendors/jszip/dist/jszip.min.js"></script>
-    <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
     <script src="/vendors/validator/validator.js"></script>
 
     <!-- Dropzone.js -->
@@ -419,7 +413,7 @@
         $("#overideDuration").ionRangeSlider({
           type: "single",
           min: 1,
-          max: 20,
+          max: 60,
           //from: 1,
           //to: 50,
           max_interval: 50

@@ -42,7 +42,7 @@ function commitTest(){
 
 	//constuct test object
 	var testObj={}
-	var test= ["caseName","testName"]
+	var test= ["caseName","testName","caseSize","caseOriginName"]
 	test.forEach(function(c){
 		var inputVal=$("input[name="+c+"]").val()
 		if(inputVal){

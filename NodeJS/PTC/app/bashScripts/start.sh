@@ -11,5 +11,6 @@ mkdir -p ./logs/$1/dashboard
 # exet JMeter file
 if [ -e ./cases/$2 ]
 then
-nohup ./JMeter/bin/jmeter.sh -n -t ./cases/$2 -l ./logs/$1/report.xml -e -o ./logs/$1/dashboard $3 $4 $5 $6 & echo $!
+nohup ./JMeter/bin/jmeter.sh -Jjmeter.save.saveservice.output_format=xml -n -t ./cases/$2 -j ./logs/$1/jmeter.log -l ./logs/$1/report.jtl -e -o ./logs/$1/dashboard $3 $4 $5 $6 & echo $!
+xsltproc JMeterLogParser.xsl ./logs/$1/report.jtl > ./logs/$1/report.html
 fi

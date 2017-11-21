@@ -1,6 +1,6 @@
 var Task = require('../models/task');
 var Test = require('../models/test');
-var Config = require('../models/Config');
+var Config = require('../models/config');
 var app = require('../../app')
 var _ = require('underscore');
 var moment = require('moment')

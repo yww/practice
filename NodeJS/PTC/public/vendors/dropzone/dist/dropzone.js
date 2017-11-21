@@ -373,7 +373,10 @@
       sendingmultiple: noop,
       success: function(file,responseText) {
         if (file.previewElement) {
-          $("input[name='caseName']").val(responseText)
+          $("input[name='caseName']").val(responseText.caseName)
+          $("input[name='caseSize']").val(responseText.size)
+          $("input[name='caseOriginName']").val(responseText.originalFilename)
+          
           return file.previewElement.classList.add("dz-success");
         }
       },
