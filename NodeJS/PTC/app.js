@@ -12,7 +12,7 @@ var multiparty = require('connect-multiparty')
 var port = process.env.PORT || 8080
 var app = express()
 var dbUrl = 'mongodb://localhost:27017/ptc'
-
+//var dbUrl = 'mongodb://'+process.env.DB_PORT_27017_TCP_ADDR+':'+process.env.DB_PORT_27017_TCP_PORT
 app.listen(port)
 console.log('ptc started on'+ port)
 

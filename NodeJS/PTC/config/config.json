@@ -1,6 +1,7 @@
 {
 	"maxDurTime": 30,
 	"maxConTasks": 5,
+	//Where JMeter is installed and performance test get executed.
 	"targetMachine":
 		{
 			"host": "10.58.9.185",
