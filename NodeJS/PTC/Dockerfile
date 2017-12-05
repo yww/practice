@@ -1,6 +1,6 @@
-FROM node:6.10.3
+FROM ptcbase
 
 WORKDIR /opt/PTC
 COPY / /opt/PTC
-RUN chmod +x * 
-CMD ["sh"]
+
+RUN mkdir /opt/cases

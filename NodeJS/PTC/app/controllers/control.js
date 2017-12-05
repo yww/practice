@@ -4,6 +4,7 @@ var SSH = require('simple-ssh')
 var Task = require('../models/task')
 var Test = require('../models/test')
 var Config = require('../models/config')
+var child_process = require('child_process')
 
 var moment = require('moment')
 
@@ -18,7 +19,8 @@ var SSHObj = {
     pass: configObj.targetMachine.pass
 }
 
-function startTask(doc){
+//Execute a jmx case located on another server using SSH
+/*function startTask(doc){
 	
 	var name
 	var id=doc._doc._id
@@ -69,9 +71,39 @@ function startTask(doc){
 		}	
 		}).start()
 	})				
+}*/
+
+//Execute a test located on localserver
+function startTask(doc){
+	
+	var name
+	var id=doc._doc._id
+	var configString=" "
+	var configItems=['host','users','rampup','iteration']
+	
+	Test
+	.findById(doc.testId,function(err,test){
+		name=test._doc.caseName
+	})
+
+	Config
+	.findById(doc.configId,function(err,config){
+		configItems.forEach(function(c){
+			if(config._doc[c]){
+				configString += '-J'+c+'='+config[c]+' '
+			}
+		})
+	
+	child_process
+	.execFile(' bash /usr/PTC/start.sh ' + id + ' ' + name + configString,function(error, stdout, stderr){
+		if(error){
+			console.log(error)
+		}
+		
+		console.log(stdout)	
+		})
+	})				
 }
-
-
 
 function killTask(doc){
 	var ssh = new SSH(SSHObj)

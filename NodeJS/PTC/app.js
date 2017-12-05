@@ -11,10 +11,17 @@ var Control = require('./app/controllers/control')
 var multiparty = require('connect-multiparty')
 var port = process.env.PORT || 8080
 var app = express()
-var dbUrl = 'mongodb://localhost:27017/ptc'
+//for local debug
+//var dbUrl = 'mongodb://localhost:27017/ptc'
+
+//for docker container link
 //var dbUrl = 'mongodb://'+process.env.DB_PORT_27017_TCP_ADDR+':'+process.env.DB_PORT_27017_TCP_PORT
+
+//Read environment variable
+var dbUrl = 'mongodb://'+process.env.mongoAdd+':'+process.env.mongoPort
+
 app.listen(port)
-console.log('ptc started on'+ port)
+console.log('ptc started on '+ port)
 
 //connet mongoDB
 mongoose.Promise = global.Promise
