@@ -126,7 +126,7 @@ function showTasks(){
 			{"sTitle": "Status"},
 			{"sTitle": "Report",
 				"render": function(Id){
-					return '<a class="blue" target="_blank" href="http://'+Id+'/dashboard">log</a>'
+					return '<a class="blue" target="_blank" href="http://'+ document.location.host+'/logs/'+Id +'/dashboard/index.html">log</a>'
 					}
 				}
 			]

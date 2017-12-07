@@ -1,4 +1,4 @@
-FROM ptcbase
+FROM jmetermaster
 
 WORKDIR /opt/PTC
 COPY / /opt/PTC

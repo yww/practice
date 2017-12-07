@@ -50,6 +50,8 @@ app.use(multiparty())
 
 //static resource
 app.use(serveStatic(path.join(__dirname,'public')))
+
+//moment
 app.locals.moment = require('moment')
 
 //require routes file
@@ -65,6 +67,6 @@ app.use(function clientErrorHandler(err, req, res, next) {
 
 //polling database, to start/kill/ tasks or copy log  
    setInterval(Control.execTask,5000)
-   setInterval(Control.FinishTask, 5000) 
-   setInterval(Control.killExpired,10000)
+  // setInterval(Control.FinishTask, 5000) 
+  // setInterval(Control.killExpired,10000)
 

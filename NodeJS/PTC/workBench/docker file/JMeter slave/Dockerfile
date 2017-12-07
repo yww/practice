@@ -1,7 +1,6 @@
-# Use vinsdocker/jmbase
+# Use jmeter3.0base build jmter slave
 
-FROM vinsdocker/jmbase
-MAINTAINER TestAutomationGuru
+FROM jmeter3.0base
 
 # Ports to be exposed from the container for JMeter Slaves/Server
 EXPOSE 1099 50000

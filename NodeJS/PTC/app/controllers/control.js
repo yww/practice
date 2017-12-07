@@ -94,14 +94,36 @@ function startTask(doc){
 			}
 		})
 	
-	child_process
-	.execFile(' bash /usr/PTC/start.sh ' + id + ' ' + name + configString,function(error, stdout, stderr){
-		if(error){
-			console.log(error)
-		}
-		
-		console.log(stdout)	
-		})
+	// child_process
+	// .exec('/opt/PTC/app/bashScripts/start.sh '+id +' '+name+' '+configString,function(error, stdout, stderr){
+	// 	if(error){
+	// 		console.log('ERROR');
+	// 		console.log(error)
+	// 	}
+	// 	console.log(stdout)	
+	// 	})
+
+	//for debug
+			doc.status=2
+			doc.pId = parseInt(12345)
+			doc.meta.startAt = Date.now()
+			doc.save(function(err, doc){
+					if (err){
+						console.log(err)
+					} 
+				})
+
+
+	var cp = child_process.exec('/opt/PTC/app/bashScripts/start.sh '+id +' '+name+' '+configString)
+	cp.stdout.on('data', (data) => {
+		  console.log(`stdout: ${data}`);
+		});
+	cp.stderr.on('data', (data) => {
+	  console.log(`stderr: ${data}`);
+	});
+	cp.on('colse', (code) => {
+	  console.log(`child process exited with code ${code}`);
+	});
 	})				
 }
 

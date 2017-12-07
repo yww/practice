@@ -1,7 +1,6 @@
-# Use vinsdocker/jmbase
+# Use jmeter3.0base build jmeter master
 
-FROM vinsdocker/jmbase
-MAINTAINER TestAutomationGuru
+FROM jmeter3.0base
 
 # install node & npm
 

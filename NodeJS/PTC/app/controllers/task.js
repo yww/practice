@@ -40,7 +40,7 @@ exports.getAllTask = function(req, res){
 		.exec(function (err, tasks) {
 			var _tasks=[];
 			for(var i in tasks){
-				var subTask=[tasks[i].testId, tasks[i].commitId.userName, moment(tasks[i].meta.startAt).format('YYYY/MM/DD HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/DD HH:mm:ss'), statusMap[tasks[i].status], host+'/'+tasks[i]._id]
+				var subTask=[tasks[i].testId, tasks[i].commitId.userName, moment(tasks[i].meta.startAt).format('YYYY/MM/DD HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/DD HH:mm:ss'), statusMap[tasks[i].status],tasks[i]._id]
 				//{name:tasks[i].testId.testName,id:tasks[i].testId}
 				_tasks.push(subTask)
 			}
