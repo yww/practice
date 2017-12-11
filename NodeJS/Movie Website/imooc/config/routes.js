@@ -9,7 +9,8 @@ module.exports = function(app){
 	
 	//user prehandleing
 	app.use(function(req,res,next){
-		var _user=req.session.user
+		var _user=req.session.user;
+		console.log(_user)
 			app.locals.user=_user
 			next()	
 	})

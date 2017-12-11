@@ -18,7 +18,7 @@ var app = express()
 //var dbUrl = 'mongodb://'+process.env.DB_PORT_27017_TCP_ADDR+':'+process.env.DB_PORT_27017_TCP_PORT
 
 //Read environment variable
-var dbUrl = 'mongodb://'+process.env.mongoAdd+':'+process.env.mongoPort
+var dbUrl = 'mongodb://'+process.env.mongoAdd+':'+process.env.mongoPort+'/PTC'
 
 app.listen(port)
 console.log('ptc started on '+ port)

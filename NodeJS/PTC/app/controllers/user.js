@@ -11,7 +11,7 @@ exports.signin = function(req,res){
 			console.log(err)
 		}
 		if(!user){
-			res.send({msg: "user doesn\'t match", code: 500})
+			res.send({msg: "user doesn\'t exist", code: 500})
 			return
 		}
 

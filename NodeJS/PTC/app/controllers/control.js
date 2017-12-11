@@ -12,15 +12,15 @@ var moment = require('moment')
 //Read confirguration from config.json
 var configObj = JSON.parse(fs.readFileSync(__dirname + '/../../config/config.json', 'utf8'))
 
-//new SSH connection
-var SSHObj = {
+//new SSH connection to execute case located on another server
+/*var SSHObj = {
     host: configObj.targetMachine.host,
     user: configObj.targetMachine.user,
     pass: configObj.targetMachine.pass
 }
 
 //Execute a jmx case located on another server using SSH
-/*function startTask(doc){
+function startTask(doc){
 	
 	var name
 	var id=doc._doc._id
@@ -71,7 +71,8 @@ var SSHObj = {
 		}	
 		}).start()
 	})				
-}*/
+}
+*/
 
 //Execute a test located on localserver
 function startTask(doc){
@@ -94,39 +95,50 @@ function startTask(doc){
 			}
 		})
 	
-	// child_process
-	// .exec('/opt/PTC/app/bashScripts/start.sh '+id +' '+name+' '+configString,function(error, stdout, stderr){
-	// 	if(error){
-	// 		console.log('ERROR');
-	// 		console.log(error)
-	// 	}
-	// 	console.log(stdout)	
-	// 	})
-
-	//for debug
+	var cp = child_process.exec('/opt/PTC/app/bashScripts/start.sh '+id +' '+name+' '+configString);
+	cp.stdout.on('data', (data) => {
+		  var pId=parseInt(data); 
+		  if(!isNaN(pId)){
 			doc.status=2
-			doc.pId = parseInt(12345)
+			doc.pId = pId
 			doc.meta.startAt = Date.now()
 			doc.save(function(err, doc){
 					if (err){
 						console.log(err)
-					} 
-				})
-
-
-	var cp = child_process.exec('/opt/PTC/app/bashScripts/start.sh '+id +' '+name+' '+configString)
-	cp.stdout.on('data', (data) => {
-		  console.log(`stdout: ${data}`);
+					}
+		 		})
+			}
 		});
+
 	cp.stderr.on('data', (data) => {
 	  console.log(`stderr: ${data}`);
 	});
-	cp.on('colse', (code) => {
-	  console.log(`child process exited with code ${code}`);
-	});
+
+	cp.on('close', (code) => {
+		if(code===0 && doc.meta.startAt){
+			doc.status = 3
+			doc.meta.endAt = Date.now()
+			doc.save()
+		}else{
+		//If task is not executed as expected, retry up to 5 times
+			if(doc.retry < 5){
+				// console.log(doc.retry)
+				doc.retry+=1
+				doc.save()
+			}else{
+				doc.status = 5
+				doc.meta.endAt = Date.now()
+				doc.save(function(err, doc){
+					console.log('start task failed, error code is: ')
+					console.log(code)
+				})
+			}					
+		}
+	})
 	})				
 }
 
+//unfortunately there is no command provided by JMeter to stop remote server
 function killTask(doc){
 	var ssh = new SSH(SSHObj)
 	ssh
@@ -178,38 +190,7 @@ exports.execTask = function(){
 	})
 }
 
-//Finish task
-exports.FinishTask = function(){
-	Task
-	.find({status:2})
-	.exec(
-		function(err, tasks){
-			if(err){
-				console.log(err)
-			}
-			tasks.forEach(function(t) {
-				if(t.pId){
-					var ssh = new SSH(SSHObj)
-					ssh
-					.exec('ps -p '+t.pId+' -o s=',{
-						exit: function(code) {
-							if (code === 1) {
-								//console.log('exit code ==1, PID does\'t exist. Task has finished')
-								t.status = 3
-								t.meta.endAt = Date.now()
-								t.save()
-							}		
-						},
-						out: function(result){
-							// console.log('task is still running')
-							// console.log(result)
-						}
-					}).start()					
-				}
-			})
-		}
-	)
-}
+
 
 //kill expired tasks
 exports.killExpired = function(){
@@ -240,18 +221,35 @@ exports.killExpired = function(){
 		})
 	}
 
-//copy logs. To copy logs from target machine to localhost
-exports.parseLog = function(){
+//Finish task
+/*exports.FinishTask = function(){
 	Task
-	.find({status:3, logFile: false})
-	.exec(function(err, tasks){
-		if(err){
-			return console.log(err)
-		}else{
-			for(i in tasks){
-				copyFile(tasks[i].pid)
+	.find({status:2})
+	.exec(
+		function(err, tasks){
+			if(err){
+				console.log(err)
 			}
+			tasks.forEach(function(t) {
+				if(t.pId){
+					var ssh = new SSH(SSHObj)
+					ssh
+					.exec('ps -p '+t.pId+' -o s=',{
+						exit: function(code) {
+							if (code === 1) {
+								//console.log('exit code ==1, PID does\'t exist. Task has finished')
+								t.status = 3
+								t.meta.endAt = Date.now()
+								t.save()
+							}		
+						},
+						out: function(result){
+							// console.log('task is still running')
+							// console.log(result)
+						}
+					}).start()					
+				}
+			})
 		}
-	})
-}
-
+	)
+}*/

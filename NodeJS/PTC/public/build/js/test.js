@@ -11,8 +11,7 @@ $(document).ready(function(){
 			"aoColumns": [
 			{"sTitle": "Test Name",
 				"render": function(task){
-					//return '<a class="blue" href="http://'+ document.location.host+'/report.html?taskId='+ task.id + '">' + task.name +'</a>'
-					return '<a class="blue" target="_blank" href="http://10.58.9.185/'+task.id+'/dashboard">'+task.name+'</a>'
+					return '<a class="blue" target="_blank" href="http://'+ document.location.host+'/logs/'+Id +'/dashboard/index.html">'+task.name+'log</a>'
 				}
 			},
 			{"sTitle": "Users"},
@@ -132,7 +131,7 @@ function getConfigDetail(id){
         $("#overideUser").ionRangeSlider({
           type: "single",
           min: 1,
-          max: 50,
+          max: 100,
           from: config.users,
           //to: 50,
           max_interval: 50
@@ -144,7 +143,7 @@ function getConfigDetail(id){
           max: 3600,
           from: config.rampup,
           //to: 50,
-          max_interval: 3600
+          max_interval: 15
         });
 
         $("#overideIteration").ionRangeSlider({
@@ -158,12 +157,12 @@ function getConfigDetail(id){
 
         $("#overideDuration").ionRangeSlider({
           type: "single",
-          min: 1,
+          min: 0,
           max: 60,
           from: config.duration,
           //to: 50,
           //disable: true,
-          max_interval: 50
+          max_interval: 120
         })
 	})
 }
