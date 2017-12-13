@@ -67,6 +67,7 @@ function getTestDetail(){
 		type: 'GET',
 		url: '/test/'+document.location.search.split('=')[1],
 	}).done(function(test){
+		if(test.length>0){
 		//$('#datatable2').dataTable().fnAddData(task)
 		$('#testName').text(test[0].testName)
 		$("input[name='testName']").val(test[0].testName)
@@ -74,6 +75,7 @@ function getTestDetail(){
 		$("select[name='project']").append( "<option id=" + test[0].project._id + ">" + test[0].project.name + "</option>" )
 		existingCase(test[0].caseOriginName, test[0].caseSize)
 		getConfigDetail(test[0].configId)
+	}
 	})
 }
 

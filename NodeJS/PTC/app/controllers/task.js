@@ -1,4 +1,5 @@
 var Task = require('../models/task');
+var User = require('../models/user');
 var Test = require('../models/test');
 var Config = require('../models/config');
 var app = require('../../app')
@@ -16,37 +17,52 @@ exports.getAllTask = function(req, res){
 		4: 'Timeout',
 		5: 'Unknown'
 	}
+		var queryObj={};
+		var id=req.session.user._id;
+		User.findOne({_id: id},function(err,user){
 
-	if(req.query.testId){
-		Task
-		.find({testId:req.query.testId})
-		.populate('testId','testName')
-		.populate('configId','users')
-		.exec(function(err, tasks){
-			if(err){console.log(err)}
-			var _tasks=[];
-			for(var i in tasks){
-				var subTask=[{name:tasks[i].testId.testName,id:tasks[i]._id},tasks[i].configId.users, moment(tasks[i].meta.startAt).format('YYYY/MM/DD HH:mm:ss')]
-				_tasks.push(subTask)					
+		if(user.role==0){
+			queryObj.commitId=id;
+			if(req.query.testId){
+			queryObj.testId=req.query.testId;
 			}
-			
-			res.send(_tasks)
-		})
-	}else{
-		Task
-		.find({})
-		.populate('commitId','userName')
-		.populate('testId','testName')
-		.exec(function (err, tasks) {
-			var _tasks=[];
-			for(var i in tasks){
-				var subTask=[tasks[i].testId, tasks[i].commitId.userName, moment(tasks[i].meta.startAt).format('YYYY/MM/DD HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/DD HH:mm:ss'), statusMap[tasks[i].status],tasks[i]._id]
-				//{name:tasks[i].testId.testName,id:tasks[i].testId}
-				_tasks.push(subTask)
-			}
-			res.send(_tasks)
-		})
-	}
+		}else if(user.role==1){
+			if(req.query.testId){
+			queryObj.testId=req.query.testId;
+			}			
+		}
+	console.log(queryObj)
+		if(req.query.testId){
+			Task
+			.find(queryObj)
+			.populate('testId','testName')
+			.populate('configId','users')
+			.exec(function(err, tasks){
+				if(err){console.log(err)}
+				var _tasks=[];
+				for(var i in tasks){
+					var subTask=[{name:tasks[i].testId.testName,id:tasks[i]._id},tasks[i].configId.users, moment(tasks[i].meta.startAt).format('YYYY/MM/DD HH:mm:ss')]
+					_tasks.push(subTask)					
+				}
+				
+				res.send(_tasks)
+			})
+		}else{
+			Task
+			.find(queryObj)
+			.populate('commitId','userName')
+			.populate('testId','testName')
+			.exec(function (err, tasks) {
+				var _tasks=[];
+				for(var i in tasks){
+					var subTask=[tasks[i].testId, tasks[i].commitId.userName, moment(tasks[i].meta.startAt).format('YYYY/MM/DD HH:mm:ss'), moment(tasks[i].meta.endAt).format('YYYY/MM/DD HH:mm:ss'), statusMap[tasks[i].status],tasks[i]._id]
+					//{name:tasks[i].testId.testName,id:tasks[i].testId}
+					_tasks.push(subTask)
+				}
+				res.send(_tasks)
+			})
+		}		
+	})
 }
 
 exports.addTask = function(req,res){

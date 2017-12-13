@@ -15,13 +15,6 @@ module.exports = function(app){
 	// 	app.locals.user = _user
 	// 	next()
 	// })
-	//user prehandleing
-	app.use(function(req,res,next){
-		var _user=req.session.user
-			app.locals.user=_user
-			console.log(_user)
-			next()	
-	})
 
 	//index page
 	app.get('/',function(req,res){
@@ -31,7 +24,16 @@ module.exports = function(app){
 	app.post('/signin',User.signin)
 	app.post('/signup',User.signup)
 
-	app.use(User.signinRequired);
+
+	//user prehandleing
+	app.use(function(req,res,next){
+		var _user=req.session.user
+			app.locals.user=_user
+			next()	
+	})
+
+	//Check user session
+	//app.use(User.signinRequired);
 
 	app.get('/logout',User.logout)
 

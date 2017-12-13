@@ -35,6 +35,15 @@ exports.signin = function(req,res){
 exports.signup = function(req,res){
 	var _user = req.body.user
 
+	User.find({},function(err,users){
+	//Set first user's role to 1 (super user)
+		console.log('user.length: ${user.length}')
+		if(users.length==0){
+			_user.role=1;
+			console.log(_user)
+		}
+	})
+
 	User.find({email: _user.email},function(err,user){
 		if(err){
 			console.log(err)

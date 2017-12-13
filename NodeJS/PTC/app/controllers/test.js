@@ -1,5 +1,6 @@
 var Test = require('../models/test');
 var Config = require('../models/config')
+var User = require('../models/user')
 var Activity = require('../models/activity')
 var Task = require('../models/task')
 var app = require('../../app')
@@ -64,9 +65,25 @@ exports.updateTest = function(req,res,next){
 }
 
 exports.getAllTest = function(req, res){
-	if(req.query.projectId){
+	var id=req.session.user._id;
+	var queryObj={};
+
+	//role=0 normal user, role=1 super user. Normal user can only see recorded commited by him/herself
+	User.findOne({_id: id},function(err,user){
+
+	if(user.role==0){
+		queryObj.commitId=id;
+		if(req.query.testId || req.params.id){
+		queryObj._id=req.query.testId || req.params.id;
+		}
+	}else if(user.role==1){
+		if(req.query.testId || req.params.id){
+		queryObj._id=req.query.projectId || req.params.id;
+		}			
+	}
+
 		Test
-		.find({project:req.query.projectId})
+		.find(queryObj)
 		.populate('owner','userName')
 		.populate('type','testType')
 		.populate('project','name')
@@ -80,23 +97,33 @@ exports.getAllTest = function(req, res){
 			}			
 			res.send(_tests)
 		})		
-	}else{
-		Test
-		.find({})
-		.populate('owner','userName')
-		.populate('type','testType')
-		.populate('project','name')
-		.exec(function(err, tests){
-			if(err){console.log(err)}
-				res.send(tests)
-		})		
-	}
+	})
 }
+	// else{
+	// 	Test
+	// 	.find({})
+	// 	.populate('owner','userName')
+	// 	.populate('type','testType')
+	// 	.populate('project','name')
+	// 	.exec(function(err, tests){
+	// 		if(err){console.log(err)}
+	// 			res.send(tests)
+	// 	})		
+	// }
+
 
 exports.getTest = function(req, res){
-	var id=req.params.id
+	var id=req.session.user._id;
+	var queryObj={"_id":req.query.projectId || req.params.id};
+
+	User.findOne({_id: id},function(err,user){
+
+	if(user.role==0){
+		queryObj.commitId=id;
+	}	
+
 	Test
-	.find({_id:id})
+	.find(queryObj)
 	.populate('owner','userName')
 	.populate('type','testType')
 	.populate('project','name')	
@@ -104,7 +131,7 @@ exports.getTest = function(req, res){
 		if(err){console.log(err)}
 			res.send(test)
 	})
-}
+})}
 //upload a new case
 exports.uploadCase= function(req,res,next){
 	var caseData = req.files.uploadCase

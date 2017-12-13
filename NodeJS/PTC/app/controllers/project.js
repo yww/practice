@@ -1,4 +1,5 @@
 var Project = require('../models/project')
+var User = require('../models/user')
 var Test = require('../models/test')
 var app = require('../../app')
 var _ = require('underscore')
@@ -58,16 +59,23 @@ exports.getProject = function(req,res){
 }
 
 exports.getAllProject = function(req, res){
-	Project
-	.find({})
-	.populate('owner','userName')
-	.exec(function(err, projects){
-		var _projects=[];
-		for(var i in projects){
-			var subProject=[{name:projects[i].name,id:projects[i]._id}, projects[i].desc, projects[i].owner.userName, moment(projects[i].meta.createAt).fromNow(),projects[i]._id]
-			_projects.push(subProject)
+	var id=req.session.user._id;
+	var queryObj={};
+	User.findOne({_id: id},function(err,user){
+		if(user.role==0){
+			queryObj.commitId=id
 		}
-		res.send(_projects)
+		Project
+		.find(queryObj)
+		.populate('owner','userName')
+		.exec(function(err, projects){
+			var _projects=[];
+			for(var i in projects){
+				var subProject=[{name:projects[i].name,id:projects[i]._id}, projects[i].desc, projects[i].owner.userName, moment(projects[i].meta.createAt).fromNow(),projects[i]._id]
+				_projects.push(subProject)
+			}
+			res.send(_projects)
+		})		
 	})
 }
 
