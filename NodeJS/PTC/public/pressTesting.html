@@ -170,15 +170,11 @@
                             <strong>Your test will run with following configuration:</strong>
                               <ul>
                                 <li>
-                                  <i class="ico ico-ok" aria-hidden="true"></i>
-                                   1 Console
-                                </li>
-                                <li>
-                                  <i class="ico ico-ok" aria-hidden="true"></i> 20 Total threads
+                                  <i class="ico ico-ok" aria-hidden="true"></i> <span id="eUser">--</span> Total threads
                                 </li>
 
                                 <li>
-                                  <i class="ico ico-ok" aria-hidden="true"></i>Max duration of 20 minutes
+                                  <i class="ico ico-ok" aria-hidden="true"></i>Max duration of <span id="eTime">--</span> minutes
                                 </li>
                               </ul>
                           </div>
@@ -243,14 +239,22 @@
 
 
                       <div class="form-group">
-                        <div class="checkbox col-sm-4">
+                        <div class="checkbox col-sm-2">
                           <label for="host">
-                            <input type="checkbox" class="flat" checked="checked"> host
+                            <input type="checkbox" class="flat" checked="checked"> Host
                           </label>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-4">
                           <input type="text" name="host" class="form-control" id="overideHost">
                         </div>
+                        <div class="checkbox col-sm-2">
+                          <label for="port">
+                            <input type="checkbox" class="flat" checked="checked"> Port
+                          </label>
+                        </div>
+                        <div class="col-sm-4">
+                          <input type="number" name="port" class="form-control" id="overidePort">
+                        </div>                        
                       </div>
                     </div>   
 
@@ -395,10 +399,10 @@
         $("#overideRampup").ionRangeSlider({
           type: "single",
           min: 0,
-          max: 3600,
+          max: 120,
           //from: 1,
           //to: 50,
-          max_interval: 15
+          max_interval: 1
         });
 
         $("#overideIteration").ionRangeSlider({

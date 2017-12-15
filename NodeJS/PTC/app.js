@@ -12,13 +12,13 @@ var multiparty = require('connect-multiparty')
 var port = process.env.PORT || 8080
 var app = express()
 //for local debug
-var dbUrl = 'mongodb://localhost:27017/PTC'
+//var dbUrl = 'mongodb://localhost:27017/PTC'
 
 //for docker container link
 //var dbUrl = 'mongodb://'+process.env.DB_PORT_27017_TCP_ADDR+':'+process.env.DB_PORT_27017_TCP_PORT
 
 //Read environment variable
-//var dbUrl = 'mongodb://'+process.env.mongoAdd+':'+process.env.mongoPort+'/PTC'
+var dbUrl = 'mongodb://'+process.env.mongoAdd+':'+process.env.mongoPort+'/PTC'
 
 app.listen(port)
 console.log('ptc started on '+ port)
@@ -56,6 +56,7 @@ app.locals.moment = require('moment')
 
 //require routes file
 require('./config/routes')(app)
+
 app.use(function clientErrorHandler(err, req, res, next) {
   if (req.xhr) {
     res.redirect('/page_404.html')
@@ -63,7 +64,6 @@ app.use(function clientErrorHandler(err, req, res, next) {
     next(err);
   }
 })
-//app.use(errorHandler)
 
 //polling database, to start/kill/ tasks or copy log  
    setInterval(Control.execTask,5000)

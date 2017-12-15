@@ -37,10 +37,9 @@ exports.signup = function(req,res){
 
 	User.find({},function(err,users){
 	//Set first user's role to 1 (super user)
-		console.log('user.length: ${user.length}')
 		if(users.length==0){
 			_user.role=1;
-			console.log(_user)
+			//console.log(_user)
 		}
 	})
 

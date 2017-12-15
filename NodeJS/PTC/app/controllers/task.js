@@ -26,13 +26,9 @@ exports.getAllTask = function(req, res){
 			if(req.query.testId){
 			queryObj.testId=req.query.testId;
 			}
-		}else if(user.role==1){
-			if(req.query.testId){
-			queryObj.testId=req.query.testId;
-			}			
 		}
-	console.log(queryObj)
 		if(req.query.testId){
+			queryObj.testId=req.query.testId;
 			Task
 			.find(queryObj)
 			.populate('testId','testName')

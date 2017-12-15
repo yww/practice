@@ -86,7 +86,7 @@ exports.delProject = function(req,res){
 		.find({project:id})
 		.exec(function(err,tests){
 			if(tests.length>0){
-				res.send({code:400, message:"Bad request, can not delete non-empty project"})
+				res.send({code:400, message:"Can not delete non-empty project"})
 			}else{
 				Project.remove({_id:id},function(err,project){
 					res.send({code:200, message:"Deleted successfully"})

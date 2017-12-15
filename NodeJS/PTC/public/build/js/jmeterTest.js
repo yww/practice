@@ -1,5 +1,6 @@
 //used by JMeter test page (pressTesting.html)
 $(document).ready(function(){
+
 	$('#launchTest').click(commitTest);
 	$('#saveTest').click(checkParams);
 	showTasks();
@@ -9,6 +10,9 @@ $(document).ready(function(){
 
 //check if all mandantory params are provided before submit test
 function checkParams(e){
+	$('#eTime').text($("#overideDuration").val());
+	$('#eUser').text($("#overideUser").val())
+
 	if($('#testBasic').parsley().validate()){
 		if($("input[name='caseName']").val()){
 			return
@@ -31,11 +35,11 @@ function checkParams(e){
 function commitTest(){
 	//construct config object
 	var configObj={}
-	var config=["host","users","rampup","duration","iteration"]
+	var config=["host","port","users","rampup","duration","iteration"]
 
 	config.forEach(function(c){
 		var inputVal=$("input[name="+c+"]").val()
-		if(inputVal){
+		if(inputVal && inputVal !=0){
 			configObj[c]=inputVal			
 		}
 	})
@@ -92,7 +96,7 @@ function showTasks(){
 		type: 'GET',
 		url: '/task'
 	}).done(function(_tasks){
-		$('#tabelWrap').html('<table id="datatable2" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info"></table>')
+		$('#tabelWrap').html('<table id="datatable2" class="table table-striped table-bordered dataTable no-footer display responsive nowrap" role="grid" aria-describedby="datatable_info"></table>')
 		$('#datatable2').dataTable({
 			"order": [[2,'desc']],
 			"autoWidth": false,

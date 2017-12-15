@@ -3,7 +3,7 @@ $(document).ready(function(){
 		type: 'GET',
 		url: '/task/'+document.location.search
 	}).done(function(_tasks){
-		$('#tabelWrap').html('<table id="datatable4" class="table table-striped dataTable no-footer no-header" role="grid" aria-describedby="datatable_info"></table>')
+		$('#tabelWrap').html('<table id="datatable4" class="table table-striped dataTable no-footer no-header display responsive nowrap" role="grid" aria-describedby="datatable_info"></table>')
 		$('#datatable4').dataTable({  
 			"autoWidth": false,
 			"aaData": _tasks,
@@ -11,7 +11,7 @@ $(document).ready(function(){
 			"aoColumns": [
 			{"sTitle": "Test Name",
 				"render": function(task){
-					return '<a class="blue" target="_blank" href="http://'+ document.location.host+'/logs/'+Id +'/dashboard/index.html">'+task.name+'log</a>'
+					return '<a class="blue" target="_blank" href="http://'+ document.location.host+'/logs/'+task.id +'/dashboard/index.html">'+task.name+'</a>'
 				}
 			},
 			{"sTitle": "Users"},
@@ -27,6 +27,7 @@ $(document).ready(function(){
 			]
 		})
 	})
+
 
 	$('#launchTest').click(excuteTest)
 	$('#delete').click(deleteTest)
@@ -75,6 +76,8 @@ function getTestDetail(){
 		$("select[name='project']").append( "<option id=" + test[0].project._id + ">" + test[0].project.name + "</option>" )
 		existingCase(test[0].caseOriginName, test[0].caseSize)
 		getConfigDetail(test[0].configId)
+	}else{
+		$(".btn").prop("disabled",true)
 	}
 	})
 }
@@ -123,7 +126,19 @@ function getConfigDetail(id){
 		type: 'GET',
 		url: '/config/'+id
 	}).done(function(config){
+
+		$('#eTime').text(config.duration);
+		$('#eUser').text(config.users)
+
+		if(config.rampup){
+			config.rampup /=60;
+		}
+
+		if(config.duration){
+			config.duration /=60;
+		}
 		$("input[name='host']").val(config.host)
+		$("input[name='port']").val(config.port)
 		// $("input[name='users']").val(config.users)
 		// $("input[name='rampup']").val(config.rampup)
 		// $("input[name='duration']").val(config.duration)
@@ -142,10 +157,10 @@ function getConfigDetail(id){
         $("#overideRampup").ionRangeSlider({
           type: "single",
           min: 0,
-          max: 3600,
+          max: 120,
           from: config.rampup,
           //to: 50,
-          max_interval: 15
+          max_interval: 1
         });
 
         $("#overideIteration").ionRangeSlider({
@@ -160,7 +175,7 @@ function getConfigDetail(id){
         $("#overideDuration").ionRangeSlider({
           type: "single",
           min: 0,
-          max: 60,
+          max: 120,
           from: config.duration,
           //to: 50,
           //disable: true,
@@ -193,10 +208,11 @@ function checkNewParams(e){
 function updateTest(){
 	//construct config object
 	var configObj={}
-	var config=["host","users","rampup","duration","iteration"]
+	var config=["host","port","users","rampup","duration","iteration"]
+
 	config.forEach(function(c){
 		var inputVal=$("input[name="+c+"]").val()
-		if(inputVal){
+		if(inputVal && inputVal !=0){
 			configObj[c]=inputVal			
 		}
 	})

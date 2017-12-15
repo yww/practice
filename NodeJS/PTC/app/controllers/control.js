@@ -80,7 +80,7 @@ function startTask(doc){
 	var name
 	var id=doc._doc._id
 	var configString=" "
-	var configItems=['host','users','rampup','iteration']
+	var configItems=['host','port','users','rampup','iteration','duration']
 	
 	Test
 	.findById(doc.testId,function(err,test){
@@ -91,12 +91,16 @@ function startTask(doc){
 	.findById(doc.configId,function(err,config){
 		configItems.forEach(function(c){
 			if(config._doc[c]){
-				configString += '-J'+c+'='+config[c]+' '
+				configString += '-G'+c+'='+config[c]+' '
 			}
 		})
-	
-	var cp = child_process.exec('/opt/PTC/app/bashScripts/start.sh '+id +' '+name+' '+configString);
+
+	var remoteHosts="" || process.env.slaves
+
+	console.log('/opt/PTC/app/bashScripts/start.sh '+id+' '+name+' '+remoteHosts+' '+configString);
+	var cp = child_process.exec('/opt/PTC/app/bashScripts/start.sh '+id +' '+name+' '+remoteHosts+' '+configString);
 	cp.stdout.on('data', (data) => {
+	  console.log(`ondata: ${data}`);	
 		  var pId=parseInt(data); 
 		  if(!isNaN(pId)){
 			doc.status=2
@@ -115,6 +119,7 @@ function startTask(doc){
 	});
 
 	cp.on('close', (code) => {
+	  console.log(`cp closed with code: ${code}`);
 		if(code===0 && doc.meta.startAt){
 			doc.status = 3
 			doc.meta.endAt = Date.now()

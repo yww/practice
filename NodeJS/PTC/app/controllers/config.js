@@ -8,6 +8,16 @@ var path = require('path');
 
 exports.addConfig = function(req,res,next){
 		var configObj=req.body.config
+	//handle rampup and duration conversion
+		if (configObj.rampup){
+			configObj.rampup *=60;
+		}
+
+		if (configObj.duration){
+			configObj.duration *=60;
+		}		
+
+
 		var id = configObj._id
 		var _config
 
