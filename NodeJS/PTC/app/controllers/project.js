@@ -63,7 +63,7 @@ exports.getAllProject = function(req, res){
 	var queryObj={};
 	User.findOne({_id: id},function(err,user){
 		if(user.role==0){
-			queryObj.commitId=id
+			queryObj.owner=id
 		}
 		Project
 		.find(queryObj)

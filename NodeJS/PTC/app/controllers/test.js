@@ -71,15 +71,16 @@ exports.getAllTest = function(req, res){
 	//role=0 normal user, role=1 super user. Normal user can only see recorded commited by him/herself
 	User.findOne({_id: id},function(err,user){
 
-	if(user.role==0){
+	if(user.role=0){
 		queryObj.commitId=id;
-		if(req.query.testId || req.params.id){
-		queryObj._id=req.query.testId || req.params.id;
-		}
-	}else if(user.role==1){
-		if(req.query.testId || req.params.id){
-		queryObj._id=req.query.projectId || req.params.id;
-		}			
+	}
+
+	if(req.query.testId || req.params.id){
+		queryObj._id=req.query.testId || req.params.id
+	}
+
+	if(req.query.projectId){
+		queryObj.project=req.query.projectId
 	}
 
 		Test
