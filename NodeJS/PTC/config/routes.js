@@ -16,14 +16,14 @@ module.exports = function(app){
 	// 	next()
 	// })
 
-	//index page
-	app.get('/',function(req,res){
-		res.redirect('/index.html')
-	})
+
+
 
 	app.post('/signin',User.signin)
 	app.post('/signup',User.signup)
 
+	//Check user session
+	app.use(User.signinRequired);
 
 	//user prehandleing
 	app.use(function(req,res,next){
@@ -32,8 +32,12 @@ module.exports = function(app){
 			next()	
 	})
 
-	//Check user session
-	//app.use(User.signinRequired);
+
+	//index page
+	app.get('/',function(req,res){
+		res.redirect('/index.html')
+	})
+
 
 	app.get('/logout',User.logout)
 
@@ -66,5 +70,10 @@ module.exports = function(app){
 	//config
 	app.get('/config',Config.getAllConfig)
 	app.get('/config/:id',Config.getConfig)
+
+	//no matched route rule
+	app.use(function(req,res){
+		res.redirect('/page_404.html')
+	})
 }
 
