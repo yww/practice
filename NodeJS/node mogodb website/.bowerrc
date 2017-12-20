@@ -1,6 +1,0 @@
-{
-  "directory": "library",
-  "registry": "http://bower.herokuapp.com",
-  "proxy":"http://proxy.pal.sap.corp:8080/",
-  "https-proxy":"http://proxy.pal.sap.corp:8080/"
-}
